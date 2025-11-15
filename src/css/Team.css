@@ -1,0 +1,129 @@
+.team-root {
+  padding: 80px 0;
+  background: linear-gradient(to bottom, #0d0d15, #1a1025, #0d0d15);
+  position: relative;
+  overflow: hidden;
+}
+
+.team-root::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: 40% 28%, 60% 42%, 86% 62%, 120% 88%;
+  background-image: 
+    radial-gradient(ellipse at bottom center, rgba(255, 45, 149, 0.2) 0%, rgba(255, 45, 149, 0) 42%),
+    radial-gradient(ellipse at bottom center, rgba(255, 45, 149, 0.14) 0%, rgba(255, 45, 149, 0) 48%),
+    radial-gradient(ellipse at bottom center, rgba(255, 45, 149, 0.1) 0%, rgba(255, 45, 149, 0) 56%),
+    radial-gradient(ellipse at bottom center, rgba(255, 45, 149, 0.06) 0%, rgba(255, 45, 149, 0) 68%);
+  filter: blur(18px);
+}
+
+.team-container {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 16px;
+  position: relative;
+  z-index: 10;
+}
+
+@media (min-width: 640px) {
+  .team-container {
+    padding: 0 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .team-container {
+    padding: 0 32px;
+  }
+}
+
+.team-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.team-title {
+  font-size: 48px;
+  font-weight: bold;
+  background: linear-gradient(to right, #d946a6, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.team-sub {
+  font-size: 18px;
+  color: #d1d5db;
+  margin-top: 16px;
+}
+
+.team-grid {
+  display: grid;
+  gap: 32px;
+}
+
+@media (min-width: 768px) {
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .team-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.team-card {
+  padding: 32px;
+  border-radius: 12px;
+  transition: all 0.3s;
+  border: 1px solid rgba(217, 70, 166, 0.2);
+  text-align: center;
+  background: linear-gradient(135deg, rgba(30, 15, 40, 0.6) 0%, rgba(20, 10, 30, 0.4) 100%);
+  backdrop-filter: blur(12px);
+}
+
+.team-card:hover {
+  border-color: rgba(217, 70, 166, 0.4);
+  box-shadow: 0 12px 40px rgba(217, 70, 166, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+}
+
+.team-avatar {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #d946a6, #ec4899);
+  border-radius: 9999px;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 32px;
+}
+
+.team-name {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+}
+
+.team-role {
+  background: linear-gradient(to right, #d946a6, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.team-spec {
+  color: #9ca3af;
+  font-size: 14px;
+  margin-top: 8px;
+}

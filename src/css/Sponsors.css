@@ -1,0 +1,198 @@
+.spon-root {
+  padding: 80px 0;
+  background: linear-gradient(to bottom, #0d0d15, #1a1025, #0d0d15);
+  position: relative;
+  overflow: hidden;
+}
+
+.spon-root::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: 40% 28%, 60% 42%, 86% 62%, 120% 88%;
+  background-image: 
+    radial-gradient(ellipse at bottom center, rgba(255, 45, 149, 0.2) 0%, rgba(255, 45, 149, 0) 42%),
+    radial-gradient(ellipse at bottom center, rgba(255, 45, 149, 0.14) 0%, rgba(255, 45, 149, 0) 48%),
+    radial-gradient(ellipse at bottom center, rgba(255, 45, 149, 0.1) 0%, rgba(255, 45, 149, 0) 56%),
+    radial-gradient(ellipse at bottom center, rgba(255, 45, 149, 0.06) 0%, rgba(255, 45, 149, 0) 68%);
+  filter: blur(18px);
+}
+
+.spon-container {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 16px;
+  position: relative;
+  z-index: 10;
+}
+
+@media (min-width: 640px) {
+  .spon-container {
+    padding: 0 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .spon-container {
+    padding: 0 32px;
+  }
+}
+
+.spon-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.spon-title {
+  font-size: 48px;
+  font-weight: bold;
+  background: linear-gradient(to right, #d946a6, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 16px;
+}
+
+.spon-sub {
+  color: #d1d5db;
+  font-size: 18px;
+}
+
+.spon-grid {
+  display: grid;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+@media (min-width: 768px) {
+  .spon-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.spon-card {
+  padding: 32px;
+  border-radius: 12px;
+  transition: all 0.3s;
+  border: 1px solid rgba(217, 70, 166, 0.2);
+  text-align: center;
+  background: linear-gradient(135deg, rgba(30, 15, 40, 0.6) 0%, rgba(20, 10, 30, 0.4) 100%);
+  backdrop-filter: blur(12px);
+}
+
+.spon-card:hover {
+  border-color: rgba(217, 70, 166, 0.4);
+  box-shadow: 0 12px 40px rgba(217, 70, 166, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+}
+
+.spon-benefits {
+  padding: 32px;
+  border-radius: 12px;
+  transition: all 0.3s;
+  border: 1px solid rgba(217, 70, 166, 0.2);
+  background: linear-gradient(135deg, rgba(30, 15, 40, 0.6) 0%, rgba(20, 10, 30, 0.4) 100%);
+  backdrop-filter: blur(12px);
+}
+
+.spon-form-wrap {
+  padding: 32px;
+  border-radius: 12px;
+  transition: all 0.3s;
+  border: 1px solid rgba(217, 70, 166, 0.2);
+  background: linear-gradient(135deg, rgba(30, 15, 40, 0.6) 0%, rgba(20, 10, 30, 0.4) 100%);
+  backdrop-filter: blur(12px);
+}
+
+.spon-input {
+  width: 100%;
+  padding: 8px 16px;
+  background-color: #1f2937;
+  border: 1px solid rgba(217, 70, 166, 0.3);
+  border-radius: 8px;
+  color: white;
+  transition: all 0.3s;
+}
+
+.spon-input:focus {
+  border-color: #ec4899;
+  outline: none;
+}
+
+.spon-submit {
+  width: 100%;
+  background: linear-gradient(to right, #d946a6, #ec4899);
+  color: white;
+  padding: 8px 0;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: box-shadow 0.3s;
+}
+
+.spon-submit:hover {
+  box-shadow: 0 10px 20px rgba(217, 70, 166, 0.4);
+}
+
+.spon-divider {
+  height: 4px;
+  width: 96px;
+  background: linear-gradient(to right, #d946a6, #ec4899);
+  margin: 16px auto 0;
+}
+
+.spon-logo {
+  font-size: 96px;
+  margin-bottom: 16px;
+}
+
+.spon-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  background-color: rgba(217, 70, 166, 0.2);
+  color: #ec4899;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.spon-benefits-grid {
+  display: grid;
+  gap: 32px;
+}
+
+@media (min-width: 768px) {
+  .spon-benefits-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.spon-benefits-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  color: #d1d5db;
+}
+
+.spon-benefit-item {
+  display: flex;
+  align-items: flex-start;
+}
+
+.spon-benefit-icon {
+  color: #d946a6;
+  margin-right: 12px;
+  font-size: 20px;
+}
+
+.spon-form-space {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.spon-mb-wrapper {
+  margin-bottom: 64px;
+}

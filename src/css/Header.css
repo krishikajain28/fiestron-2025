@@ -1,0 +1,138 @@
+.header-root {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: linear-gradient(to bottom, #0d0d15, #1a1025, transparent);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(217, 70, 166, 0.1);
+  padding: 0 20px;
+}
+
+@media (min-width: 640px) {
+  .header-root {
+    padding: 0 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .header-root {
+    padding: 0 40px;
+  }
+}
+
+.header-inner {
+  max-width: 80rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+}
+
+.header-title {
+  font-size: 24px;
+  font-weight: bold;
+  background: linear-gradient(to right, #d946a6, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header-toggle {
+  display: none;
+  font-size: 24px;
+  color: #d946a6;
+  transition: color 0.3s;
+}
+
+.header-toggle:hover {
+  color: #ec4899;
+}
+
+@media (max-width: 768px) {
+  .header-toggle {
+    display: block;
+  }
+}
+
+.header-nav {
+  display: none;
+  align-items: center;
+  gap: 32px;
+}
+
+@media (min-width: 768px) {
+  .header-nav {
+    display: flex;
+  }
+}
+
+.header-link {
+  font-size: 14px;
+  color: #9ca3af;
+  transition: color 0.3s;
+}
+
+.header-link:hover {
+  color: #ec4899;
+}
+
+.header-register {
+  display: none;
+  padding: 8px 24px;
+  background: linear-gradient(to right, #d946a6, #ec4899);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: box-shadow 0.2s, all 0.2s;
+}
+
+.header-register:hover {
+  box-shadow: 0 0 20px rgba(217, 70, 166, 0.4);
+}
+
+@media (min-width: 768px) {
+  .header-register {
+    display: block;
+  }
+}
+
+.header-mobile-nav {
+  display: none;
+  padding-bottom: 16px;
+  gap: 12px;
+  flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  .header-mobile-nav {
+    display: flex;
+  }
+}
+
+.header-mobile-link {
+  display: block;
+  font-size: 14px;
+  color: #9ca3af;
+  transition: color 0.3s;
+}
+
+.header-mobile-link:hover {
+  color: #ec4899;
+}
+
+.header-mobile-register {
+  width: 100%;
+  padding: 8px 24px;
+  background: linear-gradient(to right, #d946a6, #ec4899);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: box-shadow 0.2s;
+}
+
+.header-mobile-register:hover {
+  box-shadow: 0 0 20px rgba(217, 70, 166, 0.4);
+}

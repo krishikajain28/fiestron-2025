@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import '../css/Registration.css'
 
 const Registration: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -29,69 +30,69 @@ const Registration: React.FC = () => {
   }
 
   return (
-    <section id="registration" className="py-20 bg-gray-950">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 mb-4">
+    <section id="registration" className="reg-root">
+      <div className="reg-container">
+        <div className="reg-header">
+          <h2 className="reg-title">
             Register Now
           </h2>
-          <p className="text-gray-300 text-lg">Join FIESTRON 2025 - Get Your Spot Today!</p>
-          <div className="h-1 w-24 bg-gradient-to-r from-cyan-400 to-purple-400 mx-auto mt-4"></div>
+          <p className="reg-sub">Join FIESTRON 2025 - Get Your Spot Today!</p>
+          <div className="reg-divider"></div>
         </div>
 
-        <div className="bg-gradient-to-br from-indigo-900 to-purple-900 rounded-lg p-8 border-2 border-cyan-400">
-          <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="reg-form-wrap">
+          <form onSubmit={handleSubmit} className="reg-form-space">
             {/* Name */}
             <div>
-              <label className="block text-cyan-300 font-bold mb-2">Full Name *</label>
+              <label className="reg-label">Full Name *</label>
               <input
                 type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 bg-gray-800 border border-purple-400 rounded-lg text-white focus:border-cyan-400 focus:outline-none transition"
+                className="reg-input"
                 placeholder="Your full name"
               />
             </div>
 
             {/* Email */}
             <div>
-              <label className="block text-cyan-300 font-bold mb-2">Email *</label>
+              <label className="reg-label">Email *</label>
               <input
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 bg-gray-800 border border-purple-400 rounded-lg text-white focus:border-cyan-400 focus:outline-none transition"
+                className="reg-input"
                 placeholder="your.email@example.com"
               />
             </div>
 
             {/* Phone */}
             <div>
-              <label className="block text-cyan-300 font-bold mb-2">Phone Number *</label>
+              <label className="reg-label">Phone Number *</label>
               <input
                 type="tel"
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 bg-gray-800 border border-purple-400 rounded-lg text-white focus:border-cyan-400 focus:outline-none transition"
+                className="reg-input"
                 placeholder="Your phone number"
               />
             </div>
 
             {/* Department */}
             <div>
-              <label className="block text-cyan-300 font-bold mb-2">Department / Course *</label>
+              <label className="reg-label">Department / Course *</label>
               <select
                 name="department"
                 value={formData.department}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 bg-gray-800 border border-purple-400 rounded-lg text-white focus:border-cyan-400 focus:outline-none transition"
+                className="reg-input"
               >
                 <option value="">Select your department</option>
                 <option value="cs">Computer Science</option>
@@ -103,8 +104,8 @@ const Registration: React.FC = () => {
 
             {/* Events Selection */}
             <div>
-              <label className="block text-cyan-300 font-bold mb-4">Select Events *</label>
-              <div className="grid md:grid-cols-2 gap-4">
+              <label className="reg-events-label">Select Events *</label>
+              <div className="reg-events-grid">
                 {[
                   'Code Sprint',
                   'Web Dev Challenge',
@@ -113,14 +114,14 @@ const Registration: React.FC = () => {
                   'Quiz Master',
                   'Debate Competition',
                 ].map((event) => (
-                  <label key={event} className="flex items-center space-x-3 cursor-pointer">
+                  <label key={event} className="reg-event-label">
                     <input
                       type="checkbox"
                       checked={formData.events.includes(event)}
                       onChange={() => handleEventToggle(event)}
-                      className="w-4 h-4 rounded border-purple-400 text-cyan-500 focus:ring-cyan-500"
+                      className="reg-checkbox"
                     />
-                    <span className="text-gray-300">{event}</span>
+                    <span className="reg-event-span">{event}</span>
                   </label>
                 ))}
               </div>
@@ -129,12 +130,12 @@ const Registration: React.FC = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-cyan-400 to-blue-400 text-black py-3 rounded-lg font-bold text-lg hover:shadow-lg hover:shadow-cyan-500/50 transition transform hover:scale-105"
+              className="reg-submit"
             >
               ✓ Complete Registration
             </button>
 
-            <p className="text-gray-400 text-sm text-center">
+            <p className="reg-note">
               A confirmation email will be sent to your registered email address
             </p>
           </form>

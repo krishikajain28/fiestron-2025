@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import '../css/Events.css'
 
 const Events: React.FC = () => {
   const [filter, setFilter] = useState('all')
@@ -17,14 +18,14 @@ const Events: React.FC = () => {
   const filteredEvents = filter === 'all' ? events : events.filter(e => e.category === filter)
 
   return (
-    <section id='events' className='bg-black px-5 sm:px-8 lg:px-10 py-20'>
-      <div className='max-w-7xl mx-auto'>
-        <h2 className='text-title text-center mb-12 text-white'>Explore Events</h2>
+    <section id='events' className='events-root'>
+      <div className='events-container'>
+        <h2 className='events-title'>Explore Events</h2>
 
-        <div className='flex flex-wrap justify-center gap-3 mb-12'>
+        <div className='events-filter'>
           {['all', 'technical', 'non-technical', 'games'].map(cat => {
             const isActive = filter === cat
-            const btnClass = isActive ? 'px-4 py-2 rounded-lg text-sm font-medium transition bg-white text-black' : 'px-4 py-2 rounded-lg text-sm font-medium transition bg-gray-900 text-gray-400 hover:text-white'
+            const btnClass = isActive ? 'events-filter-btn-active' : 'events-filter-btn-inactive'
             return (
               <button key={cat} onClick={() => setFilter(cat)} className={btnClass}>
                 {cat === 'all' ? 'All Events' : cat === 'technical' ? 'Technical' : cat === 'non-technical' ? 'Non-Technical' : 'Games'}
@@ -33,15 +34,15 @@ const Events: React.FC = () => {
           })}
         </div>
 
-        <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-6'>
+        <div className='events-grid'>
           {filteredEvents.map(event => (
-            <div key={event.id} className='card-subtle p-6 hover:bg-opacity-50'>
-              <div className='text-5xl mb-3'>{event.emoji}</div>
-              <h3 className='text-lg font-semibold mb-2 text-white'>{event.title}</h3>
-              <p className='text-caption mb-4'>{event.description}</p>
-              <div className='flex justify-between items-center'>
-                <span className='text-caption'>📅 {event.date}</span>
-                <span className='text-lg text-gray-400'>→</span>
+            <div key={event.id} className='event-card'>
+              <div className='event-emoji'>{event.emoji}</div>
+              <h3 className='event-title'>{event.title}</h3>
+              <p className='event-desc'>{event.description}</p>
+              <div className='event-footer'>
+                <span className='event-date'>📅 {event.date}</span>
+                <span className='event-arrow'>→</span>
               </div>
             </div>
           ))}

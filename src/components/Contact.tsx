@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import '../css/Contact.css'
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' })
@@ -14,21 +15,19 @@ const Contact: React.FC = () => {
   }
 
   return (
-    <section id="contact" className="py-20 bg-gray-950">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 mb-4">
-            Get in Touch
-          </h2>
-          <p className="text-gray-300 text-lg">Have questions? We'd love to hear from you!</p>
-          <div className="h-1 w-24 bg-gradient-to-r from-cyan-400 to-purple-400 mx-auto mt-4"></div>
+    <section id="contact" className="contact-root">
+      <div className="contact-container">
+        <div className="contact-header">
+          <h2 className="contact-title">Get in Touch</h2>
+          <p className="contact-sub">Have questions? We'd love to hear from you!</p>
+          <div className="contact-divider"></div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12">
+        <div className="contact-grid">
           {/* Contact Form */}
-          <div className="bg-gradient-to-br from-indigo-900 to-purple-900 rounded-lg p-8 border-2 border-cyan-400">
-            <h3 className="text-2xl font-bold text-cyan-300 mb-6">Send us a Message</h3>
-            <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="contact-form">
+            <h3 className="contact-form-title">Send us a Message</h3>
+            <form onSubmit={handleSubmit} className="contact-form-space">
               <div>
                 <input
                   type="text"
@@ -37,7 +36,7 @@ const Contact: React.FC = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 bg-gray-800 border border-purple-400 rounded-lg text-white focus:border-cyan-400 focus:outline-none transition"
+                  className="contact-input"
                 />
               </div>
               <div>
@@ -48,7 +47,7 @@ const Contact: React.FC = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 bg-gray-800 border border-purple-400 rounded-lg text-white focus:border-cyan-400 focus:outline-none transition"
+                  className="contact-input"
                 />
               </div>
               <div>
@@ -59,7 +58,7 @@ const Contact: React.FC = () => {
                   value={formData.subject}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 bg-gray-800 border border-purple-400 rounded-lg text-white focus:border-cyan-400 focus:outline-none transition"
+                  className="contact-input"
                 />
               </div>
               <div>
@@ -70,12 +69,12 @@ const Contact: React.FC = () => {
                   value={formData.message}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 bg-gray-800 border border-purple-400 rounded-lg text-white focus:border-cyan-400 focus:outline-none transition resize-none"
+                  className="contact-input resize-none"
                 ></textarea>
               </div>
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-cyan-400 to-blue-400 text-black py-2 rounded-lg font-bold hover:shadow-lg hover:shadow-cyan-500/50 transition"
+                className="spon-submit"
               >
                 Send Message
               </button>
@@ -83,37 +82,37 @@ const Contact: React.FC = () => {
           </div>
 
           {/* Contact Info */}
-          <div className="space-y-8">
+          <div className="contact-quick">
             <div>
-              <h3 className="text-2xl font-bold text-cyan-300 mb-6">Quick Links</h3>
-              <div className="space-y-4">
-                <a href="tel:+919876543210" className="flex items-center space-x-4 p-4 bg-gradient-to-br from-indigo-900 to-purple-900 rounded-lg border border-purple-500 hover:border-cyan-400 transition group">
-                  <span className="text-2xl group-hover:scale-110 transition">📞</span>
+              <h3 className="contact-quick-title">Quick Links</h3>
+              <div className="contact-link-group">
+                <a href="tel:+919876543210" className="contact-quick-link-item">
+                  <span className="contact-quick-link-icon">📞</span>
                   <div>
-                    <p className="text-gray-400 text-sm">Call Us</p>
-                    <p className="text-white font-bold">+91 98765 43210</p>
+                    <p className="contact-link-text-sm">Call Us</p>
+                    <p className="contact-link-text-bold">+91 98765 43210</p>
                   </div>
                 </a>
-                <a href="mailto:fiestron@kccollege.edu.in" className="flex items-center space-x-4 p-4 bg-gradient-to-br from-indigo-900 to-purple-900 rounded-lg border border-purple-500 hover:border-cyan-400 transition group">
-                  <span className="text-2xl group-hover:scale-110 transition">📧</span>
+                <a href="mailto:fiestron@kccollege.edu.in" className="contact-quick-link-item">
+                  <span className="contact-quick-link-icon">📧</span>
                   <div>
-                    <p className="text-gray-400 text-sm">Email Us</p>
-                    <p className="text-white font-bold">fiestron@kccollege.edu.in</p>
+                    <p className="contact-link-text-sm">Email Us</p>
+                    <p className="contact-link-text-bold">fiestron@kccollege.edu.in</p>
                   </div>
                 </a>
-                <div className="flex items-center space-x-4 p-4 bg-gradient-to-br from-indigo-900 to-purple-900 rounded-lg border border-purple-500">
-                  <span className="text-2xl">📍</span>
+                <div className="contact-quick-link-item">
+                  <span className="contact-quick-link-icon">📍</span>
                   <div>
-                    <p className="text-gray-400 text-sm">Visit Us</p>
-                    <p className="text-white font-bold">KC College, Fort, Mumbai</p>
+                    <p className="contact-link-text-sm">Visit Us</p>
+                    <p className="contact-link-text-bold">KC College, Fort, Mumbai</p>
                   </div>
                 </div>
               </div>
             </div>
 
             <div>
-              <h3 className="text-2xl font-bold text-cyan-300 mb-6">Follow Us</h3>
-              <div className="grid grid-cols-2 gap-4">
+              <h3 className="contact-quick-title">Follow Us</h3>
+              <div className="contact-socials-grid">
                 {[
                   { name: 'Facebook', emoji: '👥' },
                   { name: 'Instagram', emoji: '📷' },
@@ -124,10 +123,10 @@ const Contact: React.FC = () => {
                 ].map((social) => (
                   <button
                     key={social.name}
-                    className="p-4 bg-gradient-to-br from-indigo-900 to-purple-900 rounded-lg border border-purple-500 hover:border-cyan-400 transition font-bold text-white hover:bg-purple-800"
+                    className="contact-social-btn"
                   >
-                    <span className="text-2xl">{social.emoji}</span>
-                    <p className="text-sm mt-1">{social.name}</p>
+                    <span className="contact-social-icon">{social.emoji}</span>
+                    <p className="contact-social-name">{social.name}</p>
                   </button>
                 ))}
               </div>
@@ -136,18 +135,18 @@ const Contact: React.FC = () => {
         </div>
 
         {/* FAQ Section */}
-        <div className="mt-16 bg-gradient-to-br from-indigo-900 to-purple-900 rounded-lg p-8 border border-purple-500">
-          <h3 className="text-2xl font-bold text-cyan-300 mb-6">Frequently Asked Questions</h3>
-          <div className="grid md:grid-cols-2 gap-6">
+        <div className="contact-faq">
+          <h3 className="contact-form-title">Frequently Asked Questions</h3>
+          <div className="contact-faq-grid">
             {[
               { q: 'When is FIESTRON 2025?', a: '15th & 16th December 2025' },
               { q: 'Is there an entry fee?', a: 'No, FIESTRON is free to attend! Event registration is separate.' },
               { q: 'How do I register?', a: 'Use the registration form above or visit the Events section.' },
               { q: 'Can I participate in multiple events?', a: 'Yes! You can register for multiple events as per your interest.' },
             ].map((faq, idx) => (
-              <div key={idx} className="bg-gray-900 rounded-lg p-4 border border-purple-400">
-                <p className="font-bold text-cyan-300 mb-2">{faq.q}</p>
-                <p className="text-gray-300 text-sm">{faq.a}</p>
+              <div key={idx} className="contact-faq-item">
+                <p className="contact-faq-q">{faq.q}</p>
+                <p className="contact-faq-a">{faq.a}</p>
               </div>
             ))}
           </div>

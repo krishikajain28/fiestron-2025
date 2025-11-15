@@ -1,4 +1,5 @@
 import React from 'react'
+import '../css/Team.css'
 
 const Team: React.FC = () => {
   const members = [
@@ -11,22 +12,22 @@ const Team: React.FC = () => {
   ]
 
   return (
-    <section id="team" className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-900">Meet Our Team</h2>
-          <p className="text-lg text-gray-600 mt-4">Passionate technologists leading the community</p>
+    <section id="team" className="team-root">
+      <div className="team-container">
+        <div className="team-header">
+          <h2 className="team-title">Meet Our Team</h2>
+          <p className="team-sub">Passionate technologists leading the community</p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="team-grid">
           {members.map((member) => (
-            <div key={member.id} className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg shadow-md p-8 text-center hover:shadow-lg transition">
-              <div className="w-20 h-20 bg-gradient-to-br from-purple-400 to-blue-400 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-2xl">
+            <div key={member.id} className="team-card">
+              <div className="team-avatar">
                 👤
               </div>
-              <h3 className="text-xl font-bold text-gray-900">{member.name}</h3>
-              <p className="text-purple-600 font-semibold mt-1">{member.role}</p>
-              <p className="text-gray-600 text-sm mt-2">{member.specialty}</p>
+              <h3 className="team-name">{member.name}</h3>
+              <p className="team-role">{member.role}</p>
+              <p className="team-spec">{member.specialty}</p>
             </div>
           ))}
         </div>

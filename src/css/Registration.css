@@ -1,0 +1,181 @@
+.reg-root {
+  padding: 80px 0;
+  background: linear-gradient(to bottom, #0d0d15, #1a1025, #0d0d15);
+  position: relative;
+  overflow: hidden;
+}
+
+.reg-root::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: 40% 28%, 60% 42%, 86% 62%, 120% 88%;
+  background-image: 
+    radial-gradient(ellipse at bottom center, rgba(255, 45, 149, 0.2) 0%, rgba(255, 45, 149, 0) 42%),
+    radial-gradient(ellipse at bottom center, rgba(255, 45, 149, 0.14) 0%, rgba(255, 45, 149, 0) 48%),
+    radial-gradient(ellipse at bottom center, rgba(255, 45, 149, 0.1) 0%, rgba(255, 45, 149, 0) 56%),
+    radial-gradient(ellipse at bottom center, rgba(255, 45, 149, 0.06) 0%, rgba(255, 45, 149, 0) 68%);
+  filter: blur(18px);
+}
+
+.reg-container {
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 0 16px;
+  position: relative;
+  z-index: 10;
+}
+
+@media (min-width: 640px) {
+  .reg-container {
+    padding: 0 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .reg-container {
+    padding: 0 32px;
+  }
+}
+
+.reg-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.reg-title {
+  font-size: 48px;
+  font-weight: bold;
+  background: linear-gradient(to right, #d946a6, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 16px;
+}
+
+.reg-sub {
+  color: #d1d5db;
+  font-size: 18px;
+}
+
+.reg-form-wrap {
+  padding: 32px;
+  border-radius: 12px;
+  transition: all 0.3s;
+  border: 1px solid rgba(217, 70, 166, 0.2);
+  background: linear-gradient(135deg, rgba(30, 15, 40, 0.6) 0%, rgba(20, 10, 30, 0.4) 100%);
+  backdrop-filter: blur(12px);
+}
+
+.reg-label {
+  display: block;
+  background: linear-gradient(to right, #d946a6, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.reg-input {
+  width: 100%;
+  padding: 8px 16px;
+  background-color: #1f2937;
+  border: 1px solid rgba(217, 70, 166, 0.3);
+  border-radius: 8px;
+  color: white;
+  transition: all 0.3s;
+}
+
+.reg-input:focus {
+  border-color: #ec4899;
+  outline: none;
+}
+
+.reg-events-grid {
+  display: grid;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .reg-events-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.reg-checkbox {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 1px solid rgba(217, 70, 166, 0.3);
+  accent-color: #d946a6;
+}
+
+.reg-checkbox:focus {
+  ring-color: #ec4899;
+}
+
+.reg-submit {
+  width: 100%;
+  background: linear-gradient(to right, #d946a6, #ec4899);
+  color: white;
+  padding: 12px 0;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 18px;
+  transition: box-shadow 0.3s;
+}
+
+.reg-submit:hover {
+  box-shadow: 0 10px 20px rgba(217, 70, 166, 0.4);
+}
+
+.reg-note {
+  color: #9ca3af;
+  font-size: 14px;
+  text-align: center;
+}
+
+.reg-form-space {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.reg-form-div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.reg-divider {
+  height: 4px;
+  width: 96px;
+  background: linear-gradient(to right, #d946a6, #ec4899);
+  margin: 16px auto 0;
+}
+
+.reg-events-label {
+  display: block;
+  background: linear-gradient(to right, #d946a6, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.reg-event-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.reg-event-span {
+  color: #d1d5db;
+}

@@ -1,39 +1,40 @@
 import React from 'react'
+import '../css/About.css'
 
 const About: React.FC = () => {
   return (
-    <section id='about' className='px-5 sm:px-8 lg:px-10 py-20 relative'>
-      <div className='absolute inset-0 pointer-events-none'>
-        <div className='absolute top-1/2 left-1/4 w-80 h-80 bg-gradient-to-r from-[#d946a6]/10 to-transparent rounded-full blur-3xl'></div>
+    <section id='about' className='about-root'>
+      <div className='about-bg'>
+        <div className='about-bg-circle'></div>
       </div>
 
-      <div className='max-w-7xl mx-auto relative z-10'>
-        <div className='grid md:grid-cols-2 gap-12 items-center'>
-          <div className='card-subtle p-8 float-gentle aspect-square rounded-2xl flex items-center justify-center'>
-            <span className='text-9xl subtle-glow'>🎉</span>
+      <div className='about-container'>
+        <div className='about-grid'>
+          <div className='about-card'>
+            <span className='about-emoji'>🎉</span>
           </div>
 
           <div>
-            <h2 className='text-title mb-6 gradient-text'>Our Vision</h2>
-            <p className='text-body mb-6'>
+            <h2 className='about-title'>Our Vision</h2>
+            <p className='about-body'>
               FIESTRON brings together the brightest minds from KC College and beyond to celebrate technology, creativity, and innovation.
             </p>
-            <p className='text-body mb-8'>
+            <p className='about-body'>
               With 50+ events, 11 dedicated departments, and a prize pool of ₹2 lakhs, FIESTRON is the ultimate platform for tech enthusiasts and cultural performers alike.
             </p>
 
-            <div className='grid md:grid-cols-3 gap-4'>
-              <div className='card-subtle p-4'>
-                <p className='text-3xl font-bold mb-1 gradient-text'>50+</p>
-                <p className='text-caption'>Events</p>
+            <div className='about-stats-grid'>
+              <div className='about-stat'>
+                <p className='about-stat-number'>50+</p>
+                <p className='about-stat-caption'>Events</p>
               </div>
-              <div className='card-subtle p-4'>
-                <p className='text-3xl font-bold mb-1 gradient-text'>11</p>
-                <p className='text-caption'>Departments</p>
+              <div className='about-stat'>
+                <p className='about-stat-number'>11</p>
+                <p className='about-stat-caption'>Departments</p>
               </div>
-              <div className='card-subtle p-4'>
-                <p className='text-3xl font-bold mb-1 gradient-text'>3</p>
-                <p className='text-caption'>Categories</p>
+              <div className='about-stat'>
+                <p className='about-stat-number'>3</p>
+                <p className='about-stat-caption'>Categories</p>
               </div>
             </div>
           </div>

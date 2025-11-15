@@ -1,4 +1,5 @@
 import React from 'react'
+import '../css/Sponsors.css'
 
 const Sponsors: React.FC = () => {
   const sponsors = [
@@ -10,27 +11,27 @@ const Sponsors: React.FC = () => {
   ]
 
   return (
-    <section id="sponsors" className="py-20 bg-gray-950">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 mb-4">
+    <section id="sponsors" className="spon-root">
+      <div className="spon-container">
+        <div className="spon-header">
+          <h2 className="spon-title">
             Our Sponsors
           </h2>
-          <p className="text-gray-300 text-lg">Supporting FIESTRON 2025</p>
-          <div className="h-1 w-24 bg-gradient-to-r from-cyan-400 to-purple-400 mx-auto mt-4"></div>
+          <p className="spon-sub">Supporting FIESTRON 2025</p>
+          <div className="spon-divider"></div>
         </div>
 
         {/* Sponsors Grid */}
-        <div className="mb-16">
-          <div className="grid md:grid-cols-3 gap-8 mb-8">
+        <div className="spon-mb-wrapper">
+          <div className="spon-grid">
             {sponsors.map((sponsor, idx) => (
               <div
                 key={idx}
-                className="bg-gradient-to-br from-indigo-900 to-purple-900 rounded-lg p-8 border-2 border-cyan-400 text-center hover:shadow-lg hover:shadow-cyan-500/50 transition"
+                className="spon-card"
               >
-                <div className="text-6xl mb-4">{sponsor.logo}</div>
-                <h3 className="text-2xl font-bold text-cyan-300 mb-2">{sponsor.name}</h3>
-                <span className="inline-block px-3 py-1 bg-purple-500 bg-opacity-30 text-purple-200 rounded-full text-sm font-bold">
+                <div className="spon-logo">{sponsor.logo}</div>
+                <h3 className="contact-form-title">{sponsor.name}</h3>
+                <span className="spon-badge">
                   {sponsor.tier.toUpperCase()} SPONSOR
                 </span>
               </div>
@@ -39,10 +40,10 @@ const Sponsors: React.FC = () => {
         </div>
 
         {/* Sponsorship Benefits & Form */}
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="bg-gradient-to-br from-indigo-900 to-purple-900 rounded-lg p-8 border border-purple-500">
-            <h3 className="text-2xl font-bold text-cyan-300 mb-6">Why Sponsor FIESTRON?</h3>
-            <ul className="space-y-4 text-gray-300">
+        <div className="spon-benefits-grid">
+          <div className="spon-benefits">
+            <h3 className="contact-form-title">Why Sponsor FIESTRON?</h3>
+            <ul className="spon-benefits-list">
               <li className="flex items-start">
                 <span className="text-cyan-400 mr-3 text-xl">✓</span>
                 <span>
@@ -76,25 +77,25 @@ const Sponsors: React.FC = () => {
             </ul>
           </div>
 
-          <div className="bg-gradient-to-br from-indigo-900 to-purple-900 rounded-lg p-8 border-2 border-cyan-400">
-            <h3 className="text-2xl font-bold text-cyan-300 mb-6">Become a Sponsor</h3>
-            <form className="space-y-4">
+          <div className="spon-form-wrap">
+            <h3 className="contact-form-title">Become a Sponsor</h3>
+            <form className="spon-form-space">
               <input
                 type="text"
                 placeholder="Company Name"
-                className="w-full px-4 py-2 bg-gray-800 border border-purple-400 rounded-lg text-white focus:border-cyan-400 focus:outline-none"
+                className="spon-input"
               />
               <input
                 type="email"
                 placeholder="Contact Email"
-                className="w-full px-4 py-2 bg-gray-800 border border-purple-400 rounded-lg text-white focus:border-cyan-400 focus:outline-none"
+                className="spon-input"
               />
               <input
                 type="tel"
                 placeholder="Phone Number"
-                className="w-full px-4 py-2 bg-gray-800 border border-purple-400 rounded-lg text-white focus:border-cyan-400 focus:outline-none"
+                className="spon-input"
               />
-              <select className="w-full px-4 py-2 bg-gray-800 border border-purple-400 rounded-lg text-white focus:border-cyan-400 focus:outline-none">
+              <select className="spon-input">
                 <option>Select Sponsorship Tier</option>
                 <option>Platinum - ₹50,000+</option>
                 <option>Gold - ₹30,000</option>
@@ -102,7 +103,7 @@ const Sponsors: React.FC = () => {
               </select>
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-cyan-400 to-blue-400 text-black py-2 rounded-lg font-bold hover:shadow-lg hover:shadow-cyan-500/50 transition"
+                className="spon-submit"
               >
                 Send Inquiry
               </button>
