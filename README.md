@@ -8,7 +8,7 @@ A modern, responsive tech club website built with **React**, **Vite**, and **Tai
 - 📱 **Fully Responsive** - Looks great on desktop, tablet, and mobile
 - ⚡ **Fast Performance** - Built with Vite for lightning-fast load times
 - 🎯 **Component-Based** - Modular React components for easy maintenance
-- 🎭 **Tailwind CSS** - Utility-first CSS framework for rapid styling
+- 🎭 **CSS** - CSS framework for rapid styling
 
 ## Sections
 
