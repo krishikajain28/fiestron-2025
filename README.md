@@ -82,7 +82,7 @@ TechClubReact/
 - **React 18** - UI library
 - **Vite** - Build tool and dev server
 - **TypeScript** - Type-safe JavaScript
-- **Tailwind CSS** - Utility-first CSS framework
+- **CSS** - CSS framework
 - **PostCSS** - CSS transformation
 
 ## Customization
