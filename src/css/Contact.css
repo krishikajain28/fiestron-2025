@@ -1,8 +1,9 @@
 .contact-root {
   padding: 80px 0;
-  background: linear-gradient(to bottom, #0d0d15, #1a1025, #0d0d15);
+  padding-bottom: 120px;
+  background: linear-gradient(to bottom, #1a1a2e, #16213e, #1a1a2e);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .contact-root::before {
@@ -15,10 +16,30 @@
   background-position: bottom center;
   background-size: 40% 28%, 60% 42%, 86% 62%, 120% 88%;
   background-image: 
-    radial-gradient(ellipse at bottom center, rgba(255, 45, 149, 0.2) 0%, rgba(255, 45, 149, 0) 42%),
-    radial-gradient(ellipse at bottom center, rgba(255, 45, 149, 0.14) 0%, rgba(255, 45, 149, 0) 48%),
-    radial-gradient(ellipse at bottom center, rgba(255, 45, 149, 0.1) 0%, rgba(255, 45, 149, 0) 56%),
-    radial-gradient(ellipse at bottom center, rgba(255, 45, 149, 0.06) 0%, rgba(255, 45, 149, 0) 68%);
+    radial-gradient(ellipse at bottom center, rgba(247, 126, 0, 0.2) 0%, rgba(247, 126, 0, 0) 42%),
+    radial-gradient(ellipse at bottom center, rgba(247, 126, 0, 0.14) 0%, rgba(247, 126, 0, 0) 48%),
+    radial-gradient(ellipse at bottom center, rgba(247, 126, 0, 0.1) 0%, rgba(247, 126, 0, 0) 56%),
+    radial-gradient(ellipse at bottom center, rgba(247, 126, 0, 0.06) 0%, rgba(247, 126, 0, 0) 68%);
+  filter: blur(18px);
+}
+
+.contact-root::after {
+  content: '';
+  position: absolute;
+  bottom: -60px;
+  left: 0;
+  right: 0;
+  height: 300px;
+  pointer-events: none;
+  z-index: 1;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: 40% 28%, 60% 42%, 86% 62%, 120% 88%;
+  background-image: 
+    radial-gradient(ellipse at bottom center, rgba(247, 126, 0, 0.2) 0%, rgba(247, 126, 0, 0) 42%),
+    radial-gradient(ellipse at bottom center, rgba(247, 126, 0, 0.14) 0%, rgba(247, 126, 0, 0) 48%),
+    radial-gradient(ellipse at bottom center, rgba(247, 126, 0, 0.1) 0%, rgba(247, 126, 0, 0) 56%),
+    radial-gradient(ellipse at bottom center, rgba(247, 126, 0, 0.06) 0%, rgba(247, 126, 0, 0) 68%);
   filter: blur(18px);
 }
 
@@ -50,7 +71,7 @@
 .contact-title {
   font-size: 48px;
   font-weight: bold;
-  background: linear-gradient(to right, #d946a6, #ec4899);
+  background: linear-gradient(to right, #F77E00, #00A896);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -65,7 +86,7 @@
 .contact-divider {
   height: 4px;
   width: 96px;
-  background: linear-gradient(to right, #d946a6, #ec4899);
+  background: linear-gradient(to right, #F77E00, #00A896);
   margin: 16px auto 0;
 }
 
@@ -84,7 +105,7 @@
   padding: 32px;
   border-radius: 12px;
   transition: all 0.3s;
-  border: 1px solid rgba(217, 70, 166, 0.2);
+  border: 1px solid rgba(247, 126, 0, 0.2);
   background: linear-gradient(135deg, rgba(30, 15, 40, 0.6) 0%, rgba(20, 10, 30, 0.4) 100%);
   backdrop-filter: blur(12px);
 }
@@ -92,15 +113,15 @@
 .contact-input {
   width: 100%;
   padding: 8px 16px;
-  background-color: #1f2937;
-  border: 1px solid rgba(217, 70, 166, 0.3);
+  background-color: #003049;
+  border: 1px solid rgba(247, 126, 0, 0.3);
   border-radius: 8px;
   color: white;
   transition: all 0.3s;
 }
 
 .contact-input:focus {
-  border-color: #ec4899;
+  border-color: #00A896;
   outline: none;
 }
 
@@ -113,7 +134,7 @@
 .contact-social-btn {
   padding: 16px;
   border-radius: 8px;
-  border: 1px solid rgba(217, 70, 166, 0.2);
+  border: 1px solid rgba(247, 126, 0, 0.2);
   transition: all 0.3s;
   font-weight: bold;
   color: white;
@@ -122,7 +143,7 @@
 }
 
 .contact-social-btn:hover {
-  border-color: rgba(217, 70, 166, 0.4);
+  border-color: rgba(247, 126, 0, 0.4);
 }
 
 .contact-faq {
@@ -130,16 +151,16 @@
   padding: 32px;
   border-radius: 12px;
   transition: all 0.3s;
-  border: 1px solid rgba(217, 70, 166, 0.2);
+  border: 1px solid rgba(247, 126, 0, 0.2);
   background: linear-gradient(135deg, rgba(30, 15, 40, 0.6) 0%, rgba(20, 10, 30, 0.4) 100%);
   backdrop-filter: blur(12px);
 }
 
 .contact-faq-item {
-  background-color: #111827;
+  background-color: #003049;
   border-radius: 8px;
   padding: 16px;
-  border: 1px solid rgba(217, 70, 166, 0.2);
+  border: 1px solid rgba(247, 126, 0, 0.2);
 }
 
 .contact-form-space {
@@ -151,7 +172,7 @@
 .contact-form-title {
   font-size: 24px;
   font-weight: bold;
-  background: linear-gradient(to right, #d946a6, #ec4899);
+  background: linear-gradient(to right, #F77E00, #00A896);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -161,7 +182,7 @@
 .contact-quick-title {
   font-size: 24px;
   font-weight: bold;
-  background: linear-gradient(to right, #d946a6, #ec4899);
+  background: linear-gradient(to right, #F77E00, #00A896);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -180,7 +201,7 @@
   gap: 16px;
   padding: 16px;
   border-radius: 8px;
-  border: 1px solid rgba(217, 70, 166, 0.2);
+  border: 1px solid rgba(247, 126, 0, 0.2);
   transition: all 0.3s;
   background: linear-gradient(135deg, rgba(30, 15, 40, 0.6) 0%, rgba(20, 10, 30, 0.4) 100%);
   backdrop-filter: blur(12px);
@@ -209,7 +230,7 @@
 
 .contact-faq-q {
   font-weight: bold;
-  background: linear-gradient(to right, #d946a6, #ec4899);
+  background: linear-gradient(to right, #F77E00, #00A896);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -239,3 +260,6 @@
   font-size: 14px;
   margin-top: 4px;
 }
+
+
+

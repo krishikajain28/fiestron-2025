@@ -1,11 +1,12 @@
 .ann-root {
   padding: 80px 0;
-  background: linear-gradient(to bottom, #0d0d15, #1a1025, #0d0d15);
+  padding-bottom: 120px;
+  background: linear-gradient(to bottom, #1a1a2e, #16213e, #1a1a2e);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
-.ann-root::before {
+.announcements-root::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -15,10 +16,30 @@
   background-position: bottom center;
   background-size: 40% 28%, 60% 42%, 86% 62%, 120% 88%;
   background-image: 
-    radial-gradient(ellipse at bottom center, rgba(255, 45, 149, 0.2) 0%, rgba(255, 45, 149, 0) 42%),
-    radial-gradient(ellipse at bottom center, rgba(255, 45, 149, 0.14) 0%, rgba(255, 45, 149, 0) 48%),
-    radial-gradient(ellipse at bottom center, rgba(255, 45, 149, 0.1) 0%, rgba(255, 45, 149, 0) 56%),
-    radial-gradient(ellipse at bottom center, rgba(255, 45, 149, 0.06) 0%, rgba(255, 45, 149, 0) 68%);
+    radial-gradient(ellipse at bottom center, rgba(247, 126, 0, 0.2) 0%, rgba(247, 126, 0, 0) 42%),
+    radial-gradient(ellipse at bottom center, rgba(247, 126, 0, 0.14) 0%, rgba(247, 126, 0, 0) 48%),
+    radial-gradient(ellipse at bottom center, rgba(247, 126, 0, 0.1) 0%, rgba(247, 126, 0, 0) 56%),
+    radial-gradient(ellipse at bottom center, rgba(247, 126, 0, 0.06) 0%, rgba(247, 126, 0, 0) 68%);
+  filter: blur(18px);
+}
+
+.announcements-root::after {
+  content: '';
+  position: absolute;
+  bottom: -60px;
+  left: 0;
+  right: 0;
+  height: 300px;
+  pointer-events: none;
+  z-index: 1;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: 40% 28%, 60% 42%, 86% 62%, 120% 88%;
+  background-image: 
+    radial-gradient(ellipse at bottom center, rgba(247, 126, 0, 0.2) 0%, rgba(247, 126, 0, 0) 42%),
+    radial-gradient(ellipse at bottom center, rgba(247, 126, 0, 0.14) 0%, rgba(247, 126, 0, 0) 48%),
+    radial-gradient(ellipse at bottom center, rgba(247, 126, 0, 0.1) 0%, rgba(247, 126, 0, 0) 56%),
+    radial-gradient(ellipse at bottom center, rgba(247, 126, 0, 0.06) 0%, rgba(247, 126, 0, 0) 68%);
   filter: blur(18px);
 }
 
@@ -50,7 +71,7 @@
 .ann-title {
   font-size: 48px;
   font-weight: bold;
-  background: linear-gradient(to right, #d946a6, #ec4899);
+  background: linear-gradient(to right, #F77E00, #00A896);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -65,7 +86,7 @@
 .ann-divider {
   height: 4px;
   width: 96px;
-  background: linear-gradient(to right, #d946a6, #ec4899);
+  background: linear-gradient(to right, #F77E00, #00A896);
   margin: 16px auto 0;
 }
 
@@ -107,13 +128,13 @@
 .ann-item {
   border-radius: 8px;
   padding: 24px;
-  border-left: 4px solid #d946a6;
+  border-left: 4px solid #F77E00;
   transition: box-shadow 0.3s;
   background: linear-gradient(135deg, rgba(30, 15, 40, 0.6) 0%, rgba(20, 10, 30, 0.4) 100%);
 }
 
 .ann-item:hover {
-  box-shadow: 0 10px 20px rgba(217, 70, 166, 0.3);
+  box-shadow: 0 10px 20px rgba(247, 126, 0, 0.3);
 }
 
 .ann-emoji {
@@ -123,7 +144,7 @@
 .ann-title-sm {
   font-size: 20px;
   font-weight: bold;
-  background: linear-gradient(to right, #d946a6, #ec4899);
+  background: linear-gradient(to right, #F77E00, #00A896);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -142,8 +163,8 @@
 
 .ann-subscribe {
   margin-top: 48px;
-  background-color: rgba(217, 70, 166, 0.1);
-  border: 2px solid #d946a6;
+  background-color: rgba(247, 126, 0, 0.1);
+  border: 2px solid #F77E00;
   border-radius: 8px;
   padding: 24px;
   text-align: center;
@@ -152,8 +173,8 @@
 .ann-input {
   flex: 1;
   padding: 8px 16px;
-  background-color: #1f2937;
-  border: 1px solid rgba(217, 70, 166, 0.3);
+  background-color: #003049;
+  border: 1px solid rgba(247, 126, 0, 0.3);
   border-radius: 8px;
   color: white;
   transition: all 0.3s;
@@ -161,12 +182,12 @@
 
 .ann-input:focus {
   outline: none;
-  border-color: #ec4899;
+  border-color: #F77E00;
 }
 
 .ann-button {
   padding: 8px 24px;
-  background: linear-gradient(to right, #d946a6, #ec4899);
+  background: linear-gradient(to right, #F77E00, #00A896);
   color: white;
   font-weight: bold;
   border-radius: 8px;
@@ -174,5 +195,8 @@
 }
 
 .ann-button:hover {
-  box-shadow: 0 10px 20px rgba(217, 70, 166, 0.4);
+  box-shadow: 0 10px 20px rgba(247, 126, 0, 0.4);
 }
+
+
+

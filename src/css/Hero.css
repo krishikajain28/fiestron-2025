@@ -1,7 +1,28 @@
 .hero-root {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   background-color: black;
+  padding-bottom: 120px;
+}
+
+.hero-root::after {
+  content: '';
+  position: absolute;
+  bottom: -60px;
+  left: 0;
+  right: 0;
+  height: 300px;
+  pointer-events: none;
+  z-index: 1;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: 40% 28%, 60% 42%, 86% 62%, 120% 88%;
+  background-image: 
+    radial-gradient(ellipse at bottom center, rgba(247, 126, 0, 0.2) 0%, rgba(247, 126, 0, 0) 42%),
+    radial-gradient(ellipse at bottom center, rgba(247, 126, 0, 0.14) 0%, rgba(247, 126, 0, 0) 48%),
+    radial-gradient(ellipse at bottom center, rgba(247, 126, 0, 0.1) 0%, rgba(247, 126, 0, 0) 56%),
+    radial-gradient(ellipse at bottom center, rgba(247, 126, 0, 0.06) 0%, rgba(247, 126, 0, 0) 68%);
+  filter: blur(18px);
 }
 
 .hero-inner {
@@ -55,16 +76,16 @@
   gap: 12px;
   padding: 12px 24px;
   border-radius: 8px;
-  background: linear-gradient(to right, #d946a6, #ec4899);
+  background: linear-gradient(to right, #F77E00, #00A896);
   color: white;
   font-weight: 600;
-  box-shadow: 0 10px 15px rgba(217, 70, 166, 0.3);
+  box-shadow: 0 10px 15px rgba(247, 126, 0, 0.3);
   transition: box-shadow 0.2s;
   z-index: 20;
 }
 
 .hero-register:hover {
-  box-shadow: 0 15px 25px rgba(217, 70, 166, 0.4);
+  box-shadow: 0 15px 25px rgba(247, 126, 0, 0.4);
 }
 
 .hero-learn {
@@ -73,13 +94,16 @@
   gap: 12px;
   padding: 12px 24px;
   border-radius: 8px;
-  border: 1px solid rgba(217, 70, 166, 0.3);
+  border: 1px solid rgba(247, 126, 0, 0.3);
   color: #e5e7eb;
   transition: all 0.2s;
   z-index: 20;
 }
 
 .hero-learn:hover {
-  border-color: #ec4899;
-  background-color: rgba(217, 70, 166, 0.05);
+  border-color: #F77E00;
+  background-color: rgba(247, 126, 0, 0.05);
 }
+
+
+

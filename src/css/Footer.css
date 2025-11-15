@@ -1,5 +1,5 @@
 .footer-root {
-  border-top: 1px solid rgba(217, 70, 166, 0.1);
+  border-top: 1px solid rgba(247, 126, 0, 0.1);
   padding: 0 24px;
 }
 
@@ -36,7 +36,7 @@
 .footer-heading {
   font-weight: 600;
   margin-bottom: 16px;
-  background: linear-gradient(to right, #d946a6, #ec4899);
+  background: linear-gradient(to right, #F77E00, #00A896);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -55,7 +55,7 @@
 }
 
 .footer-quick-link:hover {
-  color: #ec4899;
+  color: #00A896;
 }
 
 .footer-contact {
@@ -67,12 +67,12 @@
 .footer-follow {
   font-size: 14px;
   font-weight: 600;
-  color: #ec4899;
+  color: #00A896;
   margin-bottom: 16px;
 }
 
 .footer-bottom {
-  border-top: 1px solid rgba(217, 70, 166, 0.1);
+  border-top: 1px solid rgba(247, 126, 0, 0.1);
   padding-top: 32px;
 }
 
@@ -119,5 +119,8 @@
 }
 
 .footer-social-link:hover {
-  color: #ec4899;
+  color: #00A896;
 }
+
+
+

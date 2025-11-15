@@ -2,9 +2,9 @@
   position: sticky;
   top: 0;
   z-index: 50;
-  background: linear-gradient(to bottom, #0d0d15, #1a1025, transparent);
+  background: linear-gradient(to bottom, #1a1a2e, #16213e, transparent);
   backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(217, 70, 166, 0.1);
+  border-bottom: 1px solid rgba(247, 126, 0, 0.1);
   padding: 0 20px;
 }
 
@@ -32,7 +32,7 @@
 .header-title {
   font-size: 24px;
   font-weight: bold;
-  background: linear-gradient(to right, #d946a6, #ec4899);
+  background: linear-gradient(to right, #F77E00, #00A896);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -41,12 +41,12 @@
 .header-toggle {
   display: none;
   font-size: 24px;
-  color: #d946a6;
+  color: #F77E00;
   transition: color 0.3s;
 }
 
 .header-toggle:hover {
-  color: #ec4899;
+  color: #00A896;
 }
 
 @media (max-width: 768px) {
@@ -74,13 +74,13 @@
 }
 
 .header-link:hover {
-  color: #ec4899;
+  color: #00A896;
 }
 
 .header-register {
   display: none;
   padding: 8px 24px;
-  background: linear-gradient(to right, #d946a6, #ec4899);
+  background: linear-gradient(to right, #F77E00, #00A896);
   color: white;
   font-size: 14px;
   font-weight: 600;
@@ -89,7 +89,7 @@
 }
 
 .header-register:hover {
-  box-shadow: 0 0 20px rgba(217, 70, 166, 0.4);
+  box-shadow: 0 0 20px rgba(247, 126, 0, 0.4);
 }
 
 @media (min-width: 768px) {
@@ -119,13 +119,13 @@
 }
 
 .header-mobile-link:hover {
-  color: #ec4899;
+  color: #00A896;
 }
 
 .header-mobile-register {
   width: 100%;
   padding: 8px 24px;
-  background: linear-gradient(to right, #d946a6, #ec4899);
+  background: linear-gradient(to right, #F77E00, #00A896);
   color: white;
   font-size: 14px;
   font-weight: 600;
@@ -134,5 +134,8 @@
 }
 
 .header-mobile-register:hover {
-  box-shadow: 0 0 20px rgba(217, 70, 166, 0.4);
+  box-shadow: 0 0 20px rgba(247, 126, 0, 0.4);
 }
+
+
+

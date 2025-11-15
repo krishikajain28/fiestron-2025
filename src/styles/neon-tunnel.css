@@ -12,10 +12,10 @@
   background-size: 40% 28%, 60% 42%, 86% 62%, 120% 88%;
   /* stacked radial-gradients: magenta -> transparent with decreasing opacity */
   background-image:
-    radial-gradient(ellipse at bottom center, rgba(255,45,149,0.20) 0%, rgba(255,45,149,0.00) 42%),
-    radial-gradient(ellipse at bottom center, rgba(255,45,149,0.14) 0%, rgba(255,45,149,0.00) 48%),
-    radial-gradient(ellipse at bottom center, rgba(255,45,149,0.10) 0%, rgba(255,45,149,0.00) 56%),
-    radial-gradient(ellipse at bottom center, rgba(255,45,149,0.06) 0%, rgba(255,45,149,0.00) 68%);
+    radial-gradient(ellipse at bottom center, rgba(247,126,0,0.20) 0%, rgba(247,126,0,0.00) 42%),
+    radial-gradient(ellipse at bottom center, rgba(247,126,0,0.14) 0%, rgba(247,126,0,0.00) 48%),
+    radial-gradient(ellipse at bottom center, rgba(247,126,0,0.10) 0%, rgba(247,126,0,0.00) 56%),
+    radial-gradient(ellipse at bottom center, rgba(247,126,0,0.06) 0%, rgba(247,126,0,0.00) 68%);
   /* soft blur to make arcs gentle */
   filter: blur(18px);
 }
@@ -24,9 +24,9 @@
 .neon-tunnel--subtle {
   background-size: 36% 22%, 52% 36%, 76% 52%, 110% 76%;
   background-image:
-    radial-gradient(ellipse at bottom center, rgba(236,72,153,0.16) 0%, rgba(236,72,153,0.00) 40%),
-    radial-gradient(ellipse at bottom center, rgba(236,72,153,0.12) 0%, rgba(236,72,153,0.00) 46%),
-    radial-gradient(ellipse at bottom center, rgba(236,72,153,0.08) 0%, rgba(236,72,153,0.00) 54%),
-    radial-gradient(ellipse at bottom center, rgba(236,72,153,0.04) 0%, rgba(236,72,153,0.00) 64%);
+    radial-gradient(ellipse at bottom center, rgba(247,126,0,0.14) 0%, rgba(247,126,0,0.00) 40%),
+    radial-gradient(ellipse at bottom center, rgba(247,126,0,0.10) 0%, rgba(247,126,0,0.00) 46%),
+    radial-gradient(ellipse at bottom center, rgba(247,126,0,0.06) 0%, rgba(247,126,0,0.00) 54%),
+    radial-gradient(ellipse at bottom center, rgba(247,126,0,0.03) 0%, rgba(247,126,0,0.00) 64%);
   filter: blur(14px);
 }
