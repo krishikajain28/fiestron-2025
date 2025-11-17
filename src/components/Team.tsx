@@ -1,4 +1,5 @@
 import React from 'react'
+import Header from './Header'
 
 const Team: React.FC = () => {
   const faculty = [
@@ -70,7 +71,7 @@ const Team: React.FC = () => {
   const renderCard = (person: { name: string; role: string; emoji?: string; description: string }) => (
     <div className="relative group cursor-pointer">
       {/* Base Card */}
-      <div className="bg-gray-900/50 backdrop-blur-md rounded-xl p-6 flex flex-col items-center text-center transition-transform duration-300 transform">
+      <div className="bg-gray-900/50 backdrop-blur-md rounded-xl p-6 flex flex-col items-center text-center transition-transform duration-300 transform hover:scale-105 hover:shadow-[0_0_20px_rgba(255,165,0,0.3)]">
         <div className="text-6xl mb-4">{person.emoji || '👤'}</div>
         <h4 className="text-lg font-bold text-white">{person.name}</h4>
         <p className="text-gray-300 mt-1">{person.role}</p>
@@ -91,7 +92,7 @@ const Team: React.FC = () => {
   const renderDeptCard = (dept: { name: string; head: string; cohead: string; description: string }) => (
     <div className="relative group cursor-pointer">
       {/* Base Card */}
-      <div className="bg-gray-900/50 backdrop-blur-md rounded-xl p-6 flex flex-col items-center text-center transition-transform duration-300 transform">
+      <div className="bg-gray-900/50 backdrop-blur-md rounded-xl p-6 flex flex-col items-center text-center transition-transform duration-300 transform hover:scale-105 hover:shadow-[0_0_20px_rgba(0,255,255,0.2)]">
         <div className="flex space-x-2 text-5xl mb-4">
           <div>👨‍💼</div>
           <div>👩‍💼</div>
@@ -118,48 +119,44 @@ const Team: React.FC = () => {
   )
 
   return (
-    <section id="team" className="py-16 bg-black relative z-0">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
-            Meet Our Faculty and Team
+    <>
+      <Header />
+      <section id="team" className="py-24 bg-black min-h-screen relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          {/* Title */}
+          <h2 className="text-5xl font-extrabold text-center mb-4 bg-gradient-to-r from-orange-400 to-teal-400 bg-clip-text text-transparent">
+            Meet Our Faculty & Team
           </h2>
-          <p className="mt-4 text-lg text-gray-300">
-            The minds shaping and leading our Tech Club
+          <p className="text-center text-white/70 mb-12 text-lg max-w-3xl mx-auto">
+            Get to know the minds behind Fiestron—faculty advisors, core members, and department leads who make everything possible.
           </p>
-        </div>
 
-        {/* Faculty */}
-        <div className="mb-12">
-          <h3 className="text-xl font-semibold text-white mb-6">Faculty Advisors</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {faculty.map((f, idx) => (
-              <React.Fragment key={idx}>{renderCard(f)}</React.Fragment>
-            ))}
+          {/* Faculty */}
+          <div className="mb-16">
+            <h3 className="text-xl font-semibold text-white mb-6 text-center">Faculty Advisors</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {faculty.map((f, idx) => renderCard(f))}
+            </div>
+          </div>
+
+          {/* Core Team */}
+          <div className="mb-16">
+            <h3 className="text-xl font-semibold text-white mb-6 text-center">Core Student Team</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+              {coreTeam.map((c, idx) => renderCard(c))}
+            </div>
+          </div>
+
+          {/* Departments */}
+          <div className="mb-16">
+            <h3 className="text-xl font-semibold text-white mb-6 text-center">Department Leads</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {departments.map((d, idx) => renderDeptCard(d))}
+            </div>
           </div>
         </div>
-
-        {/* Core Team */}
-        <div className="mb-12">
-          <h3 className="text-xl font-semibold text-white mb-6">Core Student Team</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-            {coreTeam.map((c, idx) => (
-              <React.Fragment key={idx}>{renderCard(c)}</React.Fragment>
-            ))}
-          </div>
-        </div>
-
-        {/* Departments */}
-        <div className="mb-12">
-          <h3 className="text-xl font-semibold text-white mb-6">Department Leads</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {departments.map((d, idx) => (
-              <React.Fragment key={idx}>{renderDeptCard(d)}</React.Fragment>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
+      </section>
+    </>
   )
 }
 
