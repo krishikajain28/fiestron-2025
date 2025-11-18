@@ -36,6 +36,8 @@ const Header: React.FC = () => {
             <Link to="/events" className="text-sm text-gray-300 hover:text-white transition">Events</Link>
             <Link to="/gallery" className="text-sm text-gray-300 hover:text-white transition">Gallery</Link>
             <Link to="/team" className="text-sm text-gray-300 hover:text-white transition">Team</Link>
+            <Link to="/contact" className="text-sm text-gray-300 hover:text-white transition">Contact Us</Link>
+            
           </nav>
 
           {/* Register Button */}

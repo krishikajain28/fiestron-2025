@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import '../css/Contact.css'
+import Header from './Header'
+import Footer from './Footer'
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' })
@@ -15,8 +17,10 @@ const Contact: React.FC = () => {
   }
 
   return (
-    <section id="contact" className="contact-root">
-      <div className="contact-container">
+    <>
+    <Header />
+    <section id="contact" className="py-20 pb-32 bg-black relative overflow-visible">
+      <div className="contact-container max-w ">
         <div className="contact-header">
           <h2 className="contact-title">Get in Touch</h2>
           <p className="contact-sub">Have questions? We'd love to hear from you!</p>
@@ -153,6 +157,8 @@ const Contact: React.FC = () => {
         </div>
       </div>
     </section>
+    <Footer/>
+  </>
   )
 }
 
