@@ -4,7 +4,7 @@ import Header from './Header'
 
 const Team: React.FC = () => {
 
-  // --- 1. LEADERSHIP (Merged VC & Principal) ---
+  // --- 1. LEADERSHIP  ---
   const leadership = {
     principal: {
       name: 'Dr. Hemlata Bagla', 
