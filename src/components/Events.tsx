@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Header from './Header'
+import Footer from './Footer'
 import { useLocation } from 'react-router-dom'
 
 // --- Event Data Interface ---
@@ -738,7 +739,7 @@ const Events: React.FC = () => {
   return (
     <>
       <Header />
-      <section className="relative py-24 px-6 bg-black text-white overflow-hidden min-h-screen">
+      <section className="relative py-5 px-6 bg-black text-white overflow-hidden min-h-screen">
 
         {/* Gradient Glows */}
         <div className="absolute inset-0 pointer-events-none">
@@ -750,23 +751,22 @@ const Events: React.FC = () => {
 
           {/* Title */}
           <h2 className="text-5xl md:text-6xl font-extrabold mb-6 text-center bg-gradient-to-r from-orange-500 to-teal-500 bg-clip-text text-transparent">
-            Event Lineup
+            Explore Fiestron Events
           </h2>
           <p className="text-center text-gray-400 mb-12 text-lg max-w-2xl mx-auto">
-            20 Major Events + 14 Carnival Games. <br/>
-            From coding wars to carnival fun, find your challenge.
+            Browse the complete list of technical, cultural, and gaming competitions organized for Fiestron 2025.            
           </p>
 
           {/* Search Bar (ID for scrolling) */}
           <div id="event-search" className="max-w-md mx-auto mb-10 relative">
              <input 
                type="text" 
-               placeholder="Browse the event you want to register for..." 
+               placeholder="Search events by name or category..." 
                value={searchTerm}
                onChange={(e) => setSearchTerm(e.target.value)}
-               className="w-full py-3 px-6 rounded-full bg-white/5 border border-white/10 focus:border-teal-500 focus:ring-1 focus:ring-teal-500 text-white placeholder-gray-500 outline-none transition-all backdrop-blur-md"
+               className="w-full py-3 px-12 rounded-full bg-white/5 border border-white/10 focus:border-teal-500 focus:ring-1 focus:ring-teal-500 text-white placeholder-gray-500 outline-none transition-all backdrop-blur-md"
              />
-             <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
           </div>
 
           {/* Category Filter */}
@@ -978,9 +978,11 @@ const Events: React.FC = () => {
               </div>
             </div>
           </div>
+
         )}
 
       </section>
+      <Footer />
     </>
   )
 }

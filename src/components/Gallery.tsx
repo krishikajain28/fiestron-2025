@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Header from './Header'
+import Footer from './Footer'
 
 const Gallery: React.FC = () => {
   const [filter, setFilter] = useState('all')
@@ -88,6 +89,7 @@ const Gallery: React.FC = () => {
           `}
         </style>
       </section>
+    <Footer />
     </>
   )
 }

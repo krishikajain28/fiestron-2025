@@ -1,5 +1,6 @@
 import React from 'react'
 import Header from './Header' 
+import Footer from './Footer'
 
 
 const Team: React.FC = () => {
@@ -340,6 +341,7 @@ const Team: React.FC = () => {
 
         </div>
       </section>
+      <Footer/>
     </>
   )
 }
