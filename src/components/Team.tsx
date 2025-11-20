@@ -164,8 +164,7 @@ const Team: React.FC = () => {
         ${isLarge ? 'min-w-[350px] min-h-[400px]' : 'w-full min-h-[350px]'}
       `}
     >
-      {/* Image Circle - Increased Size */}
-      <div className={`
+            <div className={`
         relative mb-6 overflow-hidden rounded-full border-4 border-orange-500/20 
         transition-all duration-500 group-hover:border-teal-400/50 group-hover:shadow-[0_0_25px_rgba(0,168,150,0.4)]
         ${isLarge ? 'w-48 h-48' : 'w-36 h-36'}
@@ -229,8 +228,8 @@ const Team: React.FC = () => {
             </div>
 
             {/* Vice Principals */}
-            <div className="w-full">
-              <h3 className="text-center text-gray-500 uppercase tracking-widest text-lg mb-10 font-semibold">Vice Principals</h3>
+            <div className="w-full  " >
+              <h3 className="text-center text-gray-500  uppercase tracking-widest text-lg mb-10 font-semibold">Vice Principals</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-10 justify-center max-w-6xl mx-auto">
                 {leadership.vps.map((vp, idx) => (
                   <div key={idx} className="flex justify-center">
@@ -242,7 +241,7 @@ const Team: React.FC = () => {
 
             {/* Coordinator/HOD */}
             <div className="w-full flex flex-col items-center">
-               <h3 className="text-center text-gray-500 uppercase tracking-widest text-lg mb-10 font-semibold">Coordinator</h3>
+               <h3 className="text-center text-gray-500 uppercase tracking-widest text-lg mb-10 font-semibold">Head of Department</h3>
                <div className="w-full max-w-md">
                   <ProfileCard {...leadership.hod} isLarge={true} />
                </div>
