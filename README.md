@@ -1,114 +1,130 @@
-🚀 FIESTRON 2025 - Official Website
 
-The Official, Full-Stack Platform for Fiestron 2025 — The Annual Tech Fest of KC College.
+````markdown
+# 🚀 Fiestron 2025 - Official Web Portal
 
-This application is built for performance and scalability, handling over 34 dynamic events, managing announcements, and serving as the primary hub for registrations and information.
+The official full-stack web platform for **Fiestron 2025**, the annual Tech & Cultural Festival of **KC College**.
 
-🛠️ Full-Stack Technology
+## 📖 Project Overview
 
-This project represents a complete, modern full-stack implementation:
+This repository hosts the source code for the Fiestron 2025 website. It is designed as a centralized hub for students to register for events, view gallery highlights, meet the team, and contact the organizing committee.
 
-Component
+The application is built as a **Full-Stack Monorepo**, separating the frontend user interface from the backend API logic.
 
-Technology
+### ✨ Key Features
+* **Neon/Cyberpunk UI:** Custom "Neon Tunnel" aesthetics using Tailwind CSS.
+* **Dynamic Event Catalog:** Filtering system for Technical, Gaming, and Cultural events.
+* **Live Announcements:** Real-time fetching of news/updates via a custom Node.js API.
+* **Sponsorship & Contact Forms:** Functional forms connected to the backend.
+* **Gallery Lightbox:** Interactive image gallery for past event highlights.
+* **Responsive Design:** Fully mobile-optimized navigation and layouts.
 
-Purpose
+---
 
-Frontend (View)
+## 🛠️ Tech Stack
 
-React 18 / TypeScript / Vite
+### **Frontend (Client)**
+* **Framework:** React.js (via Vite)
+* **Language:** TypeScript (.tsx)
+* **Styling:** Tailwind CSS + Custom CSS Animations
+* **Routing:** React Router DOM v6
+* **HTTP Client:** Axios
 
-Dynamic, component-based UI with client-side rendering.
+### **Backend (Server)**
+* **Runtime:** Node.js
+* **Framework:** Express.js
+* **Data Storage:** Local JSON Persistence (`/server/data/`)
+* **Middleware:** CORS, Body-Parser
 
-Styling
+---
 
-Tailwind CSS
+## ⚙️ Installation & Local Setup
 
-Atomic CSS for rapid, responsive design and modern effects.
+To run this project, you need **Node.js** installed. You must run **two** terminals: one for the Backend (Port 5000) and one for the Frontend (Port 5173).
 
-Backend (Logic)
+### 1. Clone the Repository
+```bash
+git clone [https://github.com/krishikajain28/fiestron-2025.git](https://github.com/krishikajain28/fiestron-2025.git)
+cd fiestron-2025
+````
 
-Node.js / Express.js (MERN)
+### 2\. Setup & Run Backend (Server)
 
-RESTful API for serving events, announcements, and handling forms.
+Open your **first terminal**:
 
-Database (Data)
-
-MongoDB (Atlas)
-
-Flexible NoSQL solution for dynamic content management.
-
-Routing
-
-React Router v6
-
-Handles navigation and implements custom scroll offset logic for sticky header correction.
-
-✨ Key Features & Achieved Goals
-
-⚡ Dynamic Content Engine: Events (34+), Pricing, Rules, and Announcements are served dynamically via the Node.js API, eliminating the need for frontend code changes during event updates.
-
-🏛️ Optimized Team Hierarchy: Custom UI implementation for Faculty, Leadership (VC & Principal), and Student Core/Department Heads with manual image alignment control for precise photo centering.
-
-✅ Seamless Registration Flow: Register buttons auto-scroll to the search bar and link directly to Google Forms, bypassing the need for a custom payment gateway while maintaining data capture control.
-
-🎨 High-Fidelity UI/UX: Features a polished dark-theme aesthetic with glassmorphism, custom neon gradients, and a functional search/filter system for events.
-
-🧭 Robust Navigation: Implemented Scroll-Offset Fix in the Header to prevent content clipping and added a custom 404 NotFound page for professional error handling.
-
-🚀 Deployment Ready: Structure is optimized for immediate production deployment (Vercel/Netlify for frontend, any Node host for backend).
-
-📂 Project Structure
-
-fiestron-2025/
-├── server/              # <-- NEW BACKEND FOLDER
-│   ├── index.js         # Express Server & MongoDB Schemas
-│   ├── package.json     # Node Dependencies (Express, Mongoose, CORS)
-│   └── .env             # Database Connection String (Private)
-├── public/              # Static assets (Hero videos, Team images, etc.)
-├── src/
-│   ├── components/      # (Contains all completed UI components)
-│   ├── App.tsx          # Router, ScrollToTop, and Page Definitions
-│   └── index.css        # Global Styles and Tailwind Directives
-# ... (Other Config Files)
-
-
-🚀 Getting Started (Full-Stack)
-
-To run the entire dynamic application, both the server and client must be running:
-
-1. Database Setup
-
-Set up your free MongoDB Atlas cluster.
-
-Create a file named .env inside the server/ directory.
-
-Add your connection string: MONGO_URI="mongodb+srv://<user>:<password>@clustername/fiestron?..."
-
-2. Start the Backend Server
-
+```bash
 cd server
 npm install
 npm run dev
-# Server should now be running on http://localhost:5000 and connect to MongoDB.
+```
 
+*✅ Output: Server running on http://localhost:5000*
 
-3. Start the Frontend Client
+### 3\. Setup & Run Frontend (Client)
 
-(Open a new terminal)
+Open your **second terminal** (keep the first one running):
 
-cd ..
+```bash
+# If you are inside the server folder, go back one step:
+cd .. 
+
+# Install frontend dependencies
 npm install
+
+# Start the Vite server
 npm run dev
-# Client should now be running on http://localhost:5173.
+```
 
+*✅ Output: Local: http://localhost:5173*
 
-🤝 Contributing & Maintenance
+-----
 
-Head of Website: Krishika (Maintainer)
+## 📡 API Documentation
 
-Data Updates: Event and Announcement lists are managed via the Backend API. Changes require updating the database, not redeploying the frontend code.
+The backend runs on Port `5000` and utilizes a local file system for data storage.
 
-<div align="center">
-<p>Proudly Vibe Coded for KC College's FIESTRON 2025</p>
-</div>
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| **GET** | `/api/announcements` | Fetches the latest news and updates. |
+| **POST** | `/api/announcements` | (Admin) Adds a new announcement. |
+| **POST** | `/api/contact` | Submits Contact or Sponsor inquiries. |
+
+-----
+
+## 📂 Project Structure
+
+```
+fiestron-2025/
+├── public/             # Static assets (Images, Videos)
+├── src/                # Frontend Logic (React)
+│   ├── components/     # Reusable UI (Header, Footer, Cards)
+│   ├── styles/         # Global CSS
+│   └── App.tsx         # Main Routing Logic
+├── server/             # Backend Logic (Node/Express)
+│   ├── data/           # JSON Database (announcements.json)
+│   └── index.js        # API Routes
+└── README.md           # Documentation
+```
+
+-----
+
+## ⚠️ Contribution Guidelines
+
+**For the Web Team:**
+
+1.  **No Direct Pushes:** Do not push directly to the `main` branch.
+2.  **Branching:** Create a new branch for every feature (e.g., `git checkout -b feature-gallery`).
+3.  **Review:** Send screenshots to the WhatsApp group before opening a Pull Request.
+
+-----
+
+## 📞 Contact
+
+**Developed by the Fiestron 2025 Web Team.**
+
+  * **Head of Website Team:** Krishika Jain
+  * **Organization:** KC College Tech Club
+
+<!-- end list -->
+
+```
+```
