@@ -1,6 +1,5 @@
 import React, { useState } from "react"; 
-import Header from "./Header";
-import Footer from "./Footer";
+
 import axios from 'axios'; 
 
 const Sponsors: React.FC = () => {
@@ -56,7 +55,7 @@ const Sponsors: React.FC = () => {
 
   return (
     <>
-    <Header />
+    
     <section
       id="sponsors"
       className="relative py-24 bg-black via-[#16213e] to-[#0f0f1e] overflow-visible"
@@ -185,7 +184,7 @@ const Sponsors: React.FC = () => {
 
       </div>
     </section>
-    <Footer />
+
     </>
   );
 };

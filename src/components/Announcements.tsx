@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Header from './Header';
-import Footer from './Footer';
+
 import axios from 'axios'; 
 // NOTE: axios is imported for use in fetch logic
-
-// --- HELPER FUNCTIONS (Moved outside for cleaner structure) ---
 
 // Function to determine colors based on API data 'type'
 const getTypeColor = (type: string) => {
@@ -27,7 +24,7 @@ const getTypeEmoji = (type: string) => {
     default: return 'ℹ️'
   }
 }
-// ----------------------------------------------------------------
+// ---------------------------------------------------------------
 
 const Announcements: React.FC = () => {
 
@@ -66,7 +63,6 @@ const Announcements: React.FC = () => {
   // --- Start Render ---
   return (
     <>
-      <Header />
       <section id="announcements" className="relative bg-black py-20 sm:py-32 overflow-visible">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
           <div className="text-center mb-16">
@@ -131,7 +127,7 @@ const Announcements: React.FC = () => {
           </div>
         </div>
       </section>
-      <Footer />
+
     </>
   )
 }
