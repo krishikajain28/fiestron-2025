@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useState } from "react"; 
+import Header from "./Header";
+import Footer from "./Footer";
+import axios from 'axios'; 
 
 const Sponsors: React.FC = () => {
+  const [formData, setFormData] = useState({
+    companyName: '',
+    contactEmail: '',
+    phoneNumber: '',
+    tier: 'Select Sponsorship Tier', 
+  });
+  
+  // Static sponsor data for display cards
   const sponsors = [
     { name: "ABC", tier: "platinum", logo: "🏢" },
     { name: "XYZ", tier: "gold", logo: "🔬" },
@@ -9,7 +20,43 @@ const Sponsors: React.FC = () => {
     { name: "DEF", tier: "silver", logo: "⚙️" },
   ];
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (formData.tier === 'Select Sponsorship Tier') {
+        alert('Please select a valid sponsorship tier before submitting.');
+        return;
+    }
+
+    const API_URL = 'http://localhost:5000/api/contact';
+
+    try {
+        // Send data to the same contact API, but include a distinct type
+        await axios.post(API_URL, { 
+            ...formData, 
+            type: 'Sponsor Inquiry', 
+            timestamp: new Date().toISOString() 
+        });
+
+        console.log('Sponsor Inquiry Success');
+        alert('Inquiry sent! We will contact you shortly with the media kit.');
+
+        // Reset the form
+        setFormData({ companyName: '', contactEmail: '', phoneNumber: '', tier: 'Select Sponsorship Tier' });
+
+    } catch (error) {
+        console.error('Submission Failed:', error);
+        alert('Error submitting form. Please ensure the server is running.');
+    }
+  };
+
   return (
+    <>
+    <Header />
     <section
       id="sponsors"
       className="relative py-24 bg-black via-[#16213e] to-[#0f0f1e] overflow-visible"
@@ -81,36 +128,53 @@ const Sponsors: React.FC = () => {
               Become a Sponsor
             </h3>
 
-            <form className="flex flex-col gap-4">
-
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <input
                 type="text"
+                name="companyName"
                 placeholder="Company Name"
+                value={formData.companyName}
+                onChange={handleChange}
+                required
                 className="w-full px-4 py-2 bg-[#003049] text-white rounded-lg border border-[#F77E004D] focus:border-[#00A896] outline-none transition"
               />
 
               <input
                 type="email"
+                name="contactEmail"
                 placeholder="Contact Email"
+                value={formData.contactEmail}
+                onChange={handleChange}
+                required
                 className="w-full px-4 py-2 bg-[#003049] text-white rounded-lg border border-[#F77E004D] focus:border-[#00A896] outline-none transition"
               />
 
               <input
                 type="tel"
+                name="phoneNumber"
                 placeholder="Phone Number"
+                value={formData.phoneNumber}
+                onChange={handleChange}
+                required
                 className="w-full px-4 py-2 bg-[#003049] text-white rounded-lg border border-[#F77E004D] focus:border-[#00A896] outline-none transition"
               />
 
-              <select className="w-full px-4 py-2 bg-[#003049] text-white rounded-lg border border-[#F77E004D] focus:border-[#00A896] outline-none transition">
-                <option>Select Sponsorship Tier</option>
-                <option>Platinum - ₹50,000+</option>
-                <option>Gold - ₹30,000</option>
-                <option>Silver - ₹15,000</option>
+              <select 
+                name="tier" 
+                value={formData.tier}
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-2 bg-[#003049] text-white rounded-lg border border-[#F77E004D] focus:border-[#00A896] outline-none transition"
+              >
+                <option disabled={formData.tier !== 'Select Sponsorship Tier'}>Select Sponsorship Tier</option>
+                <option value="Platinum">Platinum - ₹50,000+</option>
+                <option value="Gold">Gold - ₹30,000</option>
+                <option value="Silver">Silver - ₹15,000</option>
               </select>
 
               <button
                 type="submit"
-                className="w-full py-2 rounded-lg bg-gradient-to-r from-[#F77E00] to-[#00A896] text-white font-bold transition shadow-md hover:shadow-[0_10px_20px_rgba(247,126,0,0.4)]"
+                className="w-full py-2 rounded-lg font-bold text-teal-400 border border-teal-400 bg-transparent hover:bg-teal-400/10 transition shadow-lg shadow-teal-500/20"
               >
                 Send Inquiry
               </button>
@@ -121,6 +185,8 @@ const Sponsors: React.FC = () => {
 
       </div>
     </section>
+    <Footer />
+    </>
   );
 };
 

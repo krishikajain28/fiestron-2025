@@ -82,7 +82,7 @@ const Team: React.FC = () => {
       position: 'object-top' 
     },
   ]
-
+  
   // --- 4. DEPARTMENTS ---
   const departments = [
     { 
@@ -91,6 +91,13 @@ const Team: React.FC = () => {
       cohead: { name: 'Amruta Bhosale', image: '/images/dept-accounts-cohead.jpg' },
       description: 'Managing income, expenses, and maintaining financial transparency for the fest.', 
       emoji: '💰' 
+    },
+    { 
+      name: 'Website', 
+      head: { name: 'Krishika Jain', image: '/images/dept-web-head.jpg' },
+      cohead: { name: 'Anushka Thakur', image: '/images/dept-web-cohead.jpg' },
+      description: 'Building, designing, and maintaining the official Fiestron website.', 
+      emoji: '🌐' 
     },
     { 
       name: 'Admin', 
@@ -151,17 +158,10 @@ const Team: React.FC = () => {
     },
     { 
       name: 'Technical', 
-      head: { name: 'Rajat Udhwani', image: '/images/dept-tech-head.jpg' },
-      cohead: { name: 'Asadullah', image: '/images/dept-tech-cohead.jpg' }, 
+      head: { name: 'Rahil Shaikh', image: '/images/dept-tech-head.jpg' },
+      cohead: { name: 'Asadullah Khan', image: '/images/dept-tech-cohead.jpg' }, 
       description: 'Handling sound, lights, stage setup, and providing technical support.', 
       emoji: '💻' 
-    },
-    { 
-      name: 'Website', 
-      head: { name: 'Krishika Jain', image: '/images/dept-web-head.jpg' },
-      cohead: { name: 'Anushka Thakur', image: '/images/dept-web-cohead.jpg' },
-      description: 'Building, designing, and maintaining the official Fiestron website.', 
-      emoji: '🌐' 
     },
   ]
 
@@ -271,10 +271,9 @@ const Team: React.FC = () => {
           </div>
 
           {/* --- 2. FACULTY SECTION --- */}
-          <div className="mb-32">
-            <h3 className="text-4xl font-bold text-center text-white mb-16 border-b border-white/10 pb-6 inline-block w-full">
-              Faculty Advisors
-            </h3>
+          <div className="mb-20">
+              <h3 className="text-center text-gray-500 uppercase tracking-widest text-lg mb-10 font-semibold">Faculty Advisors</h3>
+              
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
               {faculty.map((f, idx) => (
                 <ProfileCard key={idx} {...f} />
@@ -284,9 +283,7 @@ const Team: React.FC = () => {
 
           {/* --- 3. STUDENT CORE TEAM --- */}
           <div className="mb-32">
-            <h3 className="text-4xl font-bold text-center text-white mb-16 border-b border-white/10 pb-6 inline-block w-full">
-              Core Team
-            </h3>
+              <h3 className="text-center text-gray-500 uppercase tracking-widest text-lg mb-10 font-semibold">Core Team</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 max-w-7xl mx-auto">
               {coreTeam.map((c, idx) => (
                 <ProfileCard key={idx} {...c} />
@@ -296,9 +293,7 @@ const Team: React.FC = () => {
 
           {/* --- 4. DEPARTMENTS SECTION (Super Sized) --- */}
           <div>
-            <h3 className="text-4xl font-bold text-center text-white mb-16 border-b border-white/10 pb-6 inline-block w-full">
-              Department Leads
-            </h3>
+              <h3 className="text-center text-gray-500 uppercase tracking-widest text-lg mb-10 font-semibold">Departments Leads</h3>
             
             {/* Grid Gap Increased */}
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 max-w-7xl mx-auto">

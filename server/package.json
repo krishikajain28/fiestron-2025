@@ -1,0 +1,17 @@
+{
+  "name": "fiestron-api-lean",
+  "version": "1.0.0",
+  "description": "Lean Node/Express backend for Fiestron forms and announcements.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

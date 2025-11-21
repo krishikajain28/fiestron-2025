@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
+import axios from 'axios';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -16,10 +17,23 @@ const Contact: React.FC = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e:React.FormEvent) => {
     e.preventDefault();
-    alert("Thank you for your inquiry! We will get back to you soon.");
-    setFormData({ name: "", email: "", subject: "", message: "" });
+    const API_URL = 'http://localhost:5000/api/contact';
+
+    try
+    {
+      const response = await axios.post(API_URL, formData);
+      console.log('Submission Success:', response.data.message);
+      alert('Thank you for your inquiry! We will get back to you soon.');
+
+      // Reset the form
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    }
+    catch(error){
+      console.error('Submission Failed: ', error);
+      alert('Error submitting form. Please try again later.'); // Keep this for user feedback
+    }
   };
 
   return (
@@ -126,7 +140,7 @@ const Contact: React.FC = () => {
 
                 <button
                   type="submit"
-                  className="mt-2 px-6 py-3 font-bold rounded-lg bg-gradient-to-r from-[#F77E00] to-[#00A896] text-black shadow-md hover:opacity-90 transition"
+                  className="mt-2 px-6 py-3 font-bold rounded-lg text-teal-400 border border-teal-400 bg-transparent hover:bg-teal-400/10 transition-all duration-300 shadow-lg shadow-teal-500/20"
                 >
                   Send Message
                 </button>
