@@ -6,7 +6,6 @@ const Header: React.FC = () => {
   const navigate = useNavigate()
   const location = useLocation()
 
-  // Scroll handler for homepage sections
   const scrollToSection = (id: string) => {
     if (location.pathname !== '/') {
       navigate('/', { state: { scrollTo: id } })
@@ -14,58 +13,74 @@ const Header: React.FC = () => {
       const el = document.getElementById(id)
       if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
-    setIsOpen(false) // <--- FIX: Close menu after clicking
+    setIsOpen(false) 
   }
 
-  // Helper to close menu when navigating to a new page
   const handleNavClick = () => {
-    setIsOpen(false) // <--- FIX: Close menu after clicking
+    setIsOpen(false) 
   }
 
   return (
-    <header className="sticky top-0 bg-black z-50 px-5 sm:px-8 lg:px-10 py-4">
-      {/* Glassmorphism Container */}
-      <div className="max-w-7xl mx-auto flex justify-center">
-        <div className="flex items-center gap-10 px-6 py-3 rounded-full bg-[#0a0a0a]/80 backdrop-blur-md border border-white/10 shadow-lg shadow-purple-500/10 w-full max-w-6xl justify-between md:justify-center">
+    // CHANGED: 
+    // 1. 'sticky' -> 'fixed' to float over content
+    // 2. Top spacing 'top-6' for floating effect
+    <header className="fixed top-0 left-0 w-full z-50 px-4 sm:px-6 lg:px-8 py-6 pointer-events-none">
+      
+      {/* Glassmorphism Container - Pointer events auto to make this clickable */}
+      <div className="pointer-events-auto max-w-5xl mx-auto flex justify-center">
+        <div className="flex items-center justify-between px-8 py-3 rounded-full bg-black/60 backdrop-blur-xl border border-white/10 shadow-2xl shadow-purple-500/10 w-full transition-all duration-300 hover:border-white/20 hover:bg-black/70">
           
           {/* Logo */}
           <div 
             onClick={() => scrollToSection('home')}
-            className="text-xl font-bold bg-gradient-to-r from-orange-500 to-teal-500 bg-clip-text text-transparent cursor-pointer mr-0 md:mr-8"
+            className="text-xl font-bold bg-gradient-to-r from-orange-400 via-pink-500 to-purple-600 bg-clip-text text-transparent cursor-pointer tracking-tight hover:opacity-80 transition-opacity"
           >
             FIESTRON
           </div>
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
-            <button onClick={() => scrollToSection('home')} className="text-sm text-gray-300 hover:text-white transition hover:scale-105">Home</button>
-            <button onClick={() => scrollToSection('about')} className="text-sm text-gray-300 hover:text-white transition hover:scale-105">About</button>
-            <button onClick={() => scrollToSection('announcements')} className="text-sm text-gray-300 hover:text-white transition hover:scale-105">News</button>
-            <button onClick={() => scrollToSection('sponsors')} className="text-sm text-gray-300 hover:text-white transition hover:scale-105">Sponsors</button>
-            <Link to="/events" className="text-sm text-gray-300 hover:text-white transition hover:scale-105">Events</Link>
-            <Link to="/gallery" className="text-sm text-gray-300 hover:text-white transition hover:scale-105">Gallery</Link>
-            <Link to="/team" className="text-sm text-gray-300 hover:text-white transition hover:scale-105">Team</Link>
-            <Link to="/contact" className="text-sm text-gray-300 hover:text-white transition hover:scale-105">Contact</Link>
+            <button onClick={() => scrollToSection('home')} className="text-sm font-medium text-white/70 hover:text-white transition-colors hover:scale-105">Home</button>
+            <button onClick={() => scrollToSection('about')} className="text-sm font-medium text-white/70 hover:text-white transition-colors hover:scale-105">About</button>
+            <button onClick={() => scrollToSection('announcements')} className="text-sm font-medium text-white/70 hover:text-white transition-colors hover:scale-105">News</button>
+            <button onClick={() => scrollToSection('sponsors')} className="text-sm font-medium text-white/70 hover:text-white transition-colors hover:scale-105">Sponsors</button>
+            <Link to="/events" className="text-sm font-medium text-white/70 hover:text-white transition-colors hover:scale-105">Events</Link>
+            <Link to="/gallery" className="text-sm font-medium text-white/70 hover:text-white transition-colors hover:scale-105">Gallery</Link>
+            <Link to="/team" className="text-sm font-medium text-white/70 hover:text-white transition-colors hover:scale-105">Team</Link>
+            
+            {/* Contact Button (Distinct Style) */}
+            <Link to="/contact" className="px-4 py-1.5 rounded-full bg-white/10 border border-white/10 text-sm font-medium text-white hover:bg-white/20 transition-all hover:scale-105">
+                Contact
+            </Link>
           </nav>
 
           {/* Mobile Hamburger */}
-          <button className="md:hidden text-xl text-white" onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? '✕' : '☰'}
+          <button className="md:hidden text-white p-1" onClick={() => setIsOpen(!isOpen)}>
+            <span className="sr-only">Open menu</span>
+            {isOpen ? (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+            ) : (
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
+            )}
           </button>
         </div>
       </div>
 
       {/* Mobile Dropdown */}
       {isOpen && (
-        <nav className="absolute top-20 left-5 right-5 flex flex-col items-center gap-4 py-6 bg-[#0a0a0a]/95 rounded-2xl border border-white/10 backdrop-blur-xl shadow-2xl md:hidden animate-in slide-in-from-top-5 duration-200">
-          <button onClick={() => scrollToSection('home')} className="text-lg text-gray-300 hover:text-white">Home</button>
-          <button onClick={() => scrollToSection('about')} className="text-lg text-gray-300 hover:text-white">About</button>
-          <button onClick={() => scrollToSection('announcements')} className="text-lg text-gray-300 hover:text-white">News</button>
-          <Link to="/events" onClick={handleNavClick} className="text-lg text-gray-300 hover:text-white">Events</Link>
-          <Link to="/gallery" onClick={handleNavClick} className="text-lg text-gray-300 hover:text-white">Gallery</Link>
-          <Link to="/team" onClick={handleNavClick} className="text-lg text-gray-300 hover:text-white">Team</Link>
-          <Link to="/contact" onClick={handleNavClick} className="text-lg text-gray-300 hover:text-white">Contact</Link>
-        </nav>
+        <div className="pointer-events-auto absolute top-24 left-4 right-4 p-1">
+            <nav className="flex flex-col items-center gap-2 py-6 bg-black/90 rounded-3xl border border-white/10 backdrop-blur-xl shadow-2xl animate-in slide-in-from-top-5 duration-200">
+                <button onClick={() => scrollToSection('home')} className="w-full py-2 text-center text-lg text-white/80 hover:text-white hover:bg-white/5 transition-colors">Home</button>
+                <button onClick={() => scrollToSection('about')} className="w-full py-2 text-center text-lg text-white/80 hover:text-white hover:bg-white/5 transition-colors">About</button>
+                <button onClick={() => scrollToSection('announcements')} className="w-full py-2 text-center text-lg text-white/80 hover:text-white hover:bg-white/5 transition-colors">News</button>
+                <button onClick={() => scrollToSection('sponsors')} className="w-full py-2 text-center text-lg text-white/80 hover:text-white hover:bg-white/5 transition-colors">Sponsors</button>
+                <div className="w-16 h-px bg-white/10 my-2" />
+                <Link to="/events" onClick={handleNavClick} className="w-full py-2 text-center text-lg text-white/80 hover:text-white hover:bg-white/5 transition-colors">Events</Link>
+                <Link to="/gallery" onClick={handleNavClick} className="w-full py-2 text-center text-lg text-white/80 hover:text-white hover:bg-white/5 transition-colors">Gallery</Link>
+                <Link to="/team" onClick={handleNavClick} className="w-full py-2 text-center text-lg text-white/80 hover:text-white hover:bg-white/5 transition-colors">Team</Link>
+                <Link to="/contact" onClick={handleNavClick} className="w-full py-2 text-center text-lg font-bold text-purple-400 hover:text-purple-300 transition-colors">Contact Us</Link>
+            </nav>
+        </div>
       )}
     </header>
   )

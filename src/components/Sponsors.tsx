@@ -1,5 +1,4 @@
 import React, { useState } from "react"; 
-
 import axios from 'axios'; 
 
 const Sponsors: React.FC = () => {
@@ -12,11 +11,11 @@ const Sponsors: React.FC = () => {
   
   // Static sponsor data for display cards
   const sponsors = [
-    { name: "ABC", tier: "platinum", logo: "🏢" },
-    { name: "XYZ", tier: "gold", logo: "🔬" },
-    { name: "PQR", tier: "gold", logo: "💼" },
-    { name: "LMN", tier: "silver", logo: "☁️" },
-    { name: "DEF", tier: "silver", logo: "⚙️" },
+    { name: "TechFlow", tier: "platinum", logo: "🏢" },
+    { name: "CyberCore", tier: "platinum", logo: "🔬" },
+    { name: "Quantum Leap", tier: "gold", logo: "⚡" },
+    { name: "Nebula Systems", tier: "silver", logo: "☁️" },
+    { name: "Pixel Forge", tier: "silver", logo: "🎨" },
   ];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -34,7 +33,6 @@ const Sponsors: React.FC = () => {
     const API_URL = 'http://localhost:5000/api/contact';
 
     try {
-        // Send data to the same contact API, but include a distinct type
         await axios.post(API_URL, { 
             ...formData, 
             type: 'Sponsor Inquiry', 
@@ -43,8 +41,6 @@ const Sponsors: React.FC = () => {
 
         console.log('Sponsor Inquiry Success');
         alert('Inquiry sent! We will contact you shortly with the media kit.');
-
-        // Reset the form
         setFormData({ companyName: '', contactEmail: '', phoneNumber: '', tier: 'Select Sponsorship Tier' });
 
     } catch (error) {
@@ -54,138 +50,166 @@ const Sponsors: React.FC = () => {
   };
 
   return (
-    <>
-    
-    <section
-      id="sponsors"
-      className="relative py-24 bg-black via-[#16213e] to-[#0f0f1e] overflow-visible"
-    >
-      {/* Ambient Glow Background (TOP & BOTTOM) */}
-      <div className="absolute inset-0 pointer-events-none z-0 bg-[radial-gradient(ellipse_at_bottom_center,rgba(247,126,0,0.2)_0%,rgba(247,126,0,0)_42%),radial-gradient(ellipse_at_bottom_center,rgba(247,126,0,0.14)_0%,rgba(247,126,0,0)_48%),radial-gradient(ellipse_at_bottom_center,rgba(247,126,0,0.1)_0%,rgba(247,126,0,0)_56%),radial-gradient(ellipse_at_bottom_center,rgba(247,126,0,0.06)_0%,rgba(247,126,0,0)_68%)] bg-[length:40%_28%,60%_42%,86%_62%,120%_88%] bg-no-repeat bg-bottom blur-xl"></div>
-      <div className="absolute bottom-[-60px] left-0 right-0 h-[300px] pointer-events-none z-0 bg-[radial-gradient(ellipse_at_bottom_center,rgba(247,126,0,0.2)_0%,rgba(247,126,0,0)_42%),radial-gradient(ellipse_at_bottom_center,rgba(247,126,0,0.14)_0%,rgba(247,126,0,0)_48%),radial-gradient(ellipse_at_bottom_center,rgba(247,126,0,0.1)_0%,rgba(247,126,0,0)_56%),radial-gradient(ellipse_at_bottom_center,rgba(247,126,0,0.06)_0%,rgba(247,126,0,0)_68%)] bg-[length:40%_28%,60%_42%,86%_62%,120%_88%] bg-no-repeat bg-bottom blur-xl"></div>
+    <section id="sponsors" className="relative w-full py-24 bg-black min-h-screen overflow-hidden font-sans selection:bg-orange-500/30">
+      
+      {/* --- SHARED BACKGROUND --- */}
+      <div className="absolute inset-0 opacity-[0.05] pointer-events-none z-0" 
+           style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }}>
+      </div>
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+         <div className="absolute top-20 left-[-10%] w-[600px] h-[600px] bg-orange-900/20 rounded-full blur-[120px]" />
+         <div className="absolute bottom-20 right-[-10%] w-[500px] h-[500px] bg-purple-900/10 rounded-full blur-[100px]" />
+      </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-6">
 
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-5xl font-bold bg-gradient-to-r from-[#F77E00] to-[#00A896] bg-clip-text text-transparent">
-            Our Sponsors
-          </h2>
-          <p className="text-gray-300 mt-2">Supporting FIESTRON 2025</p>
-          <div className="h-1.5 w-24 mx-auto mt-4 bg-gradient-to-r from-[#F77E00] to-[#00A896] rounded-full"></div>
+        {/* HEADER */}
+        <div className="mb-20 flex flex-col md:flex-row md:items-end justify-between border-b border-white/10 pb-6 backdrop-blur-sm">
+             <div>
+                <h2 className="text-xs font-bold text-purple-500 mb-3 tracking-[0.2em] uppercase">/ Partners</h2>
+                <h3 className="text-5xl md:text-6xl font-bold tracking-tighter text-white">
+                  Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-purple-500">Sponsors.</span>
+                </h3>
+             </div>
+             <p className="mt-6 md:mt-0 max-w-sm text-white/50 text-base leading-relaxed text-right">
+               Fueling the future of innovation. <br/>
+               <span className="text-white/90">Join the Fiestron family.</span>
+             </p>
         </div>
 
-        {/* Sponsor Cards */}
-        <div className="grid gap-8 md:grid-cols-3 mb-16">
+        {/* SPONSOR CARDS GRID */}
+        <div className="grid gap-6 md:grid-cols-3 mb-24">
           {sponsors.map((sponsor, idx) => (
             <div
               key={idx}
-              className="p-8 rounded-xl border border-[#F77E0040] bg-[linear-gradient(135deg,rgba(30,15,40,0.6)_0%,rgba(20,10,30,0.4)_100%)] backdrop-blur-xl text-center transition-all hover:border-[#F77E0080] hover:shadow-[0_12px_40px_rgba(247,126,0,0.2),inset_0_1px_1px_rgba(255,255,255,0.1)]"
+              className="group relative p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl text-center transition-all duration-300 hover:border-orange-500/30 hover:-translate-y-2"
             >
-              <div className="text-7xl mb-4">{sponsor.logo}</div>
-              <h3 className="text-white text-xl font-semibold mb-2">
-                {sponsor.name}
-              </h3>
-              <span className="inline-block px-4 py-1 rounded-full bg-[#F77E0033] text-[#00A896] font-bold text-xs">
-                {sponsor.tier.toUpperCase()} SPONSOR
-              </span>
+              {/* Hover Glow */}
+              <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl pointer-events-none" />
+              
+              <div className="relative z-10">
+                  <div className="w-20 h-20 mx-auto mb-6 flex items-center justify-center rounded-full bg-black/30 border border-white/10 text-4xl shadow-inner">
+                    {sponsor.logo}
+                  </div>
+                  <h3 className="text-white text-xl font-bold mb-3 tracking-tight">
+                    {sponsor.name}
+                  </h3>
+                  <span className={`inline-block px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase border ${
+                      sponsor.tier === 'platinum' 
+                      ? 'bg-purple-500/20 text-purple-300 border-purple-500/30' 
+                      : sponsor.tier === 'gold' 
+                        ? 'bg-orange-500/20 text-orange-300 border-orange-500/30'
+                        : 'bg-white/10 text-gray-300 border-white/20'
+                  }`}>
+                    {sponsor.tier} Partner
+                  </span>
+              </div>
             </div>
           ))}
         </div>
 
-        {/* Benefits + Form */}
-        <div className="grid gap-8 md:grid-cols-2">
+        {/* SPLIT LAYOUT: BENEFITS & FORM */}
+        <div className="grid gap-8 lg:grid-cols-2">
 
-          {/* Benefits */}
-          <div className="p-8 rounded-xl border border-[#F77E0040] bg-[linear-gradient(135deg,rgba(30,15,40,0.6)_0%,rgba(20,10,30,0.4)_100%)] backdrop-blur-xl">
-            <h3 className="text-white text-2xl font-semibold mb-6">
-              Why Sponsor FIESTRON?
-            </h3>
+          {/* BENEFITS CARD */}
+          <div className="p-10 rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 to-transparent backdrop-blur-2xl">
+            <div className="flex items-center gap-4 mb-8">
+                <div className="w-12 h-12 rounded-xl bg-orange-500/20 flex items-center justify-center text-orange-400 text-2xl">🚀</div>
+                <h3 className="text-white text-2xl font-bold">Why Sponsor Us?</h3>
+            </div>
 
-            <ul className="flex flex-col gap-4 text-gray-300">
+            <ul className="space-y-6">
               {[
-                ["Brand Visibility", "Reach 1000+ students and tech professionals"],
-                ["Recruitment", "Connect with top talent from KC College"],
-                ["Social Impact", "Support innovation and learning in tech community"],
-                ["Media Coverage", "Featured in all promotional materials"],
-                ["Networking", "Direct access to student community and team"],
-              ].map(([title, desc], i) => (
-                <li key={i} className="flex items-start">
-                  <span className="text-cyan-400 mr-3 text-xl">✓</span>
-                  <span>
-                    <strong>{title}: </strong>
-                    {desc}
-                  </span>
+                { title: "Massive Reach", desc: "Connect with 5000+ students & professionals." },
+                { title: "Top Talent", desc: "Recruit from KC College's best tech minds." },
+                { title: "Brand Impact", desc: "Premium logo placement across campus & digital." },
+                { title: "CSR Value", desc: "Support education and innovation in Mumbai." },
+              ].map((item, i) => (
+                <li key={i} className="flex items-start gap-4 group">
+                  <div className="mt-1 w-5 h-5 rounded-full border border-purple-500/50 flex items-center justify-center">
+                    <div className="w-2 h-2 bg-purple-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </div>
+                  <div>
+                    <strong className="text-white block mb-1">{item.title}</strong>
+                    <span className="text-white/50 text-sm leading-relaxed">{item.desc}</span>
+                  </div>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Form */}
-          <div className="p-8 rounded-xl border border-[#F77E0040] bg-[linear-gradient(135deg,rgba(30,15,40,0.6)_0%,rgba(20,10,30,0.4)_100%)] backdrop-blur-xl">
-            <h3 className="text-white text-2xl font-semibold mb-6">
-              Become a Sponsor
-            </h3>
+          {/* FORM CARD */}
+          <div className="p-10 rounded-3xl border border-white/10 bg-white/[0.02] backdrop-blur-xl relative overflow-hidden">
+            {/* Subtle background gradient for form */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/10 rounded-full blur-[80px] pointer-events-none translate-x-1/2 -translate-y-1/2" />
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-              <input
-                type="text"
-                name="companyName"
-                placeholder="Company Name"
-                value={formData.companyName}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 bg-[#003049] text-white rounded-lg border border-[#F77E004D] focus:border-[#00A896] outline-none transition"
-              />
+            <h3 className="text-white text-2xl font-bold mb-2">Become a Partner</h3>
+            <p className="text-white/40 text-sm mb-8">Fill out the form below to receive our sponsorship deck.</p>
 
-              <input
-                type="email"
-                name="contactEmail"
-                placeholder="Contact Email"
-                value={formData.contactEmail}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 bg-[#003049] text-white rounded-lg border border-[#F77E004D] focus:border-[#00A896] outline-none transition"
-              />
+            <form onSubmit={handleSubmit} className="flex flex-col gap-5 relative z-10">
+              <div className="space-y-5">
+                  <input
+                    type="text"
+                    name="companyName"
+                    placeholder="Company Name"
+                    value={formData.companyName}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-5 py-4 bg-black/40 text-white rounded-xl border border-white/10 focus:border-orange-500 focus:bg-black/60 outline-none transition-all placeholder-white/20"
+                  />
 
-              <input
-                type="tel"
-                name="phoneNumber"
-                placeholder="Phone Number"
-                value={formData.phoneNumber}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 bg-[#003049] text-white rounded-lg border border-[#F77E004D] focus:border-[#00A896] outline-none transition"
-              />
+                  <div className="grid grid-cols-2 gap-4">
+                      <input
+                        type="email"
+                        name="contactEmail"
+                        placeholder="Email Address"
+                        value={formData.contactEmail}
+                        onChange={handleChange}
+                        required
+                        className="w-full px-5 py-4 bg-black/40 text-white rounded-xl border border-white/10 focus:border-purple-500 focus:bg-black/60 outline-none transition-all placeholder-white/20"
+                      />
+                      <input
+                        type="tel"
+                        name="phoneNumber"
+                        placeholder="Phone"
+                        value={formData.phoneNumber}
+                        onChange={handleChange}
+                        required
+                        className="w-full px-5 py-4 bg-black/40 text-white rounded-xl border border-white/10 focus:border-purple-500 focus:bg-black/60 outline-none transition-all placeholder-white/20"
+                      />
+                  </div>
 
-              <select 
-                name="tier" 
-                value={formData.tier}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 bg-[#003049] text-white rounded-lg border border-[#F77E004D] focus:border-[#00A896] outline-none transition"
-              >
-                <option disabled={formData.tier !== 'Select Sponsorship Tier'}>Select Sponsorship Tier</option>
-                <option value="Platinum">Platinum - ₹50,000+</option>
-                <option value="Gold">Gold - ₹30,000</option>
-                <option value="Silver">Silver - ₹15,000</option>
-              </select>
+                  <div className="relative">
+                      <select 
+                        name="tier" 
+                        value={formData.tier}
+                        onChange={handleChange}
+                        required
+                        className="w-full px-5 py-4 bg-black/40 text-white rounded-xl border border-white/10 focus:border-orange-500 focus:bg-black/60 outline-none transition-all appearance-none cursor-pointer"
+                      >
+                        <option disabled>Select Sponsorship Tier</option>
+                        <option value="Platinum">Platinum (Title) - ₹50,000+</option>
+                        <option value="Gold">Gold (Associate) - ₹30,000</option>
+                        <option value="Silver">Silver (Event) - ₹15,000</option>
+                      </select>
+                      <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-white/40">▼</div>
+                  </div>
+              </div>
 
               <button
                 type="submit"
-                className="w-full py-2 rounded-lg font-bold text-teal-400 border border-teal-400 bg-transparent hover:bg-teal-400/10 transition shadow-lg shadow-teal-500/20"
+                className="w-full py-4 mt-2 rounded-xl font-bold text-white bg-gradient-to-r from-orange-600 via-purple-600 to-purple-800 hover:shadow-[0_0_30px_rgba(168,85,247,0.4)] transition-all transform hover:scale-[1.02] active:scale-95"
               >
                 Send Inquiry
               </button>
 
             </form>
           </div>
+
         </div>
 
       </div>
     </section>
-
-    </>
   );
 };
 

@@ -101,8 +101,7 @@ const Team: React.FC = () => {
     },
     { 
       name: 'Admin', 
-      head: { name: 'Tirth Sanghavi', 
-      image: '/images/dept-admin-head.jpg', position: 'object-centre'},
+      head: { name: 'Tirth Sanghavi', image: '/images/dept-admin-head.jpg', position: 'object-centre'},
       cohead: { name: 'Yogashri Bhadekar', image: '/images/dept-admin-cohead.jpg' },
       description: 'Handling permissions, venue allocation, contracts, and official documentation.', 
       emoji: '📂' 
@@ -130,7 +129,7 @@ const Team: React.FC = () => {
     },
     { 
       name: 'Logistics', 
-      head: { name: 'Chetan Rathod', image: '/images/dept-logistics-head.jpg',position: 'object-[50%_20%]' },
+      head: { name: 'Chetan Rathod', image: '/images/dept-logistics-head.jpg', position: 'object-[50%_20%]' },
       cohead: { name: 'Tarang Jain', image: '/images/dept-logistics-cohead.jpg', position: 'object-[50%_85%]'},
       description: 'Handling on-ground requirements, equipment, and coordinating resource needs.', 
       emoji: '🚚' 
@@ -145,13 +144,13 @@ const Team: React.FC = () => {
     { 
       name: 'PR & Marketing', 
       head: { name: 'Pavan Mahadik', image: '/images/dept-marketing-head.jpg' },
-      cohead: { name: 'Iqra Shaikh', image: '/images/dept-marketing-cohead.jpg',position: 'object-[50%_25%]' },
+      cohead: { name: 'Iqra Shaikh', image: '/images/dept-marketing-cohead.jpg', position: 'object-[50%_25%]' },
       description: 'Promoting the club, managing campaigns, and building sponsor relationships.', 
       emoji: '📢' 
     },
     { 
       name: 'Security', 
-      head: { name: 'Chaitanya Salvi', image: '/images/dept-security-head.jpg',position: 'object-[50%_30%]' },
+      head: { name: 'Chaitanya Salvi', image: '/images/dept-security-head.jpg', position: 'object-[50%_30%]' },
       cohead: { name: 'Jahnvi Nair', image: '/images/dept-security-cohead.jpg' },
       description: 'Crowd management, access control, safety, and emergency response.', 
       emoji: '🛡️' 
@@ -165,50 +164,50 @@ const Team: React.FC = () => {
     },
   ]
 
-
+  // Reusable Glass Profile Card
   const ProfileCard = ({ name, role, description, image, emoji, position, isLarge = false }: any) => (
     <div 
       className={`
         group relative flex flex-col items-center text-center p-8 
-        rounded-3xl border border-orange-500/20 
-        bg-gradient-to-b from-[#1e1e2e] to-[#151520] 
+        rounded-3xl border border-white/10 bg-white/[0.02] backdrop-blur-xl
         transition-all duration-500 ease-out
-        hover:scale-105 hover:z-50 hover:shadow-[0_0_40px_rgba(0,0,0,0.6)] hover:border-teal-500/50
-        ${isLarge ? 'min-w-[350px] min-h-[400px]' : 'w-full min-h-[350px]'}
+        hover:scale-105 hover:z-50 hover:border-purple-500/30 hover:bg-white/[0.05] hover:shadow-2xl
+        ${isLarge ? 'min-w-[300px] md:min-w-[350px]' : 'w-full'}
       `}
     >
+      {/* Hover Glow */}
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl pointer-events-none" />
+
       {/* Image Circle */}
       <div className={`
-        relative mb-6 overflow-hidden rounded-full border-4 border-orange-500/20 
-        transition-all duration-500 group-hover:border-teal-400/50 group-hover:shadow-[0_0_25px_rgba(0,168,150,0.4)]
-        ${isLarge ? 'w-48 h-48' : 'w-36 h-36'}
+        relative mb-6 overflow-hidden rounded-full border-4 border-white/10 
+        transition-all duration-500 group-hover:border-orange-500/50 group-hover:shadow-[0_0_30px_rgba(249,115,22,0.3)]
+        ${isLarge ? 'w-40 h-40 md:w-48 md:h-48' : 'w-32 h-32'}
       `}>
-        <div className="absolute inset-0 flex items-center justify-center bg-[#0d0d15] text-6xl">
+        <div className="absolute inset-0 flex items-center justify-center bg-black/50 text-6xl">
           {emoji}
         </div>
         <img 
           src={image} 
           alt={name} 
-          // FIX: Using the 'position' variable directly. Defaults to center if not provided.
-          className={`absolute inset-0 w-full h-full object-cover ${position || 'object-center'}`}
+          className={`absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 ${position || 'object-center'}`}
           onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }} 
         />
       </div>
 
-      <h3 className={`font-bold text-white transition-colors duration-500 group-hover:text-teal-400 mb-4 ${isLarge ? 'text-3xl' : 'text-2xl'}`}>
+      <h3 className={`font-bold text-white transition-colors duration-500 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-orange-400 group-hover:to-purple-400 mb-2 ${isLarge ? 'text-2xl md:text-3xl' : 'text-xl'}`}>
         {name}
       </h3>
-      <p className="text-gray-400 text-sm uppercase tracking-wider font-medium mb-3">
+      <p className="text-white/40 text-xs uppercase tracking-widest font-bold mb-4">
         {role}
       </p>
       
-      {/* Description */}
+      {/* Description - Reveal on Hover */}
       <div className="
-        max-h-0 overflow-hidden opacity-0 
-        group-hover:max-h-40 group-hover:opacity-100 
-        transition-all duration-700 ease-in-out delay-100
+        relative overflow-hidden transition-all duration-500 ease-in-out
+        max-h-0 opacity-0 group-hover:max-h-32 group-hover:opacity-100
       ">
-        <p className="text-gray-300 text-sm leading-relaxed px-2 pt-4 border-t border-white/10">
+        <p className="text-white/70 text-sm leading-relaxed px-2 pt-4 border-t border-white/10">
           {description}
         </p>
       </div>
@@ -218,41 +217,46 @@ const Team: React.FC = () => {
   return (
     <>
       <Header />
-      <section className="relative py-24 bg-black min-h-screen overflow-x-hidden">
+      <section className="relative pt-36 py-24 bg-black min-h-screen overflow-hidden font-sans selection:bg-purple-500/30">
         
-        {/* Background Glows */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[500px] bg-orange-500/10 blur-[120px] rounded-full pointer-events-none" />
+        {/* --- SHARED BACKGROUND --- */}
+        <div className="absolute inset-0 opacity-[0.05] pointer-events-none z-0" 
+             style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }}>
+        </div>
+        <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+           <div className="absolute top-20 left-[-10%] w-[600px] h-[600px] bg-purple-900/20 rounded-full blur-[120px]" />
+           <div className="absolute bottom-20 right-[-10%] w-[500px] h-[500px] bg-orange-900/10 rounded-full blur-[100px]" />
+        </div>
 
-        <div className="max-w-[90rem] mx-auto px-6 relative z-10"> {/* Wider Container */}
+        <div className="max-w-[90rem] mx-auto px-6 relative z-10">
           
-          <div className="text-center mb-20">
-            <h2 className="text-5xl md:text-7xl font-extrabold bg-gradient-to-r from-orange-500 to-teal-500 bg-clip-text text-transparent mb-6">
-             Minds Behind Fiestron
+          {/* Header */}
+          <div className="text-center mb-24">
+            <h2 className="text-sm font-bold text-purple-500 mb-3 tracking-[0.2em] uppercase animate-pulse">/ The Core</h2>
+            <h2 className="text-5xl md:text-7xl font-extrabold tracking-tighter text-white mb-6">
+              Minds Behind <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-pink-500 to-purple-500">Fiestron</span>
             </h2>
-            <p className="text-gray-400 text-xl max-w-3xl mx-auto ">
-             Fiestron is driven by a team of educators and students who bring structure, creativity, and technical expertise together.
+            <p className="text-white/50 text-lg max-w-3xl mx-auto leading-relaxed">
+             Driven by a team of educators and students who bring structure, creativity, and technical expertise together.
             </p>
           </div>
 
           {/* --- 1. LEADERSHIP SECTION --- */}
-          <div className="mb-32 flex flex-col gap-10 items-center mt-12">
-            <h3 className=" text-center text-gray-500 uppercase tracking-widest text-lg font-semibold">Vice Chancellor & Principal</h3>
-            {/* Top Tier: VC & Principal - SIDE BY SIDE */}
-            <div className="flex flex-col md:flex-row gap-10 justify-center items-center w-full">
-               {/* VC */}
-               <div className="w-full md:w-1/3 max-w-sm flex justify-center">
-                  <ProfileCard {...leadership.vc} isLarge={true} />
-               </div>
-               {/* Principal */}
-               <div className="w-full md:w-1/3 max-w-sm flex justify-center">
-                  <ProfileCard {...leadership.principal} isLarge={true} />
-               </div>
+          <div className="mb-32 flex flex-col gap-16 items-center">
+            
+            {/* Tier 1: VC & Principal */}
+            <div className="w-full">
+                <h3 className="text-center text-white/30 uppercase tracking-[0.2em] text-sm font-bold mb-12">Visionaries</h3>
+                <div className="flex flex-col md:flex-row gap-8 justify-center items-center">
+                   <ProfileCard {...leadership.vc} isLarge={true} />
+                   <ProfileCard {...leadership.principal} isLarge={true} />
+                </div>
             </div>
 
-            {/* Vice Principals */}
+            {/* Tier 2: Vice Principals */}
             <div className="w-full">
-              <h3 className="text-center text-gray-500 uppercase tracking-widest text-lg mb-10 font-semibold">Vice Principals</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-10 justify-center max-w-6xl mx-auto">
+              <h3 className="text-center text-white/30 uppercase tracking-[0.2em] text-sm font-bold mb-12">Vice Principals</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
                 {leadership.vps.map((vp, idx) => (
                   <div key={idx} className="flex justify-center">
                     <ProfileCard {...vp} />
@@ -261,95 +265,90 @@ const Team: React.FC = () => {
               </div>
             </div>
 
-            {/* Coordinator/HOD */}
+            {/* Tier 3: HOD */}
             <div className="w-full flex flex-col items-center">
-               <h3 className="text-center text-gray-500 uppercase tracking-widest text-lg mb-10 font-semibold">Head of Department</h3>
-               <div className="w-full max-w-md">
-                  <ProfileCard {...leadership.hod} isLarge={true} />
-               </div>
+               <h3 className="text-center text-white/30 uppercase tracking-[0.2em] text-sm font-bold mb-12">Department Head</h3>
+               <ProfileCard {...leadership.hod} isLarge={true} />
             </div>
           </div>
 
           {/* --- 2. FACULTY SECTION --- */}
-          <div className="mb-20">
-              <h3 className="text-center text-gray-500 uppercase tracking-widest text-lg mb-10 font-semibold">Faculty Advisors</h3>
-              
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
+          <div className="mb-32">
+            <h3 className="text-center text-white/30 uppercase tracking-[0.2em] text-sm font-bold mb-12">Faculty Advisors</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
               {faculty.map((f, idx) => (
                 <ProfileCard key={idx} {...f} />
               ))}
             </div>
           </div>
 
-          {/* --- 3. STUDENT CORE TEAM --- */}
+          {/* --- 3. CORE TEAM --- */}
           <div className="mb-32">
-              <h3 className="text-center text-gray-500 uppercase tracking-widest text-lg mb-10 font-semibold">Core Team</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 max-w-7xl mx-auto">
+            <h3 className="text-center text-white/30 uppercase tracking-[0.2em] text-sm font-bold mb-12">Student Core Team</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
               {coreTeam.map((c, idx) => (
                 <ProfileCard key={idx} {...c} />
               ))}
             </div>
           </div>
 
-          {/* --- 4. DEPARTMENTS SECTION (Super Sized) --- */}
+          {/* --- 4. DEPARTMENTS SECTION --- */}
           <div>
-              <h3 className="text-center text-gray-500 uppercase tracking-widest text-lg mb-10 font-semibold">Departments Leads</h3>
+            <h3 className="text-center text-white/30 uppercase tracking-[0.2em] text-sm font-bold mb-12">Department Leads</h3>
             
-            {/* Grid Gap Increased */}
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 max-w-7xl mx-auto">
               {departments.map((dept, idx) => (
                 <div 
                   key={idx} 
-                  className="group p-8 rounded-3xl border border-white/10 bg-[#0d0d15] 
-                             hover:border-teal-500/50 hover:bg-[#151520] hover:z-50 hover:scale-105 hover:shadow-2xl
-                             transition-all duration-500 ease-out min-h-[400px] flex flex-col justify-between"
+                  className="group relative p-8 rounded-3xl border border-white/10 bg-white/[0.02] backdrop-blur-xl
+                             hover:border-purple-500/30 hover:bg-white/[0.04] hover:-translate-y-2 hover:shadow-2xl
+                             transition-all duration-500 ease-out flex flex-col justify-between min-h-[450px]"
                 >
                   {/* Dept Header */}
                   <div className="flex flex-col items-center gap-4 mb-8">
-                    <span className="text-6xl bg-white/5 p-4 rounded-2xl">{dept.emoji}</span>
-                    <h4 className="text-3xl font-bold text-white group-hover:text-teal-400 transition-colors text-center">
+                    <span className="text-5xl bg-white/5 p-4 rounded-2xl shadow-inner border border-white/5">{dept.emoji}</span>
+                    <h4 className="text-3xl font-bold text-white group-hover:text-orange-400 transition-colors text-center tracking-tight">
                       {dept.name}
                     </h4>
                   </div>
 
-                  {/* Heads Container (BIGGER IMAGES) */}
-                  <div className="flex justify-center gap-8 mb-6">
+                  {/* Heads Container */}
+                  <div className="flex justify-center gap-6 mb-6">
                     {/* HEAD */}
                     <div className="flex-1 flex flex-col items-center text-center">
-                      {/* Increased from w-16 to w-24/28 */}
-                      <div className="w-28 h-28 rounded-full overflow-hidden border-4 border-orange-500/20 mb-4 group-hover:border-teal-500/50 transition-all duration-500 shadow-lg">
+                      <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-white/20 mb-3 group-hover:border-purple-500/50 transition-all duration-500 shadow-lg relative">
                         <img 
                           src={dept.head.image} 
                           alt={dept.head.name} 
-                          // Note: Dept images use object-top by default now since they are mostly headshots
                           className={`w-full h-full object-cover ${dept.head.position || 'object-top'}`}
-
                           onError={(e) => { (e.target as HTMLImageElement).src = 'https://via.placeholder.com/150?text=Head' }} 
                         />
                       </div>
-                      <p className="text-xs text-gray-500 uppercase tracking-widest font-bold mb-1">Head</p>
-                      <p className="text-white text-lg font-semibold leading-tight">{dept.head.name}</p>
+                      <p className="text-[10px] text-white/40 uppercase tracking-widest font-bold mb-1">Head</p>
+                      <p className="text-white text-sm font-bold leading-tight">{dept.head.name}</p>
                     </div>
+
+                    {/* Vertical Divider */}
+                    <div className="w-px bg-white/10 my-4" />
 
                     {/* CO-HEAD */}
                     <div className="flex-1 flex flex-col items-center text-center">
-                      <div className="w-28 h-28 rounded-full overflow-hidden border-4 border-orange-500/20 mb-4 group-hover:border-teal-500/50 transition-all duration-500 shadow-lg">
+                      <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-white/20 mb-3 group-hover:border-orange-500/50 transition-all duration-500 shadow-lg relative">
                         <img 
                           src={dept.cohead.image} 
                           alt={dept.cohead.name} 
-                          // Note: Dept images use object-top by default now since they are mostly headshots
                           className={`w-full h-full object-cover ${dept.cohead.position || 'object-top'}`}
                           onError={(e) => { (e.target as HTMLImageElement).src = 'https://via.placeholder.com/150?text=CoHead' }} 
                         />
                       </div>
-                      <p className="text-xs text-gray-500 uppercase tracking-widest font-bold mb-1">Co-Head</p>
-                      <p className="text-white text-lg font-semibold leading-tight">{dept.cohead.name}</p>
+                      <p className="text-[10px] text-white/40 uppercase tracking-widest font-bold mb-1">Co-Head</p>
+                      <p className="text-white text-sm font-bold leading-tight">{dept.cohead.name}</p>
                     </div>
                   </div>
 
                   {/* Description */}
-                  <div className="border-t border-white/5 pt-4 mt-auto">
-                    <p className="text-sm text-gray-400 italic opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 text-center">
+                  <div className="border-t border-white/5 pt-6 mt-auto">
+                    <p className="text-sm text-white/60 italic text-center font-light leading-relaxed">
                       {dept.description}
                     </p>
                   </div>

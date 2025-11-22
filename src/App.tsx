@@ -6,7 +6,7 @@ import ScrollToTop from './components/ScrollToTop'
 // Scroll sections
 import Header from './components/Header'
 import Hero from './components/Hero'
-import About from './components/About'
+
 import Announcements from './components/Announcements'
 import Sponsors from './components/Sponsors'
 import Footer from './components/Footer'
@@ -30,7 +30,7 @@ function App() {
             <>
               <Header />
               <Hero />
-              <About />
+              
               <Announcements />
               <Sponsors />
               <Footer />

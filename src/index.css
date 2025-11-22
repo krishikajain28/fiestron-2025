@@ -12,6 +12,14 @@ html {
   scroll-behavior: smooth;
 }
 
+/* ADD THIS BLOCK */
+@font-face {
+  font-family: 'FiestronCustom'; /* Internal name for CSS */
+  src: url('./assets/Rosean.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -30,7 +38,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #F77E00 0%, #00A896 100%);
+  background:#5f5f69; 
   border-radius: 5px;
 }
 

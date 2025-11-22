@@ -2,12 +2,11 @@ import React, { useState } from 'react'
 import Header from './Header'
 import Footer from './Footer'
 
-// --- Image Data Structure (You will populate the images folder) ---
+// --- Image Data Structure ---
 interface GalleryItem {
   id: number;
   title: string;
   category: 'coverage' | 'previous';
-  // Placeholder image URLs - Replace these with your actual files in public/images/
   url: string; 
   alt: string;
 }
@@ -17,7 +16,7 @@ const initialGalleryItems: GalleryItem[] = [
   { id: 1, title: 'Hackathon 2024 Winners', category: 'previous', url: '/images/gallery/hackathon-24.jpg', alt: 'Hackathon winners from 2024' },
   { id: 2, title: 'Closing Ceremony 2024', category: 'previous', url: '/images/gallery/closing-24.jpg', alt: 'Closing ceremony last year' },
   { id: 3, title: 'Faculty & Core Team 2024', category: 'previous', url: '/images/gallery/team-24.jpg', alt: 'Last year core team' },
-  // Current Coverage (Placeholder for FIESTRON 2025 Live)
+  // Current Coverage
   { id: 4, title: 'Code Sprint In Progress', category: 'coverage', url: '/images/gallery/codesprint-live.jpg', alt: 'Live coding competition' },
   { id: 5, title: 'Tech Talks Speaker', category: 'coverage', url: '/images/gallery/techtalk-speaker.jpg', alt: 'Speaker giving tech talk' },
   { id: 6, title: 'Escape Room Setup', category: 'coverage', url: '/images/gallery/escape-room.jpg', alt: 'Escape room game setup' },
@@ -27,7 +26,7 @@ const initialGalleryItems: GalleryItem[] = [
 
 const Gallery: React.FC = () => {
   const [filter, setFilter] = useState('all')
-  const [lightboxImage, setLightboxImage] = useState<GalleryItem | null>(null) // State for Lightbox
+  const [lightboxImage, setLightboxImage] = useState<GalleryItem | null>(null)
 
   const filteredItems = filter === 'all'
     ? initialGalleryItems
@@ -38,26 +37,31 @@ const Gallery: React.FC = () => {
   return (
     <>
       <Header />
-      <section className="relative py-24 px-6 bg-black text-white min-h-screen overflow-visible">
+      <section className="relative pt-32 pb-24 min-h-screen bg-black text-white overflow-hidden font-sans selection:bg-purple-500/30">
 
-        {/* Gradient Glows */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-10 left-1/4 w-72 h-72 bg-pink-500/20 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-10 right-32 w-72 h-72 bg-purple-500/20 rounded-full blur-3xl"></div>
+        {/* --- SHARED BACKGROUND --- */}
+        <div className="absolute inset-0 opacity-[0.05] pointer-events-none z-0" 
+             style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }}>
+        </div>
+        <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+           <div className="absolute top-20 right-[-10%] w-[600px] h-[600px] bg-purple-900/20 rounded-full blur-[120px]" />
+           <div className="absolute bottom-20 left-[-10%] w-[500px] h-[500px] bg-orange-900/10 rounded-full blur-[100px]" />
         </div>
 
-        <div className="max-w-6xl mx-auto relative z-10">
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
           
-          {/* Title - Clean & Formal */}
-          <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-6 bg-gradient-to-r from-[#F77E00] to-[#00A896] bg-clip-text text-transparent">
-            Event Highlights Gallery
-          </h2>
-          {/* Description */}
-          <p className="text-center text-gray-400 mb-12 text-lg max-w-3xl mx-auto">
-            Relive the moments! Showcasing the best captures from current and past Fiestron events.
-          </p>
+          {/* Header */}
+          <div className="text-center mb-16">
+             <h2 className="text-sm font-bold text-orange-500 mb-3 tracking-[0.2em] uppercase animate-pulse">/ Gallery</h2>
+             <h3 className="text-5xl md:text-7xl font-extrabold tracking-tighter text-white mb-6">
+               Event <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-orange-500">Highlights</span>
+             </h3>
+             <p className="text-white/50 text-lg max-w-2xl mx-auto">
+               Relive the moments. Showcasing the best captures from current and past Fiestron events.
+             </p>
+          </div>
 
-          {/* Category Buttons */}
+          {/* Category Filter */}
           <div className="flex justify-center gap-4 mb-16 flex-wrap">
             {categories.map(cat => {
               const isActive = filter === cat
@@ -65,37 +69,41 @@ const Gallery: React.FC = () => {
                 <button
                   key={cat}
                   onClick={() => setFilter(cat)}
-                  className={`px-6 py-2 rounded-full font-semibold transition-all duration-300 uppercase tracking-wide text-sm
+                  className={`px-6 py-2 rounded-full font-bold uppercase tracking-wider text-xs transition-all duration-300 border
                     ${isActive 
-                      ? 'bg-gradient-to-r from-orange-500 to-teal-500 text-white shadow-lg scale-105'
-                      : 'bg-white/5 text-gray-400 border border-white/10 hover:bg-white/10 hover:text-white'}`
+                      ? 'bg-white text-black border-white shadow-[0_0_15px_rgba(255,255,255,0.3)] scale-105'
+                      : 'bg-transparent text-white/60 border-white/10 hover:border-white/40 hover:text-white'}`
                   }
                 >
-                  {cat === 'all' ? 'All' : cat === 'previous' ? 'Previous Years' : 'Live Coverage'}
+                  {cat === 'all' ? 'All' : cat === 'previous' ? 'Archives' : 'Live Coverage'}
                 </button>
               )
             })}
           </div>
 
           {/* Gallery Grid */}
-          <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
             {filteredItems.map(item => (
               <div
                 key={item.id}
-                onClick={() => setLightboxImage(item)} // Open Lightbox
-                className="aspect-square flex items-center justify-center rounded-xl overflow-hidden cursor-pointer 
-                           border border-[#f77e00]/20 bg-gradient-to-br from-[#1e0f28]/60 to-[#140a1e]/40 backdrop-blur-xl 
-                           hover:scale-[1.02] hover:border-teal-400/50 hover:shadow-xl transition-all duration-300"
+                onClick={() => setLightboxImage(item)}
+                className="group relative break-inside-avoid rounded-2xl border border-white/10 bg-white/[0.02] overflow-hidden cursor-zoom-in hover:border-purple-500/30 transition-all duration-500"
               >
+                {/* Hover Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex flex-col justify-end p-6">
+                    <span className="text-orange-400 text-xs font-bold uppercase tracking-wider mb-1">
+                        {item.category === 'previous' ? 'Archive' : 'Live'}
+                    </span>
+                    <h4 className="text-white font-bold text-lg leading-tight">{item.title}</h4>
+                </div>
+
                 <img 
                     src={item.url} 
                     alt={item.alt}
-                    className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-80"
-                    // Placeholder fallback if image is missing
+                    className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700"
                     onError={(e) => { 
                         (e.target as HTMLImageElement).onerror = null; 
-                        (e.target as HTMLImageElement).src = `https://placehold.co/400x400/222/FFF?text=${item.title.split(' ')[0]}`; 
-                        (e.target as HTMLImageElement).style.opacity = '1';
+                        (e.target as HTMLImageElement).src = `https://placehold.co/600x400/1a1a1a/FFF?text=${item.title.split(' ')[0]}`; 
                     }}
                 />
               </div>
@@ -106,31 +114,52 @@ const Gallery: React.FC = () => {
         {/* --- LIGHTBOX MODAL --- */}
         {lightboxImage && (
           <div 
-            className="fixed inset-0 z-[150] flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm animate-in fade-in duration-200"
-            onClick={() => setLightboxImage(null)} // Close on backdrop click
+            className="fixed inset-0 z-[150] flex items-center justify-center p-4 bg-black/95 backdrop-blur-md animate-in fade-in duration-300"
+            onClick={() => setLightboxImage(null)}
           >
             <div 
-              className="relative w-full max-w-4xl max-h-[90vh] rounded-xl shadow-2xl overflow-hidden"
-              onClick={(e) => e.stopPropagation()} // Prevent closing when clicking the image/container
+              className="relative w-full max-w-5xl max-h-[90vh] rounded-2xl overflow-hidden flex flex-col md:flex-row bg-[#0a0a0a] border border-white/10 shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
             >
-              <img 
-                src={lightboxImage.url} 
-                alt={lightboxImage.alt}
-                className="w-full h-full object-contain" // Use object-contain to prevent cropping
-              />
+              {/* Image Container */}
+              <div className="flex-1 bg-black flex items-center justify-center relative">
+                  <img 
+                    src={lightboxImage.url} 
+                    alt={lightboxImage.alt}
+                    className="max-w-full max-h-[80vh] object-contain"
+                    onError={(e) => { 
+                        (e.target as HTMLImageElement).src = `https://placehold.co/800x600/1a1a1a/FFF?text=${lightboxImage.title}`; 
+                    }}
+                  />
+              </div>
 
-              {/* Caption */}
-              <div className="absolute bottom-0 left-0 right-0 p-4 bg-black/70 text-white text-lg font-semibold text-center">
-                {lightboxImage.title}
-                <span className="ml-4 px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-300 text-xs uppercase tracking-wider">
-                    {lightboxImage.category === 'previous' ? 'Fiestron 2024' : 'Live Coverage'}
-                </span>
+              {/* Sidebar (Desktop) / Bottom Bar (Mobile) */}
+              <div className="w-full md:w-80 bg-[#111] border-l border-white/10 p-6 flex flex-col justify-center">
+                 <div className="mb-auto hidden md:block">
+                    <span className={`inline-block px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border ${
+                        lightboxImage.category === 'previous' 
+                        ? 'border-purple-500/30 text-purple-400 bg-purple-500/10' 
+                        : 'border-orange-500/30 text-orange-400 bg-orange-500/10'
+                    }`}>
+                        {lightboxImage.category === 'previous' ? '2024 Archive' : 'Live Feed'}
+                    </span>
+                 </div>
+                 
+                 <div>
+                    <h3 className="text-2xl font-bold text-white mb-2">{lightboxImage.title}</h3>
+                    <p className="text-white/40 text-sm">{lightboxImage.alt}</p>
+                 </div>
+
+                 <div className="mt-auto pt-6 border-t border-white/10 flex justify-between items-center">
+                    <button className="text-white/40 hover:text-white text-sm transition-colors">Share</button>
+                    <button className="text-white/40 hover:text-white text-sm transition-colors">Download</button>
+                 </div>
               </div>
               
               {/* Close Button */}
               <button 
                 onClick={() => setLightboxImage(null)}
-                className="absolute top-4 right-4 p-3 rounded-full bg-black/50 hover:bg-black/70 text-white text-xl transition-colors z-20"
+                className="absolute top-4 right-4 md:left-4 md:right-auto p-2 rounded-full bg-black/50 hover:bg-white/20 text-white transition-colors z-20 backdrop-blur-md border border-white/10"
               >
                 ✕
               </button>
