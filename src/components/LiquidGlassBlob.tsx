@@ -8,8 +8,9 @@ import React, { useEffect, useRef, useState } from 'react';
  */
 const LiquidGlassBlob = () => {
   // Refs for animation to avoid re-renders
-  const blobRef = useRef(null);
-  const glowRef = useRef(null); // Ref for the background glow
+  // FIXED: Added <HTMLDivElement> so TypeScript knows these are div elements
+  const blobRef = useRef<HTMLDivElement>(null);
+  const glowRef = useRef<HTMLDivElement>(null); 
   const position = useRef({
     mouseX: window.innerWidth / 2,
     mouseY: window.innerHeight / 2,
@@ -20,7 +21,8 @@ const LiquidGlassBlob = () => {
   const [blobSize, setBlobSize] = useState({ width: 384, height: 384 });
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
+    // FIXED: Added type MouseEvent for 'e'
+    const handleMouseMove = (e: MouseEvent) => {
       position.current.mouseX = e.clientX;
       position.current.mouseY = e.clientY;
     };
@@ -34,7 +36,8 @@ const LiquidGlassBlob = () => {
       position.current.mouseY = window.innerHeight / 2;
     });
 
-    let animationFrameId;
+    // FIXED: Added type number
+    let animationFrameId: number;
 
     const animate = () => {
       if (blobRef.current) {

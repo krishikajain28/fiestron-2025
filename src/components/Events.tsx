@@ -18,7 +18,7 @@ interface EventData {
     rounds?: string[];
     format?: string[];
     rules: string[];
-    requirements?: string[]; // Added to match your interface
+    requirements?: string[];
     judging?: string[];
     categories?: string[]; 
     prizes?: string[]; 
@@ -42,7 +42,7 @@ const Events: React.FC = () => {
     }
   }, [location]);
 
-  // --- STYLING THEMES (The "Instagram" Vibe) ---
+  // --- STYLING THEMES ---
   const getTheme = (category: string) => {
     switch(category) {
       case 'technical':
@@ -88,7 +88,7 @@ const Events: React.FC = () => {
     }
   }
 
-  // --- EVENT DATABASE (Exact Data Provided) ---
+  // --- EVENT DATABASE ---
   const events: EventData[] = [
     {
       id: 1,
@@ -99,7 +99,7 @@ const Events: React.FC = () => {
       fee: '₹100',
       teamSize: 'Team of 2',
       formLink: 'https://forms.gle/CTGfGhXCL4Pnbe616',
-      image: '../src/components/events/code-quest.gif', 
+      image: '/images/events/code-quest.gif', 
       details: {
         rounds: [
           'Round 1: Retro Computer Trivia + Modern Practices (MCQs - 20 mins)',
@@ -129,7 +129,7 @@ const Events: React.FC = () => {
       fee: '₹100',
       teamSize: 'Team of 2',
       formLink: 'https://forms.gle/NKx9zg1vyEy7mYrd7',
-      image: '../src/components/events/hackathon.png',
+      image: '/images/events/hackathon.png',
       details: {
         rounds: ['Build Phase (Reimagine vintage concept)', 'Final Pitch (10 mins)'],
         rules: [
@@ -157,7 +157,7 @@ const Events: React.FC = () => {
       fee: '₹100',
       teamSize: 'Team of 2',
       formLink: 'https://forms.gle/TMytyAesfsZRSbwg8',
-      image: '../src/components/events/syntax-sprint.png',
+      image: '/images/events/syntax-sprint.png',
       details: {
         rounds: [
           'Round 1: The Starter (Vanilla HTML/CSS/JS - 45 mins)',
@@ -185,7 +185,7 @@ const Events: React.FC = () => {
       fee: '₹50',
       teamSize: 'Individual',
       formLink: 'https://forms.gle/whv4Xy1xWBSJJDaX7',
-      image: '../src/components/events/geocites-ai.png',
+      image: '/images/events/geocites-ai.png',
       details: {
         rules: [
           'All code/design must be AI-generated (Prompts must be documented).',
@@ -211,7 +211,7 @@ const Events: React.FC = () => {
       fee: '₹50',
       teamSize: 'Individual',
       formLink: 'https://forms.gle/JUbreJcD7LZcdjGB6',
-      image: '../src/components/events/design-exe.png',
+      image: '/images/events/design-exe.png',
       details: {
         rules: [
           'ONLY Microsoft Paint allowed (Modern version with layers allowed).',
@@ -237,7 +237,7 @@ const Events: React.FC = () => {
       fee: '₹50',
       teamSize: 'Individual',
       formLink: 'https://forms.gle/5MoNHYyqkEPLFwNS7',
-      image: '../src/components/events/retro-rendered.png',
+      image: '/images/events/retro-rendered.png',
       details: {
         rules: [
           'Use AI tools (Midjourney/DALL-E/Firefly).',
@@ -263,7 +263,7 @@ const Events: React.FC = () => {
       fee: '₹100',
       teamSize: 'Team of 2',
       formLink: 'https://forms.gle/HWvd6bbuyDzaifWE6',
-      image: '../src/components/events/vintage-venture.png',
+      image: '/images/events/vintage-venture.png',
       details: {
         rules: [
           'Must choose a real failed company.',
@@ -289,7 +289,7 @@ const Events: React.FC = () => {
       fee: '₹100',
       teamSize: 'Team of 2',
       formLink: 'https://forms.gle/FhY7Lgn4EzQmysNq7',
-      image: '../src/components/events/brain-buster.png',
+      image: '/images/events/brain-buster.png',
       details: {
         rounds: [
           'Round 1: Retro Rush (80s-2000s Trivia - Quick fire)',
@@ -314,7 +314,7 @@ const Events: React.FC = () => {
       fee: '₹200',
       teamSize: 'Team of 4',
       formLink: 'https://forms.gle/K9CbwhkwKmAfzTJP8',
-      image: '../src/components/events/escape-protocol.png',
+      image: '/images/events/escape-protocol.png',
       details: {
         rounds: [
           'Level 1: The Forgotten Server Room (Beginner)',
@@ -339,7 +339,7 @@ const Events: React.FC = () => {
       fee: '₹100',
       teamSize: 'Team of 2',
       formLink: 'https://forms.gle/e9EbPwub7pQnLBwj7',
-      image: '../src/components/events/meme-mania.jpeg',
+      image: '/images/events/meme-mania.jpeg',
       details: {
         rules: [
           'Content must be original (no reposts).',
@@ -360,7 +360,7 @@ const Events: React.FC = () => {
       fee: '₹100',
       teamSize: 'Team of 2',
       formLink: 'https://forms.gle/Y9frmA36fcc4r4tNA',
-      image: '../src/components/events/ad-a-bit.png',
+      image: '/images/events/ad-a-bit.png',
       details: {
         rules: [
           'Theme/Product announced in advance.',
@@ -381,7 +381,7 @@ const Events: React.FC = () => {
       fee: '₹100',
       teamSize: 'Team of 2',
       formLink: 'https://forms.gle/PRjaquuraJB5RdFj8',
-      image: '../src/components/events/logo-lore.gif',
+      image: '/images/events/logo-lore.gif',
       details: {
         rounds: [
           'Round 1: Distorted Brands (Pixelated/Partial)',
@@ -406,7 +406,7 @@ const Events: React.FC = () => {
       fee: '₹50',
       teamSize: 'Individual',
       formLink: 'https://forms.gle/GxRmu4xewdEmBYWN9',
-      image: '../src/components/events/one-mic-stand.jpeg',
+      image: '/images/events/one-mic-stand.jpeg',
       details: {
         rules: [
           'Draw a "Rewired" theme card on stage (e.g., "Nostalgia").',
@@ -427,7 +427,7 @@ const Events: React.FC = () => {
       fee: '₹200',
       teamSize: 'Team of 4 (1 Sub)',
       formLink: 'https://forms.gle/PfwM6sorLYNdfYjM6',
-      image: '../src/components/events/bgmi.jpeg',
+      image: '/images/events/bgmi.jpeg',
       details: {
         rules: [
           'Mobile only (Android/iOS).',
@@ -447,7 +447,7 @@ const Events: React.FC = () => {
       fee: '₹50',
       teamSize: 'Individual',
       formLink: 'https://forms.gle/CL2fSX59r49cMAxy8',
-      image: '../src/components/events/fifa-tournament.jpeg',
+      image: '/images/events/fifa-tournament.jpeg',
       details: {
         rules: [
           'Latest FIFA version.',
@@ -467,7 +467,7 @@ const Events: React.FC = () => {
       fee: '₹50',
       teamSize: 'Individual',
       formLink: 'https://forms.gle/qcxpdiqcDKoXpc62A',
-      image: '../src/components/events/chess.png',
+      image: '/images/events/chess.png',
       details: {
         rules: [
           'FIDE rules apply.',
@@ -487,7 +487,7 @@ const Events: React.FC = () => {
       fee: '₹50',
       teamSize: 'Individual',
       formLink: 'https://forms.gle/T4Zh4xJF7Hua68HJA',
-      image: '../src/components/events/table-tennis.png',
+      image: '/images/events/table-tennis.png',
       details: {
         rules: [
           'ITTF rules apply.',
@@ -506,7 +506,7 @@ const Events: React.FC = () => {
       fee: '₹100',
       teamSize: 'Team of 2',
       formLink: 'https://forms.gle/SD8A6vguXjFbPB2H9',
-      image: '../src/components/events/carrom.png',
+      image: '/images/events/carrom.png',
       details: {
         rules: [
           'ICF rules.',
@@ -526,7 +526,7 @@ const Events: React.FC = () => {
       fee: '₹300',
       teamSize: 'Team of 6 (1 Sub)',
       formLink: 'https://forms.gle/H8Zuka6id7WjX2R36',
-      image: '../src/components/events/box-cricket.jpeg',
+      image: '/images/events/box-cricket.jpeg',
       details: {
         rules: [
           'Underarm bowling.',
@@ -546,7 +546,7 @@ const Events: React.FC = () => {
       fee: '₹100',
       teamSize: 'Team of 2',
       formLink: 'https://forms.gle/VoM1j62BPmiuJy6eA',
-      image: '../src/components/events/netflix-trivia.jpeg',
+      image: '/images/events/netflix-trivia.jpeg',
       details: {
         rules: [
           'No phones/internet.',
@@ -565,7 +565,7 @@ const Events: React.FC = () => {
       fee: '₹30',
       teamSize: 'Individual',
       formLink: '',
-      image: '../src/components/events/coin-drop.jpeg',
+      image: '/images/events/coin-drop.jpeg',
       details: {
         rules: ['Drop from chest height.', 'Must stay in cup.', 'No leaning over.', 'One coin per entry.'],
         prizes: ['Success: Chocolate/Keychain', '3 Drops: Bonus Prize']
@@ -580,7 +580,7 @@ const Events: React.FC = () => {
       fee: '₹30',
       teamSize: 'Individual',
       formLink: '',
-      image: '../src/components/events/stack-attack.jpeg',
+      image: '/images/events/stack-attack.jpeg',
       details: {
         rules: ['10 cups.', '4-3-2-1 structure.', 'One hand only.', 'Time limit: 10s.', 'Cups must not topple.'],
         prizes: ['Success: Surprise Event Entry', '< 7 secs: Bonus Chocolate']
@@ -595,7 +595,7 @@ const Events: React.FC = () => {
       fee: '₹30',
       teamSize: 'Individual',
       formLink: '',
-      image: '../src/components/events/ticket-toss.jpeg',
+      image: '/images/events/ticket-toss.jpeg',
       details: {
         rules: ['Stand behind throwing line.', 'Closest without crossing wins.', 'Best of 5 throws.', 'Must land flat.'],
         prizes: ['Within 6 inches: Coupon', 'Closest Overall: Special Prize']
@@ -610,7 +610,7 @@ const Events: React.FC = () => {
       fee: '₹30',
       teamSize: 'Individual',
       formLink: '',
-      image: '../src/components/events/brick-balance.jpeg',
+      image: '/images/events/brick-balance.jpeg',
       details: {
         rules: ['Two fingers only (Thumb+1).', 'Horizontal hold.', 'No resting on body.', '60 seconds.'],
         prizes: ['Success: Merchandise', 'Record Holder: Grand Prize']
@@ -625,7 +625,7 @@ const Events: React.FC = () => {
       fee: '₹30',
       teamSize: 'Individual',
       formLink: '',
-      image: '../src/components/events/elbow-flip.jpeg',
+      image: '/images/events/elbow-flip.jpeg',
       details: {
         rules: ['Place 5-10 coins on elbow.', 'Flip and catch with same hand.', 'One attempt.', 'No assisting hand.'],
         prizes: ['3+ Caught: Chocolate', '7+ Caught: Premium', 'All 10: Grand Prize']
@@ -640,7 +640,7 @@ const Events: React.FC = () => {
       fee: '₹30',
       teamSize: 'Individual',
       formLink: '',
-      image: '../src/components/events/blow-the-ball.jpeg',
+      image: '/images/events/blow-the-ball.jpeg',
       details: {
         rules: ['No touching with hands/body.', 'Must cross finish line.', '30 seconds limit.'],
         prizes: ['Success: Gift', '< 15 secs: Premium Prize']
@@ -655,7 +655,7 @@ const Events: React.FC = () => {
       fee: '₹30',
       teamSize: 'Individual',
       formLink: '',
-      image: '../src/components/events/rubber-band-shot.jpeg',
+      image: '/images/events/rubber-band-shot.jpeg',
       details: {
         rules: ['Distance 8-10ft.', '3-5 rubber bands.', 'All cups must fall.', 'Pyramid must be dismantled.'],
         prizes: ['Success: Chocolate', '1-2 shots: Premium Prize']
@@ -670,7 +670,7 @@ const Events: React.FC = () => {
       fee: '₹30',
       teamSize: 'Individual',
       formLink: '',
-      image: '../src/components/events/straw-suction.jpeg',
+      image: '/images/events/straw-suction.jpeg',
       details: {
         rules: ['No hands.', 'Transfer 7+ balls.', '60 seconds limit.', 'Only inhaling suction allowed.'],
         prizes: ['7+ balls: Treat', '12+ balls: Premium Box']
@@ -685,7 +685,7 @@ const Events: React.FC = () => {
       fee: '₹30',
       teamSize: 'Individual',
       formLink: '',
-      image: '../src/components/events/emoji-riddle.jpeg',
+      image: '/images/events/emoji-riddle.jpeg',
       details: {
         rules: ['5 mins total.', 'Solve as many as possible.', 'No phones.', 'Spelling must be recognizable.'],
         prizes: ['5+ Correct: Small Prize', '10+ Correct: Premium', 'All Correct: Grand Prize']
@@ -700,7 +700,7 @@ const Events: React.FC = () => {
       fee: '₹30',
       teamSize: 'Individual',
       formLink: '',
-      image: '../src/components/events/color-trick.jpeg',
+      image: '/images/events/color-trick.jpeg',
       details: {
         rules: ['Read chart top to bottom.', 'Say INK COLOR not word.', '30 seconds.', 'One restart allowed.'],
         prizes: ['15+ Correct: Chocolate', '25+ Correct: Premium', 'Perfect Score: Grand Prize']
@@ -715,7 +715,7 @@ const Events: React.FC = () => {
       fee: '₹30',
       teamSize: 'Individual',
       formLink: '',
-      image: '../src/components/events/7up-7down.jpeg',
+      image: '/images/events/7up-7down.jpeg',
       details: {
         rules: ['Bet on <7, >7, or =7.', 'One roll.', 'No changing bets.', 'Rolled by organizer.'],
         prizes: ['Correct: Chocolate', 'Lucky 7: Triple Prize']
@@ -730,7 +730,7 @@ const Events: React.FC = () => {
       fee: '₹30',
       teamSize: 'Individual',
       formLink: '',
-      image: '../src/components/events/confusing-words.jpeg',
+      image: '/images/events/confusing-words.jpeg',
       details: {
         rules: ['45 seconds.', 'Decode and say/write word.', 'Spelling counts.', 'Skip allowed.'],
         prizes: ['8+ Correct: Small Prize', '15+ Correct: Premium', 'All Correct: Grand Prize']
@@ -745,7 +745,7 @@ const Events: React.FC = () => {
       fee: '₹30',
       teamSize: 'Individual',
       formLink: '',
-      image: '../src/components/events/penny-stack.jpeg',
+      image: '/images/events/penny-stack.jpeg',
       details: {
         rules: ['Free-standing tower.', '45 seconds.', 'Must stand for 3s.', 'No adhesive.'],
         prizes: ['15+ Coins: Chocolate', '25+ Coins: Premium Box', 'Record Holder: Merch']
@@ -760,7 +760,7 @@ const Events: React.FC = () => {
       fee: '₹30',
       teamSize: 'Individual',
       formLink: '',
-      image: '../src/components/events/paper-ball-basket.jpeg',
+      image: '/images/events/paper-ball-basket.jpeg',
       details: {
         rules: ['10 shots total.', 'Different points for distances.', 'Min 15 pts to win.'],
         prizes: ['15+ Pts: Surprise', '30+ Pts: Premium', '45+ Pts: Grand Prize']
@@ -777,6 +777,20 @@ const Events: React.FC = () => {
   })
 
   const categories = ['all', 'technical', 'non-technical', 'gaming', 'carnival']
+  
+  // FIXED: Added 'any' type to ignore TS errors on arguments
+  const handleRegisterClick = (event: any, e: any) => {
+    if (event.category === 'carnival') return; // Carnival buttons say "Play", no link needed
+    if (event.formLink) {
+        window.open(event.formLink, '_blank');
+    } else {
+        alert("Registration opening soon!");
+    }
+  };
+
+  const handleLearnMoreClick = (event: any, e: any) => {
+     setSelectedEvent(event);
+  };
 
   return (
     <>
@@ -965,14 +979,14 @@ const Events: React.FC = () => {
                   
                   {/* Key Info Stats */}
                   <div className="grid grid-cols-2 gap-4 mb-10">
-                     <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/5">
+                      <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/5">
                         <span className="block text-xs text-neutral-500 uppercase font-bold mb-1 tracking-wider">Entry Fee</span>
                         <span className="text-white font-mono text-xl">{selectedEvent.fee}</span>
-                     </div>
-                     <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/5">
+                      </div>
+                      <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/5">
                         <span className="block text-xs text-neutral-500 uppercase font-bold mb-1 tracking-wider">Team Size</span>
                         <span className="text-white font-mono text-xl">{selectedEvent.teamSize}</span>
-                     </div>
+                      </div>
                   </div>
 
                   <div className="prose prose-invert max-w-none">
@@ -1049,25 +1063,25 @@ const Events: React.FC = () => {
                   </div>
 
                   <div className="mt-12 pt-8 border-t border-white/10 flex justify-end">
-                     {selectedEvent.formLink && (
-                       <a 
-                         href={selectedEvent.formLink}
-                         target="_blank"
-                         rel="noreferrer"
-                         className={`px-10 py-4 rounded-2xl font-bold text-white shadow-2xl hover:scale-105 transition-transform ${
+                      {selectedEvent.formLink && (
+                        <a 
+                          href={selectedEvent.formLink}
+                          target="_blank"
+                          rel="noreferrer"
+                          className={`px-10 py-4 rounded-2xl font-bold text-white shadow-2xl hover:scale-105 transition-transform ${
                             selectedEvent.category === 'technical' ? 'bg-gradient-to-r from-purple-600 to-purple-500' :
                             selectedEvent.category === 'non-technical' ? 'bg-gradient-to-r from-pink-600 to-pink-500' :
                             selectedEvent.category === 'gaming' ? 'bg-gradient-to-r from-green-600 to-green-500' : 'bg-gradient-to-r from-orange-600 to-orange-500'
-                         }`}
-                       >
-                         Register Now
-                       </a>
-                     )}
-                     {selectedEvent.category === 'carnival' && (
-                        <div className="px-10 py-4 rounded-2xl font-bold text-white bg-orange-600/80 cursor-default border border-orange-500/30">
-                          Pay & Play On-Spot
-                        </div>
-                     )}
+                          }`}
+                        >
+                          Register Now
+                        </a>
+                      )}
+                      {selectedEvent.category === 'carnival' && (
+                         <div className="px-10 py-4 rounded-2xl font-bold text-white bg-orange-600/80 cursor-default border border-orange-500/30">
+                           Pay & Play On-Spot
+                         </div>
+                      )}
                   </div>
                 </div>
               </div>

@@ -1,49 +1,42 @@
-import React, { useState } from 'react'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const Header: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const navigate = useNavigate()
-  const location = useLocation()
+  const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const scrollToSection = (id: string) => {
     if (location.pathname !== '/') {
-      navigate('/', { state: { scrollTo: id } })
+      navigate('/', { state: { scrollTo: id } });
     } else {
-      const el = document.getElementById(id)
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-    setIsOpen(false) 
-  }
+    setIsOpen(false);
+  };
 
   const handleNavClick = () => {
-    setIsOpen(false) 
+    setIsOpen(false);
+  };
 
-    
-
-    useEffect(() => {
-    if (location.state?.scrollTo) {
-      const el = document.getElementById(location.state.scrollTo)
+  // FIXED: Moved useEffect OUTSIDE of handleNavClick
+  useEffect(() => {
+    if (location.state && location.state.scrollTo) {
+      const el = document.getElementById(location.state.scrollTo);
       if (el) {
         setTimeout(() => {
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-        }, 100) // slight delay ensures DOM is ready
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
       }
     }
-  }, [location.state])
-  }
+  }, [location.state]);
 
   return (
-    // CHANGED: 
-    // 1. 'sticky' -> 'fixed' to float over content
-    // 2. Top spacing 'top-6' for floating effect
-    <header className="fixed top-0 left-0 w-full  z-50 px-4 sm:px-6 lg:px-8 py-6 pointer-events-none">
-      
-      {/* Glassmorphism Container - Pointer events auto to make this clickable */}
-      <div className="pointer-events-auto shadow-[0_0_8px_rgba(250,126,29,0.22)] rounded-full max-w-5xl  mx-auto flex justify-center">
-        <div className="flex items-center  justify-between px-8 py-3 rounded-full bg-black/60 backdrop-blur-xl border border-white/10 shadow-2xl shadow-purple-500/10 w-full transition-all duration-300 hover:border-white/20 hover:bg-black/70">
+    <header className="fixed top-0 left-0 w-full z-50 px-4 sm:px-6 lg:px-8 py-6 pointer-events-none">
+      <div className="pointer-events-auto shadow-[0_0_8px_rgba(250,126,29,0.22)] rounded-full max-w-5xl mx-auto flex justify-center">
+        <div className="flex items-center justify-between px-8 py-3 rounded-full bg-black/60 backdrop-blur-xl border border-white/10 shadow-2xl shadow-purple-500/10 w-full transition-all duration-300 hover:border-white/20 hover:bg-black/70">
           
-          {/* Logo */}
           <div 
             onClick={() => scrollToSection('home')}
             className="text-xl font-bold bg-gradient-to-r from-orange-400 via-pink-500 to-purple-600 bg-clip-text text-transparent cursor-pointer tracking-tight hover:opacity-80 transition-opacity"
@@ -51,7 +44,6 @@ const Header: React.FC = () => {
             FIESTRON
           </div>
 
-          {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
             <button onClick={() => scrollToSection('home')} className="text-sm font-medium text-white/70 hover:text-white transition-colors hover:scale-105">Home</button>
             <button onClick={() => scrollToSection('about')} className="text-sm font-medium text-white/70 hover:text-white transition-colors hover:scale-105">About</button>
@@ -61,13 +53,11 @@ const Header: React.FC = () => {
             <Link to="/gallery" className="text-sm font-medium text-white/70 hover:text-white transition-colors hover:scale-105">Gallery</Link>
             <Link to="/team" className="text-sm font-medium text-white/70 hover:text-white transition-colors hover:scale-105">Team</Link>
             
-            {/* Contact Button (Distinct Style) */}
             <Link to="/contact" className="px-4 py-1.5 rounded-full bg-white/10 border border-white/10 text-sm font-medium text-white hover:bg-white/20 transition-all hover:scale-105">
                 Contact
             </Link>
           </nav>
 
-          {/* Mobile Hamburger */}
           <button className="md:hidden text-white p-1" onClick={() => setIsOpen(!isOpen)}>
             <span className="sr-only">Open menu</span>
             {isOpen ? (
@@ -79,7 +69,6 @@ const Header: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile Dropdown */}
       {isOpen && (
         <div className="pointer-events-auto absolute top-24 left-4 right-4 p-1">
             <nav className="flex flex-col items-center gap-2 py-6 bg-black/90 rounded-3xl border border-white/10 backdrop-blur-xl shadow-2xl animate-in slide-in-from-top-5 duration-200">
@@ -96,7 +85,7 @@ const Header: React.FC = () => {
         </div>
       )}
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
