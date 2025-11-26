@@ -1,7 +1,6 @@
-import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
-import ScrollToTop from './components/ScrollToTop' 
+import ScrollToTop from './components/ScrollToTop'
 
 // Scroll sections
 import Header from './components/Header'
@@ -15,7 +14,7 @@ import Team from './components/Team'
 import Events from './components/Events'
 import Gallery from './components/Gallery'
 import Contact from './components/Contact'
-import NotFound from './components/NotFound' 
+import NotFound from './components/NotFound'
 
 function App() {
   return (
@@ -29,7 +28,6 @@ function App() {
             <>
               <Header />
               <HomeAndAbout />
-              
               <Announcements />
               <Sponsors />
               <Footer />
