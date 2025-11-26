@@ -19,8 +19,7 @@ const Contact: React.FC = () => {
 
   const handleSubmit = async (e:React.FormEvent) => {
     e.preventDefault();
-    const API_URL = 'http://localhost:5000/api/contact';
-
+const API_URL = '/api/contact';
     try
     {
       const response = await axios.post(API_URL, formData);
