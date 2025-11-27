@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-
+import React, { useState } from "react";
+import axios from "axios"; 
+import staticAnnouncements from "../data/announcements.json"; // Importing the local JSON
 
 // ---------------- TYPES ----------------
 type Announcement = {
@@ -13,7 +13,7 @@ type Announcement = {
 
 type AnnouncementType = "important" | "update" | "new" | "highlight" | string;
 
-// ---------------- THEME HELPERS ----------------
+//theme styles based on type
 const getTypeStyles = (type: AnnouncementType): string => {
   switch (type) {
     case "important":
@@ -31,92 +31,53 @@ const getTypeStyles = (type: AnnouncementType): string => {
 
 const getTypeEmoji = (type: AnnouncementType): string => {
   switch (type) {
-    case "important":
-      return "🚨";
-    case "update":
-      return "📝";
-    case "new":
-      return "✨";
-    case "highlight":
-      return "⭐";
-    default:
-      return "ℹ️";
+    case "important": return "🚨";
+    case "update": return "📝";
+    case "new": return "✨";
+    case "highlight": return "⭐";
+    default: return "ℹ️";
   }
 };
 
 // ---------------- COMPONENT ----------------
 const Announcements: React.FC = () => {
-  const [announcements, setAnnouncements] = useState<Announcement[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
-  // Newsletter
+  // DIRECTLY USE STATIC DATA (Solves the White Screen Crash)
+  const announcements: Announcement[] = staticAnnouncements;
+  
+  // Newsletter Logic
   const [email, setEmail] = useState("");
   const [isSubscribing, setIsSubscribing] = useState(false);
+  
+  // Note: This API call might still fail if backend is down, but it won't crash the page on load
+  const CONTACT_API_URL = "/api/contact"; 
 
-const API_URL = "/api/announcements";
-const CONTACT_API_URL = "/api/contact";
-  // FETCH ANNOUNCEMENTS
-  useEffect(() => {
-    const fetchAnnouncements = async () => {
-      try {
-        const response = await axios.get(API_URL);
-        setAnnouncements(response.data);
-        setIsLoading(false);
-      } catch (err: unknown) {
-        let message = "Failed to load updates.";
-
-        if (axios.isAxiosError(err) && err.response) {
-          message = `Server Error (${err.response.status})`;
-        } else if (err instanceof Error) {
-          message = err.message;
-        }
-
-        setError(message);
-        setIsLoading(false);
-      }
-    };
-    fetchAnnouncements();
-  }, []);
-
-  // SUBSCRIBE HANDLER
   const handleSubscribe = async () => {
     if (!email || !email.includes("@")) {
       alert("Please enter a valid email address.");
       return;
     }
-
     setIsSubscribing(true);
-
     try {
       await axios.post(CONTACT_API_URL, {
         type: "Newsletter Subscription",
         email,
         timestamp: new Date().toISOString(),
       });
-
       alert("Successfully subscribed! 🚀");
       setEmail("");
     } catch (error) {
-      alert("Failed to subscribe. Please ensure the server is running.");
+      // Graceful error handling
+      console.error(error);
+      alert("Subscription service is currently offline. Please try again later.");
     } finally {
       setIsSubscribing(false);
     }
   };
 
   return (
-    <section
-      id="announcements"
-      className="relative w-full py-24 bg-black min-h-screen overflow-hidden font-sans selection:bg-purple-500/30"
-    >
+    <section id="announcements" className="relative w-full py-24 bg-black min-h-screen overflow-hidden font-sans selection:bg-purple-500/30">
       {/* Background */}
-      <div
-        className="absolute inset-0 opacity-[0.05] pointer-events-none z-0"
-        style={{
-          backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")',
-        }}
-      ></div>
-
+      <div className="absolute inset-0 opacity-[0.05] pointer-events-none z-0" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }}></div>
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
         <div className="absolute top-20 right-[-10%] w-[600px] h-[600px] bg-purple-900/20 rounded-full blur-[120px]" />
         <div className="absolute bottom-20 left-[-10%] w-[500px] h-[500px] bg-orange-900/10 rounded-full blur-[100px]" />
@@ -126,114 +87,47 @@ const CONTACT_API_URL = "/api/contact";
         {/* Header */}
         <div className="mb-20 flex flex-col md:flex-row md:items-end justify-between border-b border-white/10 pb-6 backdrop-blur-sm">
           <div>
-            <h2 className="text-xs font-bold text-orange-500 mb-3 tracking-[0.2em] uppercase">
-              / Updates
-            </h2>
+            <h2 className="text-xs font-bold text-orange-500 mb-3 tracking-[0.2em] uppercase">/ Updates</h2>
             <h3 className="text-5xl md:text-6xl font-bold tracking-tighter text-white">
-              Latest{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">
-                News.
-              </span>
+              Latest <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">News.</span>
             </h3>
           </div>
           <p className="mt-6 md:mt-0 max-w-sm text-white/50 text-base leading-relaxed text-right">
-            Stay plugged in to the <br />
-            <span className="text-white/90">Fiestron Ecosystem.</span>
+            Stay plugged in to the <br /> <span className="text-white/90">Fiestron Ecosystem.</span>
           </p>
         </div>
 
-        {/* Loading */}
-        {isLoading && (
-          <div className="flex flex-col items-center justify-center py-20 space-y-4">
-            <div className="w-10 h-10 border-4 border-purple-500 border-t-transparent rounded-full animate-spin" />
-            <p className="text-white/40 text-sm tracking-widest uppercase animate-pulse">
-              Syncing Feed...
-            </p>
-          </div>
-        )}
-
-        {/* Error */}
-        {error && (
-          <div className="p-6 rounded-2xl border border-red-500/30 bg-red-500/10 text-center backdrop-blur-md">
-            <p className="text-red-400 font-medium">⚠️ {error}</p>
-            <p className="text-red-400/60 text-sm mt-2">
-              Check your connection or try again later.
-            </p>
-          </div>
-        )}
-
-        {/* Announcements */}
-        {!isLoading && !error && (
-          <div className="grid gap-6">
-            {/* Only map if announcements is actually an Array */}
-{Array.isArray(announcements) && announcements.length > 0 && announcements.map((ann) => (
-  <div
-    key={ann.id}
-    className={`group relative p-6 rounded-3xl border backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 ${getTypeStyles(
-      ann.type
-    )}`}
-  >
-    {/* ... rest of the card code remains the same ... */}
-    <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-
-    <div className="relative z-10 flex flex-col md:flex-row gap-6">
-      <div className="shrink-0 w-14 h-14 flex items-center justify-center rounded-2xl bg-black/20 border border-white/10 text-3xl shadow-inner">
-        {getTypeEmoji(ann.type)}
-      </div>
-
-      <div className="flex-1">
-        <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-3 gap-2">
-          <h3 className="text-xl font-bold tracking-tight">
-            {ann.title}
-          </h3>
-          <span className="inline-block px-3 py-1 rounded-full bg-black/30 border border-white/5 text-xs font-mono text-white/60 uppercase tracking-wider">
-            {ann.date}
-          </span>
-        </div>
-        <p className="text-white/70 leading-relaxed text-base font-light">
-          {ann.content}
-        </p>
-      </div>
-    </div>
-  </div>
-))}
-
-            {announcements.length === 0 && (
-              <div className="py-20 text-center border border-white/10 rounded-3xl bg-white/5 backdrop-blur-md">
-                <p className="text-white/30 text-lg">All caught up! No new updates.</p>
+        {/* Announcements List */}
+        <div className="grid gap-6">
+          {announcements.map((ann) => (
+            <div key={ann.id} className={`group relative p-6 rounded-3xl border backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 ${getTypeStyles(ann.type)}`}>
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              <div className="relative z-10 flex flex-col md:flex-row gap-6">
+                <div className="shrink-0 w-14 h-14 flex items-center justify-center rounded-2xl bg-black/20 border border-white/10 text-3xl shadow-inner">
+                  {getTypeEmoji(ann.type)}
+                </div>
+                <div className="flex-1">
+                  <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-3 gap-2">
+                    <h3 className="text-xl font-bold tracking-tight">{ann.title}</h3>
+                    <span className="inline-block px-3 py-1 rounded-full bg-black/30 border border-white/5 text-xs font-mono text-white/60 uppercase tracking-wider">{ann.date}</span>
+                  </div>
+                  <p className="text-white/70 leading-relaxed text-base font-light">{ann.content}</p>
+                </div>
               </div>
-            )}
-          </div>
-        )}
+            </div>
+          ))}
+        </div>
 
-        {/* Newsletter */}
+        {/* Newsletter Section */}
         <div className="mt-24 relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-2xl p-10 md:p-16 text-center group">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-gradient-to-b from-purple-500/10 to-transparent opacity-50 pointer-events-none" />
-
           <div className="relative z-10 max-w-2xl mx-auto">
-            <span className="inline-block p-3 rounded-2xl bg-white/5 border border-white/10 text-3xl mb-6">
-              🔔
-            </span>
-            <h4 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Never Miss a Beat.
-            </h4>
-            <p className="text-white/50 mb-8 text-lg">
-              Get real-time updates on schedules, results, and surprise events directly to your inbox.
-            </p>
-
+            <span className="inline-block p-3 rounded-2xl bg-white/5 border border-white/10 text-3xl mb-6">🔔</span>
+            <h4 className="text-3xl md:text-4xl font-bold text-white mb-4">Never Miss a Beat.</h4>
+            <p className="text-white/50 mb-8 text-lg">Get real-time updates on schedules, results, and surprise events directly to your inbox.</p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <input
-                type="email"
-                placeholder="Enter your email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 px-6 py-4 rounded-xl bg-black/40 border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-purple-500/50 focus:bg-black/60 transition-all"
-              />
-              <button
-                onClick={handleSubscribe}
-                disabled={isSubscribing}
-                className="px-8 py-4 rounded-xl font-bold text-white bg-gradient-to-r from-orange-600 via-pink-600 to-purple-600 hover:shadow-[0_0_30px_rgba(236,72,153,0.4)] transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
+              <input type="email" placeholder="Enter your email address" value={email} onChange={(e) => setEmail(e.target.value)} className="flex-1 px-6 py-4 rounded-xl bg-black/40 border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-purple-500/50 focus:bg-black/60 transition-all" />
+              <button onClick={handleSubscribe} disabled={isSubscribing} className="px-8 py-4 rounded-xl font-bold text-white bg-gradient-to-r from-orange-600 via-pink-600 to-purple-600 hover:shadow-[0_0_30px_rgba(236,72,153,0.4)] transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
                 {isSubscribing ? "Subscribing..." : "Subscribe"}
               </button>
             </div>

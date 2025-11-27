@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "type": "important",
+    "title": "CL Meet Alert",
+    "date": "23 Nov",
+    "content": "A special meetup dedicated to technology, creativity, and collaboration! Venue: KC College, Classroom 505."
+  },
+  {
+    "id": 2,
+    "type": "new",
+    "title": "Registrations Open",
+    "date": "26 Nov",
+    "content": "Event registrations are now live! Check the Events tab to sign up for Hackathon, BGMI, and more."
+  },
+  {
+    "id": 3,
+    "type": "update",
+    "title": "Website Launch",
+    "date": "27 Nov",
+    "content": "Welcome to the official Fiestron 2025 portal. Explore the neon tunnel!"
+  }
+]
