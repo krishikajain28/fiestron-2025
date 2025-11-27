@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+
 // ---------------- TYPES ----------------
 type Announcement = {
   id: string | number;
@@ -164,36 +165,38 @@ const CONTACT_API_URL = "/api/contact";
         {/* Announcements */}
         {!isLoading && !error && (
           <div className="grid gap-6">
-            {announcements.map((ann) => (
-              <div
-                key={ann.id}
-                className={`group relative p-6 rounded-3xl border backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 ${getTypeStyles(
-                  ann.type
-                )}`}
-              >
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+            {/* Only map if announcements is actually an Array */}
+{Array.isArray(announcements) && announcements.length > 0 && announcements.map((ann) => (
+  <div
+    key={ann.id}
+    className={`group relative p-6 rounded-3xl border backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 ${getTypeStyles(
+      ann.type
+    )}`}
+  >
+    {/* ... rest of the card code remains the same ... */}
+    <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-                <div className="relative z-10 flex flex-col md:flex-row gap-6">
-                  <div className="shrink-0 w-14 h-14 flex items-center justify-center rounded-2xl bg-black/20 border border-white/10 text-3xl shadow-inner">
-                    {getTypeEmoji(ann.type)}
-                  </div>
+    <div className="relative z-10 flex flex-col md:flex-row gap-6">
+      <div className="shrink-0 w-14 h-14 flex items-center justify-center rounded-2xl bg-black/20 border border-white/10 text-3xl shadow-inner">
+        {getTypeEmoji(ann.type)}
+      </div>
 
-                  <div className="flex-1">
-                    <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-3 gap-2">
-                      <h3 className="text-xl font-bold tracking-tight">
-                        {ann.title}
-                      </h3>
-                      <span className="inline-block px-3 py-1 rounded-full bg-black/30 border border-white/5 text-xs font-mono text-white/60 uppercase tracking-wider">
-                        {ann.date}
-                      </span>
-                    </div>
-                    <p className="text-white/70 leading-relaxed text-base font-light">
-                      {ann.content}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
+      <div className="flex-1">
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-3 gap-2">
+          <h3 className="text-xl font-bold tracking-tight">
+            {ann.title}
+          </h3>
+          <span className="inline-block px-3 py-1 rounded-full bg-black/30 border border-white/5 text-xs font-mono text-white/60 uppercase tracking-wider">
+            {ann.date}
+          </span>
+        </div>
+        <p className="text-white/70 leading-relaxed text-base font-light">
+          {ann.content}
+        </p>
+      </div>
+    </div>
+  </div>
+))}
 
             {announcements.length === 0 && (
               <div className="py-20 text-center border border-white/10 rounded-3xl bg-white/5 backdrop-blur-md">
