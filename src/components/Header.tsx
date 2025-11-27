@@ -10,8 +10,18 @@ const Header: React.FC = () => {
     if (location.pathname !== '/') {
       navigate('/', { state: { scrollTo: id } });
     } else {
-      const el = document.getElementById(id);
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // fix: handle home explicitly using window scroll
+      if (id === 'home') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        const el = document.getElementById(id);
+        if (el) {
+            // Optional: Offset for sticky header if needed
+            // const y = el.getBoundingClientRect().top + window.scrollY - 100;
+            // window.scrollTo({ top: y, behavior: 'smooth' });
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
     }
     setIsOpen(false);
   };
@@ -20,15 +30,23 @@ const Header: React.FC = () => {
     setIsOpen(false);
   };
 
-  // FIXED: Moved useEffect OUTSIDE of handleNavClick
   useEffect(() => {
     if (location.state && location.state.scrollTo) {
-      const el = document.getElementById(location.state.scrollTo);
-      if (el) {
-        setTimeout(() => {
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 100);
-      }
+      const targetId = location.state.scrollTo;
+      
+      // FIX: Add a small delay to ensure DOM is ready, handle 'home' explicitly
+      setTimeout(() => {
+        if (targetId === 'home') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          const el = document.getElementById(targetId);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+        // Clear state so it doesn't scroll again on refresh
+        window.history.replaceState({}, document.title);
+      }, 100);
     }
   }, [location.state]);
 
