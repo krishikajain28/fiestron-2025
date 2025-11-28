@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
+const crypto = require('crypto');
+
 
 const app = express();
 
@@ -39,6 +41,11 @@ const ContactSchema = new mongoose.Schema({
 });
 const Contact = mongoose.model('Contact', ContactSchema);
 
+const AdminSchema = new mongoose.Schema({
+  hash: String
+});
+const Admin = mongoose.model('Admin', AdminSchema);
+
 // --- API ROUTES ---
 
 // 1. GET Announcements
@@ -47,10 +54,10 @@ app.get('/api/announcements', async (req, res) => {
   try {
     // Get all announcements, sorted by newest first
     const data = await Announcement.find().sort({ createdAt: -1 });
-    
+
     // Format the _id to be 'id' for the frontend
     const formatted = data.map(item => ({
-      id: item._id, 
+      id: item._id,
       ...item._doc
     }));
     res.json(formatted);
@@ -59,25 +66,51 @@ app.get('/api/announcements', async (req, res) => {
   }
 });
 
+
 // 2. POST Announcement (For Admin Use)
 app.post('/api/announcements', async (req, res) => {
   await connectDB();
+
   try {
-    const { title, type, content } = req.body;
-    const date = new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
-    
+    const { title, type, content, password } = req.body;
+    if (!password) return res.status(400).json({ error: 'Password required' });
+
+    // Hash the incoming password
+    const incomingHash = crypto
+      .createHash('sha256')
+      .update(password)
+      .digest('hex');
+
+    // Fetch admin stored hash
+    const adminDoc = await Admin.findOne();
+    if (!adminDoc) return res.status(500).json({ error: 'Admin not set up' });
+
+    // Compare hashes
+    if (incomingHash !== adminDoc.hash) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    // Create date string (unchanged)
+    const date = new Date().toLocaleDateString(
+      'en-US',
+      { day: 'numeric', month: 'short', year: 'numeric' }
+    );
+
     const newAnnouncement = await Announcement.create({
       title,
-      date, 
+      date,
       type,
       content
     });
-    
+
     res.status(201).json(newAnnouncement);
+
   } catch (err) {
+    console.error(err);
     res.status(500).json({ error: 'Could not save' });
   }
 });
+
 
 // 3. POST Contact/Subscribe
 app.post('/api/contact', async (req, res) => {
