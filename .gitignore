@@ -5,6 +5,6 @@ dist/
 .DS_Store
 build/
 
-# beign fs safeee now
+# api being fs safeee now
 api/.env
 api/node_modules/
