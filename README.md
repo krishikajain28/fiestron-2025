@@ -1,5 +1,3 @@
-
-````markdown
 # 🚀 Fiestron 2025 - Official Web Portal
 
 The official full-stack web platform for **Fiestron 2025**, the annual Tech & Cultural Festival of **KC College**.
