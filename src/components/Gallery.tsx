@@ -184,7 +184,7 @@ const Gallery: React.FC = () => {
             </p>
           </div>
 
-          {/* Filter Buttons - ROUNDED FULL ADDED HERE */}
+          {/* Filter Buttons */}
           <div className="flex justify-center gap-4 mb-16 flex-wrap">
             {categories.map(cat => {
               const active = filter === cat;
@@ -211,18 +211,16 @@ const Gallery: React.FC = () => {
             groupedItems?.map((group, index) => (
               <React.Fragment key={group.category}>
                 
-                {/* --- CENTERED HEADERS UPDATED HERE --- */}
-                {!(group.category === '2025' && group.items.length === 0) && (
-                  <div className={`mt-24 mb-12 text-center ${index > 0 ? 'border-t border-white/10 pt-16' : ''}`}>
-                    <h3 className="text-3xl md:text-4xl font-bold tracking-tight inline-flex items-center gap-3">
-                      <span className="text-white">{group.category}</span>
-                      <span className="text-transparent bg-clip-text text-white/50">
-                        {group.category === '2024' ? 'Archives' : 'Live Feed'}
-                      </span>
-                    </h3>
-                    <div className="w-12 h-1 bg-gradient-to-r from-transparent via-white/20 to-transparent mx-auto mt-4 rounded-full"></div>
-                  </div>
-                )}
+                {/* --- CHANGED: Header now renders for 2025 even if empty --- */}
+                <div className={`mt-24 mb-12 text-center ${index > 0 ? 'border-t border-white/10 pt-16' : ''}`}>
+                  <h3 className="text-3xl md:text-4xl font-bold tracking-tight inline-flex items-center gap-3">
+                    <span className="text-white">{group.category}</span>
+                    <span className="text-transparent bg-clip-text text-white/50">
+                      {group.category === '2024' ? 'Archives' : 'Live Feed'}
+                    </span>
+                  </h3>
+                  <div className="w-12 h-1 bg-gradient-to-r from-transparent via-white/20 to-transparent mx-auto mt-4 rounded-full"></div>
+                </div>
 
                 {group.items.length > 0 ? (
                   <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
@@ -270,7 +268,7 @@ const Gallery: React.FC = () => {
               onClick={showPrev}
               className="absolute left-4 md:left-10 top-1/2 -translate-y-1/2 z-[160] p-4 bg-black/50 hover:bg-white/10 border border-white/10 rounded-full text-white transition-all group"
             >
-               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-x-1 transition-transform"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-x-1 transition-transform"><polyline points="15 18 9 12 15 6"></polyline></svg>
             </button>
 
             {/* Next Button */}
@@ -278,7 +276,7 @@ const Gallery: React.FC = () => {
               onClick={showNext}
               className="absolute right-4 md:right-10 top-1/2 -translate-y-1/2 z-[160] p-4 bg-black/50 hover:bg-white/10 border border-white/10 rounded-full text-white transition-all group"
             >
-               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </button>
 
             {/* Content Container */}

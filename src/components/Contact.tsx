@@ -154,7 +154,7 @@ const Contact: React.FC = () => {
                     <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-purple-500/30 transition-all group">
                        <span className="w-10 h-10 rounded-full bg-black/30 flex items-center justify-center text-xl group-hover:scale-110 transition-transform mt-1">📞</span>
                        <div className="flex-1">
-                          <p className="text-xs text-white/40 uppercase tracking-wider font-bold mb-2">Student Heads</p>
+                          <p className="text-xs text-white/40 uppercase tracking-wider font-bold mb-2">Contact Us</p>
                           <div className="flex flex-col gap-2">
                             <a href="tel:+919786678636" className="flex justify-between text-sm text-white/80 hover:text-white transition-colors">
                               <span>Rida Ansari</span>
