@@ -1096,8 +1096,15 @@ const Events: React.FC = () => {
                               Info & Rules
                             </button>
                             
-                            {/* --- BUTTON LOGIC CHANGE: Carnival = Hidden, Expired = Closed, Valid = Register --- */}
-                            {event.category !== 'carnival' && (
+                            {/* --- BUTTON LOGIC CHANGE: Carnival = Non-Clickable Text, Others = Link/Expired --- */}
+                            {event.category === 'carnival' ? (
+                                <button
+                                  disabled
+                                  className="flex-1 py-3 rounded-xl text-xs font-bold uppercase tracking-wide text-orange-300 bg-orange-900/20 border border-orange-500/30 cursor-default opacity-90"
+                                >
+                                  On-Spot Reg
+                                </button>
+                            ) : (
                                 <button
                                   onClick={(e) => handleRegisterClick(event, e)}
                                   className={`flex-1 py-3 rounded-xl text-xs font-bold uppercase tracking-wide text-white transition-all transform active:scale-95 ${
@@ -1268,7 +1275,7 @@ const Events: React.FC = () => {
                   </div>
 
                   <div className="mt-12 pt-8 border-t border-white/10 flex justify-end">
-                      {/* --- BUTTON LOGIC CHANGE: Carnival = On Spot Text, Others = Link/Expired --- */}
+                      {/* --- MODAL BUTTON LOGIC: Carnival = Message, Others = Register/Full --- */}
                       {selectedEvent.category === 'carnival' ? (
                           <div className="p-4 rounded-xl bg-orange-500/10 border border-orange-500/30 text-orange-400 text-center w-full">
                            <p className="font-bold text-lg">🎟️ On-Spot Registration</p>
