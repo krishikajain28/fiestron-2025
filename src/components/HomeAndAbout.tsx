@@ -112,7 +112,7 @@ const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto text-center px-4 sm:px-6">
           <div className="inline-block mb-6">
             <span className="px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-[10px] sm:text-xs font-medium tracking-wider text-pink-200 uppercase shadow-[0_0_15px_rgba(236,72,153,0.3)]">
-              KC College Presents
+              KC Tech Club Presents
             </span>
           </div>
           {/* updated: font sizes for mobile (text-4xl) to avoid breaking */}
