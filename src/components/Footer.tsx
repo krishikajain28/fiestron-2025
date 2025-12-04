@@ -5,189 +5,158 @@ const Footer: React.FC = () => {
   const navigate = useNavigate()
   const location = useLocation()
 
-  // Scroll handler for homepage sections (Reused logic for consistency)
+  // --- Smooth Scroll Logic ---
   const scrollToSection = (id: string) => {
     if (location.pathname !== '/') {
-      // If on another page, navigate to home first with state
       navigate('/', { state: { scrollTo: id } })
     } else {
-      // If already on home page, scroll smoothly
       const el = document.getElementById(id)
       if (el) {
-        const headerOffset = 100; // Match the header offset
+        const headerOffset = 100; 
         const elementPosition = el.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.scrollY - headerOffset;
-  
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: "smooth"
-        });
+        window.scrollTo({ top: offsetPosition, behavior: "smooth" });
       } else {
-        // Fallback if element not found (e.g. top of page)
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
   }
 
   return (
-    <footer id="footer" className="relative w-full bg-black pt-20 pb-10 overflow-hidden  border border-white/0">
+    // z-50 to sit above the blob, bg-black for seamless look
+    <footer className="relative z-50 w-full bg-black text-white pt-20 pb-10 border-t border-white/[0.08] font-sans antialiased">
       
-      {/* --- SHARED BACKGROUND (Matches Hero/About) --- */}
-      <div className="absolute inset-0 opacity-[0.05] pointer-events-none z-0" 
-           style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }}>
-      </div>
-      
-      {/* Bottom Glows */}
-      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-         {/* <div className="absolute bottom-[-50%] left-[-10%] w-[500px] h-[500px] bg-purple-900/20 rounded-full blur-[100px]" /> */}
-         {/* <div className="absolute bottom-[-40%] right-[-10%] w-[500px] h-[500px] bg-orange-900/20 rounded-full blur-[100px]" /> */}
-      </div>
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6">
+        {/* --- MAIN GRID SYSTEM --- */}
+        {/* Changed layout to 5-3-4 split to remove the empty gap and tighten the structure */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-20">
 
-        {/* MAIN GRID */}
-        <div className="grid gap-12 mb-16 md:grid-cols-3">
-
-          {/* Column 1: Branding */}
-          <div className="col-span-1 md:col-span-1">
-            <h3 className="font-extrabold mb-4 text-2xl tracking-tight bg-gradient-to-r from-orange-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">
-              FIESTRON
-            </h3>
-            <p className="text-sm text-white/50 mb-6 leading-relaxed">
-              Where Code meets Culture. <br/>
-              Celebrating innovation at KC College.
-            </p>
-            
-            {/* Social Icons Row */}
-            <div className="flex gap-4">
-
-              {/* Instagram */}
-              <a 
-                href="https://www.instagram.com/kc.techclub" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 hover:border-purple-500/50 transition-all"
-              >
-                <svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  viewBox="0 0 24 24" 
-                  fill="currentColor" 
-                  className="w-4 h-4"
-                >
-                  <path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 2c1.654 0 3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 1.346-3 3-3h10zm-5 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm4.5-.25a1.25 1.25 0 112.5 0 1.25 1.25 0 01-2.5 0z"/>
-                </svg>
-              </a>
-
-              {/* LinkedIn */}
-              <a 
-                href="#" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 hover:border-purple-500/50 transition-all"
-              >
-                <svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  viewBox="0 0 24 24" 
-                  fill="currentColor" 
-                  className="w-4 h-4"
-                >
-                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                </svg>
-              </a>
-
-              {/* Gmail / Mail */}
-              <a 
-                href="mailto:fiestron@kccollege.edu.in"
-                className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 hover:border-purple-500/50 transition-all"
-              >
-                <svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  viewBox="0 0 24 24" 
-                  fill="currentColor" 
-                  className="w-4 h-4"
-                >
-                  <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                </svg>
-              </a>
-
+          {/* COLUMN 1: BRANDING & SOCIALS (Span 5) */}
+          <div className="md:col-span-5 flex flex-col gap-8">
+            <div>
+              <h2 className="text-3xl font-extrabold tracking-tighter mb-4">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500">
+                  FIESTRON
+                </span>
+                <span className="text-white"></span>
+              </h2>
+              <p className="text-neutral-500 text-sm leading-relaxed max-w-sm font-medium">
+                The Past Isn't Forgotten, It's Rebooted. <br />
+                KC College's premier technical festival. <br />
+                Where code meets culture.
+              </p>
             </div>
 
+            <div className="flex gap-5">
+              <SocialLink href="https://www.instagram.com/kc.techclub/" label="Instagram">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              </SocialLink>
+              
+              <SocialLink href="https://www.linkedin.com/company/fiestron/" label="LinkedIn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              </SocialLink>
+              
+              <SocialLink href="mailto:kccs.techclub@gmail.com" label="Email">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              </SocialLink>
+            </div>
           </div>
 
-          {/* Column 2: Navigation */}
-          <div>
-            <p className="text-xs font-bold text-purple-400 mb-6 uppercase tracking-widest">Quick Links</p>
-            <ul className="flex flex-col gap-3">
-              <li>
-                <button onClick={() => scrollToSection('home')} className="text-sm text-white/60 hover:text-white hover:translate-x-1 transition-all text-left">
-                  Home
-                </button>
-              </li>
-              <li>
-                <button onClick={() => scrollToSection('about')} className="text-sm text-white/60 hover:text-white hover:translate-x-1 transition-all text-left">
-                  About
-                </button>
-              </li>
-              <li>
-                <Link to="/events" className="text-sm text-white/60 hover:text-white hover:translate-x-1 transition-all inline-block">
-                  Events
-                </Link>
-              </li>
-              <li>
-                <Link to="/gallery" className="text-sm text-white/60 hover:text-white hover:translate-x-1 transition-all inline-block">
-                  Gallery
-                </Link>
-              </li>
-              <li>
-                <Link to="/team" className="text-sm text-white/60 hover:text-white hover:translate-x-1 transition-all inline-block">
-                  Team
-                </Link>
-              </li>
+          {/* COLUMN 2: EXPLORE (Span 3) */}
+          <div className="md:col-span-3 pt-2">
+            <h4 className="text-xs font-bold text-purple-500 uppercase tracking-[0.2em] mb-6">Explore</h4>
+            <ul className="space-y-4">
+              <li><FooterBtn onClick={() => scrollToSection('home')}>Home</FooterBtn></li>
+              <li><FooterBtn onClick={() => scrollToSection('about')}>About</FooterBtn></li>
+              <li><FooterLink to="/events">Events Catalog</FooterLink></li>
+              <li><FooterLink to="/gallery">Gallery</FooterLink></li>
+              <li><FooterLink to="/team">Organizing Team</FooterLink></li>
             </ul>
           </div>
 
-          {/* Column 3: Contact Info */}
-          <div>
-            <p className="text-xs font-bold text-orange-400 mb-6 uppercase tracking-widest">Contact</p>
-            <div className="flex flex-col gap-4">
-              <div className="group flex items-start gap-3">
-                 <span className="text-lg opacity-50 group-hover:opacity-100 transition-opacity">📧</span>
-                 <div>
-                    <p className="text-xs text-white/40 uppercase tracking-wide">Email</p>
-                    <a href="mailto:fiestron@kccollege.edu.in" className="text-sm text-white/80 hover:text-white transition-colors">fiestron@kccollege.edu.in</a>
-                 </div>
-              </div>
-              
-              <div className="group flex items-start gap-3">
-                 <span className="text-lg opacity-50 group-hover:opacity-100 transition-opacity">📞</span>
-                 <div>
-                    <p className="text-xs text-white/40 uppercase tracking-wide">Phone</p>
-                    <p className="text-sm text-white/80">+91 79776 75602</p>
-                 </div>
+          {/* COLUMN 3: CONTACT US (Span 4) */}
+          <div className="md:col-span-4 pt-2">
+            <h4 className="text-xs font-bold text-orange-500 uppercase tracking-[0.2em] mb-6">Contact Us</h4>
+            
+            <div className="space-y-6">
+              {/* Rida */}
+              <div className="group">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-sm font-semibold text-neutral-200 group-hover:text-white transition-colors">Rida Ansari</span>
+                </div>
+                <a href="tel:+919786678636" className="text-sm text-neutral-500 font-mono tracking-wide group-hover:text-pink-500 transition-colors duration-300 flex items-center gap-2">
+                  <span className="w-1 h-1 bg-neutral-600 rounded-full group-hover:bg-pink-500 transition-colors"></span>
+                  +91 97866 78636
+                </a>
               </div>
 
-              <div className="group flex items-start gap-3">
-                 <span className="text-lg opacity-50 group-hover:opacity-100 transition-opacity">📍</span>
-                 <div>
-                    <p className="text-xs text-white/40 uppercase tracking-wide">Location</p>
-                    <p className="text-sm text-white/80">KC College, Churchgate,<br/>Mumbai - 400020</p>
-                 </div>
+              {/* Akanksha */}
+              <div className="group">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-sm font-semibold text-neutral-200 group-hover:text-white transition-colors">Akanksha Jadhav</span>
+                </div>
+                <a href="tel:+917083120150" className="text-sm text-neutral-500 font-mono tracking-wide group-hover:text-orange-500 transition-colors duration-300 flex items-center gap-2">
+                  <span className="w-1 h-1 bg-neutral-600 rounded-full group-hover:bg-orange-500 transition-colors"></span>
+                  +91 70831 20150
+                </a>
+              </div>
+
+              {/* Official Email */}
+              <div className="pt-2 border-t border-white/5 mt-4">
+                <a href="mailto:kccs.techclub@gmail.com" className="group flex items-center gap-3 text-sm text-neutral-500 hover:text-white transition-colors duration-300 mt-4">
+                  <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]"></span>
+                  kccs.techclub@gmail.com
+                </a>
               </div>
             </div>
           </div>
 
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-white/30 text-center md:text-left">
-            © 2025 FIESTRON. All rights reserved. <br className="md:hidden"/> Built with 💜 by the Web Team.
-          </p>
-                  </div>
+        {/* --- BOTTOM BAR --- */}
+        <div className="pt-8 border-t border-white/[0.08] flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <div className="flex flex-col gap-1">
+            <p className="text-xs text-neutral-500">© 2025 Fiestron. All rights reserved.</p>
+            <p className="text-[10px] text-neutral-600 uppercase tracking-wide">KC College, Churchgate, Mumbai - 400020</p>
+          </div>
+          
+          <div className="flex items-center gap-2">
+             <span className="text-xs font-medium text-neutral-600 uppercase tracking-wider hover:text-neutral-400 transition-colors cursor-default">
+               Designed by Tech Club Web Team
+             </span>
+          </div>
+        </div>
 
       </div>
     </footer>
   )
 }
+
+// --- MICRO COMPONENTS ---
+
+const FooterLink = ({ to, children }: { to: string, children: React.ReactNode }) => (
+  <Link to={to} className="block text-sm font-medium text-neutral-400 hover:text-white hover:translate-x-1 transition-all duration-300">
+    {children}
+  </Link>
+)
+
+const FooterBtn = ({ onClick, children }: { onClick: () => void, children: React.ReactNode }) => (
+  <button onClick={onClick} className="block text-sm font-medium text-neutral-400 hover:text-white hover:translate-x-1 transition-all duration-300 text-left">
+    {children}
+  </button>
+)
+
+const SocialLink = ({ href, label, children }: { href: string, label: string, children: React.ReactNode }) => (
+  <a 
+    href={href} 
+    target="_blank" 
+    rel="noopener noreferrer"
+    aria-label={label}
+    className="text-neutral-500 hover:text-white transition-colors duration-300 hover:scale-110 transform"
+  >
+    {children}
+  </a>
+)
 
 export default Footer
