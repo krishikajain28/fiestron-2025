@@ -147,25 +147,37 @@ const Contact: React.FC = () => {
               
               {/* QUICK LINKS CARD */}
               <div className="p-8 rounded-3xl border border-white/10 bg-white/[0.02] backdrop-blur-xl">
-                 <h3 className="text-xl font-bold text-white mb-6">Contact Information</h3>
-                 
-                 <div className="space-y-4">
-                    <a href="tel:+919876543210" className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-purple-500/30 transition-all group">
-                       <span className="w-10 h-10 rounded-full bg-black/30 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">📞</span>
-                       <div>
-                          <p className="text-xs text-white/40 uppercase tracking-wider font-bold">Phone</p>
-                          <p className="text-white font-medium">+91 98765 43210</p>
+                  <h3 className="text-xl font-bold text-white mb-6">Contact Information</h3>
+                  
+                  <div className="space-y-4">
+                    {/* PHONE SECTION */}
+                    <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-purple-500/30 transition-all group">
+                       <span className="w-10 h-10 rounded-full bg-black/30 flex items-center justify-center text-xl group-hover:scale-110 transition-transform mt-1">📞</span>
+                       <div className="flex-1">
+                          <p className="text-xs text-white/40 uppercase tracking-wider font-bold mb-2">Student Heads</p>
+                          <div className="flex flex-col gap-2">
+                            <a href="tel:+919786678636" className="flex justify-between text-sm text-white/80 hover:text-white transition-colors">
+                              <span>Rida Ansari</span>
+                              <span className="font-mono">+91 97866 78636</span>
+                            </a>
+                            <a href="tel:+917083120150" className="flex justify-between text-sm text-white/80 hover:text-white transition-colors">
+                              <span>Akanksha Jadhav</span>
+                              <span className="font-mono">+91 70831 20150</span>
+                            </a>
+                          </div>
                        </div>
-                    </a>
+                    </div>
 
-                    <a href="mailto:fiestron@kccollege.edu.in" className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-purple-500/30 transition-all group">
+                    {/* EMAIL SECTION */}
+                    <a href="mailto:kccs.techclub@gmail.com" className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-purple-500/30 transition-all group">
                        <span className="w-10 h-10 rounded-full bg-black/30 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">📧</span>
                        <div>
                           <p className="text-xs text-white/40 uppercase tracking-wider font-bold">Email</p>
-                          <p className="text-white font-medium">fiestron@kccollege.edu.in</p>
+                          <p className="text-white font-medium">kccs.techclub@gmail.com</p>
                        </div>
                     </a>
 
+                    {/* LOCATION SECTION */}
                     <div className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-purple-500/30 transition-all group cursor-default">
                        <span className="w-10 h-10 rounded-full bg-black/30 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">📍</span>
                        <div>
@@ -173,36 +185,60 @@ const Contact: React.FC = () => {
                           <p className="text-white font-medium">KC College, Churchgate, Mumbai</p>
                        </div>
                     </div>
-                 </div>
+                  </div>
 
-                 {/* Socials */}
-                 <div className="mt-8 pt-8 border-t border-white/10">
-                    <p className="text-xs text-white/40 uppercase tracking-wider font-bold mb-4">Follow Us</p>
-                    <div className="flex gap-3">
-                       {['📷 Instagram', '🐦 Twitter', '💼 LinkedIn', '📹 YouTube'].map((social, i) => (
-                          <button key={i} className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/70 text-sm font-medium hover:bg-white/10 hover:text-white hover:border-orange-500/30 transition-all">
-                             {social.split(' ')[0]}
-                          </button>
-                       ))}
-                    </div>
-                 </div>
+                  {/* Socials - REPLACED WITH ICONS */}
+                  <div className="mt-8 pt-8 border-t border-white/10">
+                     <p className="text-xs text-white/40 uppercase tracking-wider font-bold mb-4">Follow Us</p>
+                     <div className="flex gap-4">
+                        {/* INSTAGRAM ICON */}
+                        <a 
+                          href="https://www.instagram.com/kc.techclub/" 
+                          target="_blank" 
+                          rel="noreferrer"
+                          className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-pink-500 hover:border-pink-500/30 hover:bg-pink-500/10 transition-all duration-300 transform hover:scale-105"
+                          aria-label="Instagram"
+                        >
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                             <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                             <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                             <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                           </svg>
+                        </a>
+
+                        {/* LINKEDIN ICON */}
+                        <a 
+                          href="https://www.linkedin.com/company/fiestron/" 
+                          target="_blank" 
+                          rel="noreferrer"
+                          className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-blue-500 hover:border-blue-500/30 hover:bg-blue-500/10 transition-all duration-300 transform hover:scale-105"
+                          aria-label="LinkedIn"
+                        >
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                             <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                             <rect x="2" y="9" width="4" height="12"></rect>
+                             <circle cx="4" cy="4" r="2"></circle>
+                           </svg>
+                        </a>
+                     </div>
+                  </div>
               </div>
 
               {/* FAQ SECTION */}
               <div className="p-8 rounded-3xl border border-white/10 bg-gradient-to-br from-white/5 to-transparent backdrop-blur-xl">
-                 <h3 className="text-xl font-bold text-white mb-6">Common Questions</h3>
-                 <div className="space-y-3">
+                  <h3 className="text-xl font-bold text-white mb-6">Common Questions</h3>
+                  <div className="space-y-3">
                     {[
                       { q: "When is FIESTRON 2025?", a: "15th & 16th December 2025" },
-                      { q: "Is entry free?", a: "Yes! Fiestron is open to all. Event registration fees apply." },
+                      { q: "Is entry free?", a: "Yes! Fiestron is open to all. Specific event registration fees apply." },
                       { q: "Can I participate in multiple events?", a: "Absolutely! Just ensure timings don't clash." },
                     ].map((faq, idx) => (
                       <div key={idx} className="p-4 rounded-xl bg-black/30 border border-white/5 hover:border-white/10 transition-colors">
-                         <p className="text-purple-300 font-bold text-sm mb-1">{faq.q}</p>
-                         <p className="text-white/60 text-sm">{faq.a}</p>
+                          <p className="text-purple-300 font-bold text-sm mb-1">{faq.q}</p>
+                          <p className="text-white/60 text-sm">{faq.a}</p>
                       </div>
                     ))}
-                 </div>
+                  </div>
               </div>
 
             </div>
