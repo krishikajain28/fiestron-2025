@@ -12,6 +12,9 @@ interface EventData {
   emoji: string;
   fee: string;
   teamSize: string;
+  venue: string;
+  time: string;
+  deadline: string; // ISO Date String for automatic closing logic
   formLink?: string; 
   image: string; 
   details: {
@@ -21,8 +24,7 @@ interface EventData {
     requirements?: string[];
     judging?: string[];
     categories?: string[]; 
-    prizes?: string[]; 
-    points?: string[];
+    prizes?: string[];
   };
 }
 
@@ -31,9 +33,15 @@ const Events: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedEvent, setSelectedEvent] = useState<EventData | null>(null)
   
+  // Use a state for current time to ensure hydration matches (optional but good practice)
+  const [currentTime, setCurrentTime] = useState(new Date());
+
   const location = useLocation();
 
   useEffect(() => {
+    // Update time on mount to check for expirations immediately
+    setCurrentTime(new Date());
+
     if (location.state && location.state.scrollTo) {
       const element = document.getElementById(location.state.scrollTo);
       if (element) {
@@ -88,36 +96,40 @@ const Events: React.FC = () => {
     }
   }
 
+  // --- CONSTANTS ---
+  const PREMIUM_REWARD_CLAUSE = "Winners will receive a premium reward valued as per the event’s prize pool. T&C apply.";
+
   // --- EVENT DATABASE ---
   const events: EventData[] = [
+    // === TECHNICAL EVENTS ===
     {
       id: 1,
       category: 'technical',
       title: 'Code Quest',
       emoji: '💻',
-      description: 'A multi-round programming challenge testing vintage knowledge and modern problem-solving.',
+      description: 'Code Quest is the flagship technical event of Fiestron 2025, designed to be a rigorous test of a programmer\'s true mettle. It is not merely about writing code that works; it is about writing code that endures. The event bridges the gap between the foundational era of computing and the modern age of optimization. Participants will be thrust into a high-pressure environment where they must navigate through history—starting with pen-and-paper logic that mimics the punch-card era, moving into a typing sprint involving legacy languages like COBOL and BASIC, and finally culminating in a modern algorithmic showdown where Big-O complexity matters more than just output. This is a battleground for those who understand the roots of Computer Science.',
       fee: '₹100',
       teamSize: 'Team of 2',
+      venue: 'CS Lab',
+      time: '15 Dec | 11:30 AM - 1:30 PM',
+      deadline: '2025-12-15T11:30:00',
       formLink: 'https://forms.gle/CTGfGhXCL4Pnbe616',
       image: '/images/events/code-quest.gif', 
       details: {
         rounds: [
-          'Round 1: Retro Computer Trivia + Modern Practices (MCQs - 20 mins)',
-          'Round 2: Typing Challenge with vintage snippets (BASIC, C, COBOL)',
-          'Round 3: Problem-solving (Classic to Modern optimization)'
+          'Round 1: Retro Rush (20 Mins) - This is an elimination round testing your theoretical foundation. Teams will face 30 MCQs covering C/C++ output tracing, pointer arithmetic, and 90s tech trivia. No compilers allowed.',
+          'Round 2: Typing Titan (20 Mins) - A test of syntax memory and raw typing speed. You will be given a printed sheet of code in a vintage language (BASIC/COBOL) or complex Java/C++ boilerplate. You must type it into the IDE exactly as shown, with zero syntax errors, against the clock.',
+          'Round 3: The Optimizer (60 Mins) - The final showdown. Teams are given 3 working algorithmic problems (Brute Force complexity). The goal is to refactor the code to pass hidden test cases within stricter time limits (e.g., reducing O(n²) to O(n)).'
         ],
         rules: [
-          'All rounds are mandatory.',
-          'Internet allowed ONLY in Round 3.',
-          'Plagiarism leads to disqualification.',
-          'Strict time limits enforced.',
-          'Pre-installed software: Text editor, compiler for C/Python/Java.'
+          'Mandatory Attendance: Participation in all three rounds is compulsory. Missing a round leads to immediate disqualification.',
+          'Internet Policy: Strictly NO Internet access for Round 1 and Round 2. Limited access to official documentation may be allowed in Round 3 at the judge\'s discretion.',
+          'Hardware: Participants are strongly advised to bring their own laptops with VS Code and GCC/Python/Java compilers pre-installed to avoid compatibility issues.',
+          'Plagiarism: Any code found to be copied from another team or generated via unauthorized AI tools (ChatGPT/Copilot) will result in an instant ban from the event.',
+          'Time Adherence: The submission portal closes exactly when the timer hits zero. No grace period will be given for file uploads.',
+          'Language Restrictions: Solutions must be submitted in C, C++, Java, or Python unless a specific problem statement mandates a different language.'
         ],
-        judging: [
-          'Round 1: Accuracy (70%), Speed (30%)',
-          'Round 2: WPM (50%), Accuracy (50%)',
-          'Round 3: Approach (30%), Optimization (40%), Quality (30%)'
-        ]
+        prizes: ['1st Place: 5000 PR Points', '2nd Place: 2500 PR Points', PREMIUM_REWARD_CLAUSE]
       }
     },
     {
@@ -125,27 +137,27 @@ const Events: React.FC = () => {
       category: 'technical',
       title: 'Hackathon',
       emoji: '🚀',
-      description: '2-day challenge to modernize classic software using current tech stacks.',
+      description: 'The Fiestron Hackathon is a grueling 2-day intensive sprint where innovation meets nostalgia. The challenge is unique: "Modernizing the Past." Teams are tasked with selecting a classic software concept, a vintage website, or an archaic digital tool and completely reimagining it using a state-of-the-art tech stack. This is not just about writing code; it is about architectural decisions, UI/UX modernization, and full-stack deployment. Whether it is turning a CLI-based email client into a slick React app or reviving a GeoCities fan page with Next.js 14, your goal is to bridge the decades. You will build, debug, deploy, and pitch your creation to a panel of industry experts.',
       fee: '₹100',
       teamSize: 'Team of 2',
+      venue: 'CS Lab',
+      time: '16 Dec | 09:30 AM - 11:30 AM',
+      deadline: '2025-12-16T09:30:00',
       formLink: 'https://forms.gle/NKx9zg1vyEy7mYrd7',
       image: '/images/events/hackathon.png',
       details: {
-        rounds: ['Build Phase (Reimagine vintage concept)', 'Final Pitch (10 mins)'],
-        rules: [
-          'Team formation before event, no changes mid-hackathon.',
-          'All code must be written during the 2-day period.',
-          'AI tools allowed but must be disclosed.',
-          'Project must be deployed and accessible via URL.',
-          'No plagiarism - all work must be original.'
+        rounds: [
+          'Phase 1: The Build (Day 1) - Teams have 24 hours (including off-campus time) to build their prototype. A mandatory checkpoint submission is required at the end of Day 1.',
+          'Phase 2: The Pitch (Day 2) - Top 10 selected teams present their deployed solution to a panel of judges. The presentation must cover the tech stack, the "Before vs After" comparison, and the live demo.'
         ],
-        judging: [
-          'Originality (25%)',
-          'Technical Implementation (30%)',
-          'UX/Design (20%)',
-          'Presentation (15%)',
-          'Innovation (10%)'
-        ]
+        rules: [
+          'Team Lockdown: Teams must be formed prior to the event. No member swaps or external assistance is allowed once the hackathon begins.',
+          'Code Originality: All code must be written during the event duration. Usage of pre-built templates or cloning existing repositories is strictly forbidden and will be checked.',
+          'Deployment Mandatory: The final project MUST be deployed (Vercel/Netlify/Heroku/AWS) and accessible via a public URL. Localhost demos will receive a significant penalty.',
+          'Git History: Teams must maintain a GitHub repository with a clear commit history. A repo with a single "Initial Commit" at the end will be disqualified as suspicious activity.',
+          'AI Usage: Generative AI (ChatGPT/Copilot) is permitted for debugging and boilerplate code, but the core logic and design must be original. AI usage must be disclosed during the pitch.'
+        ],
+        prizes: ['1st Place: 5000 PR Points', '2nd Place: 2500 PR Points', PREMIUM_REWARD_CLAUSE]
       }
     },
     {
@@ -153,53 +165,51 @@ const Events: React.FC = () => {
       category: 'technical',
       title: 'Syntax Sprint',
       emoji: '⚡',
-      description: 'A relay coding challenge: Old-school HTML foundation meets Modern Framework polish.',
+      description: 'Syntax Sprint is the ultimate test of collaborative chemistry and coding adaptability. It mimics the real-world frustration of handling legacy code or working in a siloed team. One teammate (The Architect) builds the raw HTML skeleton, focusing purely on semantics and structure. Then, at the halfway mark, they are pulled off the keyboard, and the second teammate (The Designer) must take over to apply CSS styling and JavaScript functionality without ever having spoken to the first person. It is chaotic, it is fast, and it requires you to understand your partner\'s coding style implicitly.',
       fee: '₹100',
       teamSize: 'Team of 2',
+      venue: 'CS Lab',
+      time: '16 Dec | 12:00 PM - 02:00 PM',
+      deadline: '2025-12-16T12:00:00',
       formLink: 'https://forms.gle/TMytyAesfsZRSbwg8',
       image: '/images/events/syntax-sprint.png',
       details: {
         rounds: [
-          'Round 1: The Starter (Vanilla HTML/CSS/JS - 45 mins)',
-          'Round 2: The Finisher (React/Tailwind/Modern Tools - 45 mins)'
+          'Round 1 (The Architect - 45 Mins): Member A builds the raw structure using ONLY Semantic HTML5. No CSS classes or IDs allowed that hint at styling.',
+          'Round 2 (The Designer - 45 Mins): Member B takes over the same machine. They must apply Tailwind CSS / Modern JS to the existing structure to match a target design provided by the judges.'
         ],
         rules: [
-          'Both team members must be present; no substitutions.',
-          'No communication between rounds.',
-          'Starter CANNOT use frameworks.',
-          'Finisher MUST retain core structure from Round 1.',
-          'Finisher must include ONE modernized retro UI element.'
+          'Silence Protocol: Absolute silence is required between team members. Member A cannot leave comments in the code for Member B.',
+          'Strict Handoff: At the 45-minute mark, Member A must leave the workstation immediately. Member B cannot touch the keyboard before the signal.',
+          'Restriction (Round 1): Member A is strictly prohibited from writing any CSS, Inline Styles, or Script tags.',
+          'Restriction (Round 2): Member B is strictly prohibited from altering the HTML structure (DOM elements) created by Member A. They can only add classes/IDs to existing tags.',
+          'Environment: VS Code with Live Server. Internet is allowed only for CDN links/Documentation.'
         ],
-        judging: [
-          'Round 1: Clean HTML structure (15%), CSS/JS (25%)',
-          'Round 2: Framework integration (20%), Responsiveness (15%), Retro element (15%)'
-        ]
+        prizes: ['1st Place: 5000 PR Points', '2nd Place: 2500 PR Points', PREMIUM_REWARD_CLAUSE]
       }
     },
     {
       id: 4,
       category: 'technical',
-      title: 'Geocities AI',
+      title: 'Geocities.AI',
       emoji: '🤖',
-      description: 'Design a 90s aesthetic website using ONLY AI prompts to solve a modern problem.',
-      fee: '₹50',
+      description: 'Geocities.AI is a unique prompt-engineering challenge where you must force advanced AI to be "dumb". Your task is to use state-of-the-art AI (ChatGPT/Gemini) to generate the code for a website that looks exactly like it was made in 1999—complete with neon backgrounds, scrolling marquees, hit counters, and under-construction GIFs—while solving a modern problem. This event tests your ability to control Large Language Models (LLMs) to produce specific, constrained outputs rather than generic modern code.',
+      fee: '₹100',
       teamSize: 'Individual',
+      venue: 'CS Lab (Hardware)',
+      time: '15 Dec | 02:00 PM Onwards',
+      deadline: '2025-12-15T14:00:00',
       formLink: 'https://forms.gle/whv4Xy1xWBSJJDaX7',
       image: '/images/events/geocites-ai.png',
       details: {
         rules: [
-          'All code/design must be AI-generated (Prompts must be documented).',
-          'No manual coding allowed.',
-          'Must include: HTML tables, Animated GIFs, Pixel Art, Web-safe colors.',
-          'Website must be fully functional and accessible.'
+          'Prompt Only: You are NOT allowed to write a single line of code manually. Every tag, every style, and every script must be generated via AI prompts.',
+          'Verification: You must submit a PDF/Screenshot log of your entire chat history with the AI model to prove no manual coding was done.',
+          'Aesthetic Requirements: The site MUST include: A scrolling Marquee tag, a visible Table-based layout, at least 3 animated GIFs, and high-contrast "ugly" colors.',
+          'Functional Requirement: Despite the bad looks, the website must actually perform a modern function (e.g., a working To-Do list, a Currency Converter, or a weather widget).',
+          'Tools Allowed: ChatGPT 3.5/4, Gemini, Claude, or Copilot.'
         ],
-        judging: [
-          'Authentic 90s Aesthetic (20%)',
-          'Prompt Engineering (25%)',
-          'Modern Functionality (20%)',
-          'Accessibility (15%)',
-          'Innovation (20%)'
-        ]
+        prizes: ['1st Place: 5000 PR Points', '2nd Place: 2500 PR Points', PREMIUM_REWARD_CLAUSE]
       }
     },
     {
@@ -207,25 +217,23 @@ const Events: React.FC = () => {
       category: 'technical',
       title: 'Design.exe',
       emoji: '🎨',
-      description: 'Create a professional modern app interface using ONLY Microsoft Paint.',
-      fee: '₹50',
+      description: 'Design.exe is the ultimate test of creativity under extreme limitation. In an era of Figma, Adobe XD, and Canva, we challenge you to go back to basics. Participants must design a sleek, modern, professional User Interface (UI) for a mobile application... using ONLY Microsoft Paint. No layers, no vectors, no undo history, no plugins. Just you, the pencil tool, the bucket fill, and your steady hand. This event proves that a true designer needs only a canvas and a pixel, not a subscription.',
+      fee: '₹100',
       teamSize: 'Individual',
+      venue: 'CS Lab (Outer)',
+      time: '16 Dec | 02:30 PM Onwards',
+      deadline: '2025-12-16T14:30:00',
       formLink: 'https://forms.gle/JUbreJcD7LZcdjGB6',
       image: '/images/events/design-exe.png',
       details: {
         rules: [
-          'ONLY Microsoft Paint allowed (Modern version with layers allowed).',
-          'No other design tools (Figma/Adobe forbidden).',
-          'Screenshots or recorded process may be requested.',
-          'Stock images allowed but must be edited in Paint.'
+          'Software Restriction: The ONLY allowed software is the default Microsoft Paint (Classic or Windows 11 version). Photoshop, Canva, Figma, or GIMP are banned.',
+          'Assets: You cannot import external images, icons, or UI kits. Every button, icon, and text box must be drawn or typed within Paint.',
+          'Deliverable: You must design a set of 5-7 connected screens (Login, Home, Profile, Features) for a specific app theme given on the spot.',
+          'Process Verification: Random spot checks will be conducted. Participants may be asked to undo/redo to prove layers were not pasted in.',
+          'Submission: Files must be saved as individual .PNG files and named sequentially (Screen1, Screen2, etc.).'
         ],
-        judging: [
-          'UI Composition (20%)',
-          'UX Logic (25%)',
-          'Creativity with tools (20%)',
-          'Visual Polish (15%)',
-          'Modern Concepts (10%)'
-        ]
+        prizes: ['1st Place: 5000 PR Points', '2nd Place: 2500 PR Points', PREMIUM_REWARD_CLAUSE]
       }
     },
     {
@@ -233,25 +241,23 @@ const Events: React.FC = () => {
       category: 'technical',
       title: 'Retro Rendered',
       emoji: '🖼️',
-      description: 'AI art challenge: Reimagine vintage aesthetics into modern digital art.',
-      fee: '₹50',
+      description: 'Retro Rendered is a battle of imagination and prompt engineering. Participants will be given a prompt related to "Futuristic Retro" (e.g., Cyberpunk 1980s Mumbai, Steampunk Space Travel). The goal is to generate the most visually stunning and thematically accurate image using AI tools, then refine it. This event explores the intersection of human creativity and machine generation, requiring you to understand lighting, composition, and style descriptors to get the perfect output.',
+      fee: '₹100',
       teamSize: 'Individual',
+      venue: 'CS Lab (Software)',
+      time: '15 Dec | 02:00 PM Onwards',
+      deadline: '2025-12-15T14:00:00',
       formLink: 'https://forms.gle/5MoNHYyqkEPLFwNS7',
       image: '/images/events/retro-rendered.png',
       details: {
         rules: [
-          'Use AI tools (Midjourney/DALL-E/Firefly).',
-          'Submit prompt history/documentation.',
-          'Post-AI editing allowed but must be documented.',
-          'Final artwork must be significantly transformed (not just upscaled).',
-          'Max 3 final artworks per participant.'
+          'Tools: Midjourney, DALL-E 3, Stable Diffusion, or Bing Image Creator are allowed.',
+          'Prompt Logging: You must save the exact prompt text used to generate the final image. Judges will evaluate the complexity of the prompt.',
+          'Editing: Minor post-processing (color correction, cropping) in Photoshop is allowed, but major composition changes must be done via In-Painting/AI.',
+          'Theme Adherence: The image must strictly follow the "Retro-Futurism" theme provided on the spot.',
+          'Resolution: Final submission must be at least 1080p resolution (1920x1080 or equivalent aspect ratio).'
         ],
-        judging: [
-          'Creativity (25%)',
-          'Prompt Mastery (25%)',
-          'Visual Appeal (20%)',
-          'Retro-Modern Fusion (15%)'
-        ]
+        prizes: ['1st Place: 5000 PR Points', '2nd Place: 2500 PR Points', PREMIUM_REWARD_CLAUSE]
       }
     },
     {
@@ -259,50 +265,55 @@ const Events: React.FC = () => {
       category: 'technical',
       title: 'Vintage Ventures',
       emoji: '💼',
-      description: 'Pitch a revival strategy for a failed company (e.g., Blockbuster, BlackBerry).',
+      description: 'Vintage Ventures is a Shark Tank-style business pitch competition with a twist. You must choose a tech company that failed or faded away (e.g., BlackBerry, Nokia, Orkut, Myspace, Kodak) and pitch a comprehensive strategy to revive it in 2025 using modern technology (AI, Blockchain, VR). You are not just presenting an idea; you are presenting a business revival plan. You need to analyze why they failed, identify a gap in the current market, and propose a viable product that brings the brand back to life.',
       fee: '₹100',
       teamSize: 'Team of 2',
+      venue: 'Any Classroom',
+      time: '16 Dec | 11:00 AM Onwards',
+      deadline: '2025-12-16T11:00:00',
       formLink: 'https://forms.gle/HWvd6bbuyDzaifWE6',
       image: '/images/events/vintage-venture.png',
       details: {
         rules: [
-          'Must choose a real failed company.',
-          'Pitch must include modern tech integration.',
-          'All team members must participate in presentation.',
-          'Professional attire required.'
+          'Company Selection: You must select a real company that existed and declined. Fictional companies are not allowed.',
+          'Uniqueness: No two teams can choose the same company. Selection is on a First-Come-First-Served basis during registration.',
+          'Presentation Format: PPT/Canva slides are mandatory. Maximum 10 slides allowed.',
+          'Time Limit: 8 Minutes for the Pitch + 4 Minutes for Q&A from the Judges.',
+          'Content Requirements: The pitch must include: Root Cause of Failure, The New Solution (Product/Service), Revenue Model, and Marketing Strategy.',
+          'Dress Code: Business Formals are highly recommended and carry bonus points for presentation.'
         ],
-        judging: [
-          'Failure Analysis (15%)',
-          'Market Viability (25%)',
-          'Creativity (25%)',
-          'Technical Feasibility (15%)',
-          'Business Model (10%)'
-        ]
+        prizes: ['1st Place: 5000 PR Points', '2nd Place: 2500 PR Points', PREMIUM_REWARD_CLAUSE]
       }
     },
+
+    // === NON-TECHNICAL EVENTS ===
     {
       id: 8,
       category: 'non-technical',
       title: 'Brain Buster',
       emoji: '🧠',
-      description: 'A fast-paced, buzzer-based quiz show blending retro pop culture and modern trends.',
-      fee: '₹100',
+      description: 'Brain Buster is a high-voltage trivia contest testing your knowledge of everything from 80s Pop Culture to 2025 Tech Trends. This is a buzzer-round format where speed is just as important as accuracy. Hesitate for a second, and you lose. The questions will span across movies, music, gaming history, viral internet moments, and general knowledge. It is designed to be fast, furious, and incredibly competitive.',
+      fee: '₹100', 
       teamSize: 'Team of 2',
+      venue: 'Any Classroom / CS Lab',
+      time: '15 Dec | 04:30 PM Onwards',
+      deadline: '2025-12-15T16:30:00',
       formLink: 'https://forms.gle/FhY7Lgn4EzQmysNq7',
       image: '/images/events/brain-buster.png',
       details: {
         rounds: [
-          'Round 1: Retro Rush (80s-2000s Trivia - Quick fire)',
-          'Round 2: Modern Mashup (Current Trends)',
-          'Round 3: Rewired Round (Connect the Era)'
+          'Round 1: Retro Rush (15 Mins) - 20 questions from 80s-2000s tech/pop culture. This is a paper elimination round.',
+          'Round 2: Modern Mashup (15 Mins) - 20 questions on today\'s innovations and current trends. Buzzer round.',
+          'Round 3: Rewired Round (20 Mins) - 10 "Connect the Era" questions where you must link an old technology to its modern equivalent.'
         ],
         rules: [
-          'No smartphones/internet allowed.',
-          'Negative marking in Rounds 1 & 2.',
-          'Only the person buzzing can answer.',
-          '5 seconds to answer after buzzing.'
+          'Team Constraint: Exactly 2 members required. No solo participation in the buzzer rounds.',
+          'Electronic Ban: Phones, smartwatches, and Bluetooth devices must be surrendered before the quiz begins.',
+          'Buzzer Etiquette: Pressing the buzzer before the question ends allows you to answer, but if wrong, you get negative marks (-5 points).',
+          'Tie-Breaker: A sudden death question will be asked. First correct answer wins immediately.',
+          'Audience: Audience members are not allowed to prompt answers. Any help from the crowd voids the question.'
         ],
-        judging: ['Accuracy (60%)', 'Speed (25%)', 'Team Coordination (10%)', 'Creative Connections (5%)']
+        prizes: ['1st Place: 2000 PR Points', '2nd Place: 1000 PR Points', '3rd Place: 500 PR Points', PREMIUM_REWARD_CLAUSE]
       }
     },
     {
@@ -310,24 +321,28 @@ const Events: React.FC = () => {
       category: 'non-technical',
       title: 'Escape Protocol',
       emoji: '🔐',
-      description: 'Crack codes and solve riddles to escape 3 themed rooms.',
+      description: 'Escape Protocol is an immersive physical escape room experience. Your team is locked in a room filled with cryptic puzzles, hidden keys, and logic locks. You have 45 minutes to decipher the clues, unlock the final door, and escape "The Glitch". The rooms are themed around the evolution of technology, starting from a dusty server room to a futuristic digital vault. Teamwork is essential; no single person can solve every puzzle alone.',
       fee: '₹200',
       teamSize: 'Team of 4',
+      venue: 'Sports Room',
+      time: '16 Dec | 02:00 PM - 05:00 PM',
+      deadline: '2025-12-16T14:00:00',
       formLink: 'https://forms.gle/K9CbwhkwKmAfzTJP8',
       image: '/images/events/escape-protocol.png',
       details: {
         rounds: [
-          'Level 1: The Forgotten Server Room (Beginner)',
-          'Level 2: The Vintage Office (Intermediate)',
-          'Level 3: The Digital Time Vault (Expert)'
+          'Level 1: The Forgotten Server Room (20 Mins) - Find the boot disk to restart the system.',
+          'Level 2: The Vintage Office (25 Mins) - Crack the safe using clues hidden in old files.',
+          'Level 3: The Digital Time Vault (30 Mins) - Solve logic puzzles to synchronize the clocks.'
         ],
         rules: [
-          'All members must enter together.',
-          'No physical force on props.',
-          '1 hint per room allowed (5 min penalty).',
-          'No electronic devices allowed inside.'
+          'No Force: Do not break, force, or unscrew any furniture or locks. Everything opens with logic, not strength.',
+          'Search Policy: "Don\'t touch" stickers mean do not touch. Clues are hidden in accessible areas only.',
+          'Hint System: Teams are allowed exactly 2 hints from the Gamemaster. Each hint adds a +5 minute penalty to your final time.',
+          'Device Ban: All phones and flashlights must be deposited outside.',
+          'Team Unity: The team must solve puzzles together. Splitting up into different zones is allowed, but you must exit together.'
         ],
-        judging: ['Completion Time (50%)', 'Rooms Escaped (40%)', 'Minimal Hints (10%)']
+        prizes: ['1st Place: 2000 PR Points', '2nd Place: 1000 PR Points', '3rd Place: 500 PR Points', PREMIUM_REWARD_CLAUSE]
       }
     },
     {
@@ -335,20 +350,24 @@ const Events: React.FC = () => {
       category: 'non-technical',
       title: 'Meme Mania',
       emoji: '😂',
-      description: 'Create viral memes or reels about college life and tech culture.',
+      description: 'Meme Mania is a creative battle for the internet-savvy. Participants must create original, high-quality memes or short reels based on a theme provided on the spot (e.g., "Engineering Pain", "AI taking over", "Mumbai Local Trains"). The goal is to create content that is viral, relatable, and funny. You will be judged not just on the joke, but on the editing quality and visual appeal.',
       fee: '₹100',
       teamSize: 'Team of 2',
+      venue: 'Any Classroom',
+      time: '16 Dec | 02:00 PM Onwards',
+      deadline: '2025-12-16T14:00:00',
       formLink: 'https://forms.gle/e9EbPwub7pQnLBwj7',
       image: '/images/events/meme-mania.jpeg',
       details: {
         rules: [
-          'Content must be original (no reposts).',
-          'No offensive or discriminatory material.',
-          'Submit in digital format (JPEG/PNG/MP4).',
-          'Watermark with team name.',
-          'Max creation time: 1.5 hours.'
+          'Originality: Strictly NO reposts. We use reverse image search. Found templates are allowed, but the caption/edit must be original.',
+          'Content Warning: No political, religious, or explicit content. Offensive memes result in immediate disqualification.',
+          'Formats: Static Memes (JPG/PNG) or Reels (MP4, max 30s).',
+          'Submission: Must be uploaded to the provided drive link within the 90-minute creation window.',
+          'Watermark: Every submission must have the Team Name watermarked in the corner.',
+          'Tools: You can use Canva, Photoshop, Premiere Pro, or mobile editors like InShot.'
         ],
-        judging: ['Originality (30%)', 'Humor (25%)', 'Relatability (20%)', 'Visual Appeal (15%)', 'Viral Potential (10%)']
+        prizes: ['1st Place: 2000 PR Points', '2nd Place: 1000 PR Points', '3rd Place: 500 PR Points', PREMIUM_REWARD_CLAUSE]
       }
     },
     {
@@ -356,20 +375,24 @@ const Events: React.FC = () => {
       category: 'non-technical',
       title: 'Ad-A-Bit',
       emoji: '📢',
-      description: 'Rebrand a quirky or failed product with a humorous video ad.',
+      description: 'Ad-A-Bit is a marketing improv challenge. Teams are given a weird, useless, or broken product (e.g., "A water bottle with holes" or "Invisible Sunglasses") and must create a convincing video advertisement and sales pitch to sell it to the audience. You need to turn a flaw into a feature. It requires quick thinking, humor, and persuasive communication skills.',
       fee: '₹100',
       teamSize: 'Team of 2',
+      venue: 'Any Classroom',
+      time: '16 Dec | 04:30 PM Onwards',
+      deadline: '2025-12-16T16:30:00',
       formLink: 'https://forms.gle/Y9frmA36fcc4r4tNA',
       image: '/images/events/ad-a-bit.png',
       details: {
         rules: [
-          'Theme/Product announced in advance.',
-          'Ad should be funny, creative, and strategic.',
-          'No offensive content.',
-          'Video must be MP4 format and watermarked.',
-          'All team members must participate in pitch.'
+          'Product Assignment: Products are assigned via a lucky draw 24 hours before the event via email.',
+          'Video Requirement: A pre-recorded 30-60 second ad must be submitted before the event starts. This video will be played on the projector.',
+          'Live Pitch: After screening the ad, the team has 2 minutes to "sell" the product live on stage to the judges.',
+          'Tone: Humor is encouraged, but the sales logic must be "convincing" within the context of the joke.',
+          'Format: Video must be .MP4, landscape 16:9 aspect ratio.',
+          'Submission Deadline: Video must be submitted at least 2 hours before the event starts.'
         ],
-        judging: ['Humor (25%)', 'Marketing Strategy (25%)', 'Production Quality (20%)', 'Concept Originality (15%)', 'Pitch (10%)']
+        prizes: ['1st Place: 2000 PR Points', '2nd Place: 1000 PR Points', '3rd Place: 500 PR Points', PREMIUM_REWARD_CLAUSE]
       }
     },
     {
@@ -377,24 +400,28 @@ const Events: React.FC = () => {
       category: 'non-technical',
       title: 'Logo Lore',
       emoji: '🏷️',
-      description: 'Identify distorted, partial, and evolved brand logos.',
+      description: 'Logo Lore tests your brand awareness and visual memory. In this quiz, you will face distorted, zoomed-in, or minimalist versions of famous logos and must identify the brand, its tagline, or its history. We take logos you see every day and strip them down to their bare essentials or mess with their colors to confuse you. Only the most observant will win.',
       fee: '₹100',
       teamSize: 'Team of 2',
+      venue: 'Any Classroom',
+      time: '15 Dec | 01:00 PM Onwards',
+      deadline: '2025-12-15T13:00:00',
       formLink: 'https://forms.gle/PRjaquuraJB5RdFj8',
       image: '/images/events/logo-lore.gif',
       details: {
         rounds: [
-          'Round 1: Distorted Brands (Pixelated/Partial)',
-          'Round 2: Evolution Chain (Chronological Order)',
-          'Round 3: The Brand Tag (Identify Slogans)'
+          'Round 1: Distorted Brands (20 Logos, 15 Mins) - Identify brands from pixelated or warped images.',
+          'Round 2: Evolution Chain (10 Brands, 15 Mins) - Arrange the historical logos of a brand in chronological order.',
+          'Round 3: The Brand Tag (15 Brands, 20 Mins) - Match the logo to its correct obscure tagline.'
         ],
         rules: [
-          'No electronic devices allowed.',
-          'Spelling must be accurate.',
-          'No communication with other teams.',
-          'Time limits enforced per round.'
+          'No Tech: Strictly a pen-and-paper round. Phones must be in bags.',
+          'Spelling: Brand names must be spelled correctly. "Addidas" instead of "Adidas" gets 0 points.',
+          'Time Limit: 30 seconds per slide. No repeats.',
+          'Whispering: Discussing answers loudly will result in a warning or deduction.',
+          'Decision: The Quizmaster\'s decision on ambiguous answers is final.'
         ],
-        judging: ['Accuracy (50%)', 'Chronology (20%)', 'Tagline Accuracy (20%)', 'Creative New Taglines (10%)']
+        prizes: ['1st Place: 2000 PR Points', '2nd Place: 1000 PR Points', '3rd Place: 500 PR Points', PREMIUM_REWARD_CLAUSE]
       }
     },
     {
@@ -402,40 +429,51 @@ const Events: React.FC = () => {
       category: 'non-technical',
       title: 'One Mic Stand',
       emoji: '🎤',
-      description: 'Open mic performance incorporating a random "Rewired" theme.',
+      description: 'One Mic Stand is your platform to shine. Whether you are a poet, a comedian, a beatboxer, or a storyteller, this is your chance to perform. The twist? You must incorporate a specific "word" or "theme" given to you 5 minutes before you go on stage. This tests your ability to improvise and adapt your set to fit the "Rewired" theme of the fest.',
       fee: '₹50',
       teamSize: 'Individual',
+      venue: 'Any Classroom',
+      time: '15 Dec | 03:00 PM Onwards',
+      deadline: '2025-12-15T15:00:00',
       formLink: 'https://forms.gle/GxRmu4xewdEmBYWN9',
       image: '/images/events/one-mic-stand.jpeg',
       details: {
         rules: [
-          'Draw a "Rewired" theme card on stage (e.g., "Nostalgia").',
-          '2-3 mins prep time.',
-          '3-5 min performance incorporating theme.',
-          'No offensive content.',
-          'Bring own props/instruments if needed.'
+          'Performance Time: Minimum 2 minutes, Maximum 4 minutes. Going under or over time attracts penalties.',
+          'The Twist: You will draw a chit (e.g., "Glitch", "Retro", "Future") and must mention or relate to it at least once in your act.',
+          'Language: English, Hindi, or Hinglish permitted.',
+          'Decency: No profanity, hate speech, or offensive content. Immediate mic cut if violated.',
+          'Props: Musical instruments (Guitar/Ukulele) are allowed but must be brought by the participant.',
+          'Backing Tracks: If you need a backing track, submit it on a USB drive 30 minutes prior.'
         ],
-        judging: ['Creativity (25%)', 'Theme Incorporation (20%)', 'Stage Presence (20%)', 'Technical Skill (20%)', 'Entertainment Value (15%)']
+        prizes: ['1st Place: 2000 PR Points', '2nd Place: 1000 PR Points', '3rd Place: 500 PR Points', PREMIUM_REWARD_CLAUSE]
       }
     },
+
+    // === GAMING EVENTS ===
     {
       id: 14,
       category: 'gaming',
       title: 'BGMI',
       emoji: '🔫',
-      description: 'Battle Royale squad tournament.',
+      description: 'BGMI is the ultimate Battle Royale squad tournament. Squads drop into the battlegrounds of Erangel and Miramar to compete for survival and eliminations. High-stakes rotation, strategic positioning, and gun skill are all that matter. We follow standard competitive e-sports point systems to ensure the best team wins.',
       fee: '₹200',
       teamSize: 'Team of 4 (1 Sub)',
+      venue: 'Online/Classroom',
+      time: '15 Dec | 11:30 AM Onwards',
+      deadline: '2025-12-15T11:30:00',
       formLink: 'https://forms.gle/PfwM6sorLYNdfYjM6',
       image: '/images/events/bgmi.jpeg',
       details: {
         rules: [
-          'Mobile only (Android/iOS).',
-          'No hacks, mods, or GFX tools.',
-          'Server: Asia.',
-          'Screenshot of results must be submitted.'
+          'Version: Latest official BGMI version required. Players must have all maps downloaded.',
+          'Format: 3-4 matches (Maps decided on spot). Mode: TPP Squad.',
+          'Fair Play: No hacks, mods, config files, or GFX tools. Any suspicion leads to a permanent ban.',
+          'Device: Mobile Phones ONLY. No iPads, Tablets, Emulators, or Triggers allowed.',
+          'Punctuality: All players must be in the Custom Room 10 minutes before the match start time.',
+          'Evidence: A screenshot of the final scoreboard must be submitted by the IGL after every match.'
         ],
-        points: ['#1: 15 pts', '#2: 12 pts', '#3: 10 pts', '#4-5: 8 pts', 'Each Kill: 1 pt']
+        prizes: ['1st Place: 2500 PR Points', '2nd Place: 1500 PR Points', '3rd Place: 1000 PR Points', PREMIUM_REWARD_CLAUSE]
       }
     },
     {
@@ -443,19 +481,25 @@ const Events: React.FC = () => {
       category: 'gaming',
       title: 'FIFA Tournament',
       emoji: '⚽',
-      description: '1v1 Virtual Football competition.',
+      description: 'The FIFA Tournament is a head-to-head virtual football competition using the latest FIFA 23/24 engine. It is a test of your tactical knowledge, skill moves, and mental fortitude. Played on high-end consoles/PCs, you will compete in a knockout bracket until one champion remains.',
       fee: '₹50',
       teamSize: 'Individual',
+      venue: 'CS Lab (Inner)',
+      time: '16 Dec | 02:30 PM Onwards',
+      deadline: '2025-12-16T14:30:00',
       formLink: 'https://forms.gle/CL2fSX59r49cMAxy8',
       image: '/images/events/fifa-tournament.jpeg',
       details: {
         rules: [
-          'Latest FIFA version.',
-          'No pausing unless technical issue.',
-          'Handball/Offsides: Auto.',
-          'No rage quitting (Auto-loss).'
+          'Platform: PS5/PC. Latest FIFA version available.',
+          'Teams: Club Teams Only. No International or "Soccer Aid" teams.',
+          'Settings: Half Length = 6 Mins, Difficulty = Legendary, Speed = Normal.',
+          'Conduct: No pausing the game while the ball is in play. Pausing during a goal opportunity results in disqualification.',
+          'Settings: Tactical Defending is MANDATORY. Legacy Defending is banned.',
+          'Draws: Knockout matches go to Classic Extra Time, followed by Penalties.',
+          'Rage Quit: Leaving the game mid-match results in an automatic loss.'
         ],
-        judging: ['Match results (goals scored)', 'Knockout progression']
+        prizes: ['1st Place: 2500 PR Points', '2nd Place: 1500 PR Points', '3rd Place: 1000 PR Points', PREMIUM_REWARD_CLAUSE]
       }
     },
     {
@@ -463,19 +507,24 @@ const Events: React.FC = () => {
       category: 'gaming',
       title: 'Chess',
       emoji: '♟️',
-      description: 'Rapid format chess tournament testing strategy and patience.',
+      description: 'The Chess Tournament is a battle of intellect and strategy. Played over the board (OTB), this Rapid Chess tournament tests your ability to think ahead under time pressure. One wrong move can cost you the game. We follow standard FIDE rules for rapid play.',
       fee: '₹50',
       teamSize: 'Individual',
+      venue: 'Sports Room',
+      time: '15 Dec | 11:30 AM - 04:00 PM',
+      deadline: '2025-12-15T11:30:00',
       formLink: 'https://forms.gle/qcxpdiqcDKoXpc62A',
       image: '/images/events/chess.png',
       details: {
         rules: [
-          'FIDE rules apply.',
-          'Touch-move rule enforced.',
-          'Clocks provided.',
-          'No electronic devices.'
+          'Format: Swiss System followed by Knockouts for the top 4 players.',
+          'Time Control: 10 Minutes + 0 Seconds increment (10|0 Rapid).',
+          'Touch-Move: If you touch a piece, you MUST move it (if a legal move is possible).',
+          'Clocks: Professional chess clocks provided. Players must hit the clock with the same hand used to move pieces.',
+          'Electronic Ban: No phones or smartwatches allowed near the board.',
+          'Illegal Moves: Two illegal moves result in an immediate loss of the game.'
         ],
-        judging: ['Win/Loss record', 'Tie-breaks (Buchholz system)']
+        prizes: ['1st Place: 2500 PR Points', '2nd Place: 1500 PR Points', '3rd Place: 1000 PR Points', PREMIUM_REWARD_CLAUSE]
       }
     },
     {
@@ -483,18 +532,24 @@ const Events: React.FC = () => {
       category: 'gaming',
       title: 'Table Tennis',
       emoji: '🏓',
-      description: 'Fast-paced singles competition testing reflexes and precision.',
+      description: 'Table Tennis is a game of speed, spin, and smash. This singles tournament is for those with quick reflexes and sharp eyes. Played on standard ITTF approved tables, matches are fast-paced and unforgiving. Bring your A-game and your own paddle if you prefer.',
       fee: '₹50',
       teamSize: 'Individual',
+      venue: 'Sports Room',
+      time: '16 Dec | 09:00 AM - 01:00 PM',
+      deadline: '2025-12-16T09:00:00',
       formLink: 'https://forms.gle/T4Zh4xJF7Hua68HJA',
       image: '/images/events/table-tennis.png',
       details: {
         rules: [
-          'ITTF rules apply.',
-          'Service must be diagonal.',
-          'Win by 2 points at 10-10.',
-          'No time-wasting.'
-        ]
+          'Rules: Standard ITTF rules apply.',
+          'Scoring: Best of 3 sets. Final is Best of 5. Each set is 11 points.',
+          'Service: Ball must be tossed at least 6 inches up. Service must be diagonal.',
+          'Rotation: Players alternate serving every 2 points.',
+          'Deuce: If the score is 10-10, play continues until one player leads by 2 points.',
+          'Equipment: Racquets provided, but personal racquets allowed (subject to inspection).'
+        ],
+        prizes: ['1st Place: 2500 PR Points', '2nd Place: 1500 PR Points', '3rd Place: 1000 PR Points', PREMIUM_REWARD_CLAUSE]
       }
     },
     {
@@ -502,19 +557,24 @@ const Events: React.FC = () => {
       category: 'gaming',
       title: 'Carrom',
       emoji: '🎯',
-      description: 'Doubles carrom tournament testing precision and strategy.',
+      description: 'Carrom is a test of precision and angles. This is a Doubles Carrom tournament, requiring excellent coordination between partners. You must pocket your color coins (Black/White) and secure the Queen before your opponents do.',
       fee: '₹100',
-      teamSize: 'Team of 2',
+      teamSize: 'Team of 2 (Doubles)',
+      venue: 'Sports Room',
+      time: '15 Dec | 11:30 AM - 04:00 PM',
+      deadline: '2025-12-15T11:30:00',
       formLink: 'https://forms.gle/SD8A6vguXjFbPB2H9',
       image: '/images/events/carrom.png',
       details: {
         rules: [
-          'ICF rules.',
-          'Queen must be covered.',
-          'Thumb stroke allowed.',
-          'White breaks first.',
-          'Time limit: 1 min per shot.'
-        ]
+          'Governing Body: International Carrom Federation (ICF) rules apply.',
+          'Queen: The Queen must be pocketed and "covered" by one of your own coins in the same or next strike.',
+          'Striking: Thumb shots and Scissor styles are permitted.',
+          'Fouls: Pocketing the striker results in a penalty (Return one pocketed coin to the center).',
+          'Time Limit: 1 minute per shot maximum.',
+          'Board: Standard tournament boards and powder provided.'
+        ],
+        prizes: ['1st Place: 2500 PR Points', '2nd Place: 1500 PR Points', '3rd Place: 1000 PR Points', PREMIUM_REWARD_CLAUSE]
       }
     },
     {
@@ -522,19 +582,24 @@ const Events: React.FC = () => {
       category: 'gaming',
       title: 'Box Cricket',
       emoji: '🏏',
-      description: '6-a-side box cricket tournament in a fast-paced format.',
-      fee: '₹300',
-      teamSize: 'Team of 6 (1 Sub)',
+      description: 'Box Cricket is cricket, but faster and more intense. Played in a confined "box" arena, every shot counts, and every mistake is a wicket. With limited overs and restricted boundaries, batsmen must rely on placement rather than power. It is high energy and high adrenaline.',
+      fee: '₹300 (Per Team)',
+      teamSize: 'Team of 6 + 1 Sub',
+      venue: 'Quadrangle',
+      time: '15 Dec | 11:30 AM Onwards',
+      deadline: '2025-12-15T11:30:00',
       formLink: 'https://forms.gle/H8Zuka6id7WjX2R36',
       image: '/images/events/box-cricket.jpeg',
       details: {
         rules: [
-          'Underarm bowling.',
-          'Tennis ball.',
-          'Report 15 mins early.',
-          'Sports shoes mandatory (no spikes).',
-          'Umpire decision final.'
-        ]
+          'Format: 5 Overs per innings. Tennis Ball.',
+          'Bowling: Strictly Underarm bowling only. The ball must pitch beyond the designated crease line.',
+          'Scoring: Runs are scored by hitting specific numbered zones (4/6) or running between wickets.',
+          'Dismissals: Clean bowled, Catch out, Run out, and Hit-Wicket. Hitting the roof directly is a dead ball.',
+          'Shoes: Players must wear sports shoes. Spikes/Studs are strictly prohibited to protect the turf.',
+          'Umpire: The umpire\'s decision is final. Arguments or aggression will lead to immediate disqualification.'
+        ],
+        prizes: ['1st Place: 2500 PR Points', '2nd Place: 1500 PR Points', '3rd Place: 1000 PR Points', PREMIUM_REWARD_CLAUSE]
       }
     },
     {
@@ -542,33 +607,48 @@ const Events: React.FC = () => {
       category: 'gaming',
       title: 'Netflix Trivia',
       emoji: '🎬',
-      description: 'Quiz on Netflix originals, movies, and pop culture.',
+      description: 'Netflix Trivia is a quiz competition testing your knowledge of the streaming giant\'s vast library. From Stranger Things to Squid Game, from The Crown to Black Mirror, how well do you know your shows? This quiz will test your memory of plot points, character names, and viral pop culture moments.',
       fee: '₹100',
       teamSize: 'Team of 2',
+      venue: 'Any Classroom',
+      time: '16 Dec | 03:30 PM Onwards',
+      deadline: '2025-12-16T15:30:00',
       formLink: 'https://forms.gle/VoM1j62BPmiuJy6eA',
       image: '/images/events/netflix-trivia.jpeg',
       details: {
         rules: [
-          'No phones/internet.',
-          'Answers submitted on sheets.',
-          'No communication with other teams.'
+          'Scope: Questions cover Netflix Originals, popular movies hosted on the platform, and documentaries.',
+          'Format: Pen and Paper round followed by oral questions for finalists.',
+          'Conduct: No phones, no Shazam, no Google Lens. Hands must be on the table.',
+          'Communication: Whispering to your partner is allowed, but talking to other teams is forbidden.',
+          'Tie-Breaker: A rapid-fire round will decide close calls.'
         ],
-        judging: ['Accuracy (100%)', 'Tie-breaker: Speed of submission']
+        prizes: ['1st Place: 2500 PR Points', '2nd Place: 1500 PR Points', '3rd Place: 1000 PR Points', PREMIUM_REWARD_CLAUSE]
       }
     },
+
+    // === CARNIVAL GAMES (ALL ₹30) ===
     {
       id: 21,
       category: 'carnival',
-      title: 'Coin Drop',
+      title: 'Coin Drop Challenge',
       emoji: '🪙',
-      description: 'Drop a coin into a glass inside a water bucket.',
+      description: 'The Coin Drop Challenge is a deceptive test of hydro-dynamics and steady hands. A small shot glass is submerged at the bottom of a water-filled bucket. Your task is simple: drop a coin from the surface so it lands inside the glass. The water currents will fight you every step of the way.',
       fee: '₹30',
       teamSize: 'Individual',
-      formLink: '',
-      image: '/images/events/coin-drop.jpeg',
+      venue: 'Quadrangle',
+      time: 'All Day',
+      deadline: '2025-12-16T17:00:00', // All day events close at 5 PM on last day
+      image: '/images/events/coin-drop.jpeg', 
       details: {
-        rules: ['Drop from chest height.', 'Must stay in cup.', 'No leaning over.', 'One coin per entry.'],
-        prizes: ['Success: Chocolate/Keychain', '3 Drops: Bonus Prize']
+        rules: [
+          'Stance: The participant must stand upright. Leaning excessively over the bucket is not allowed.',
+          'Drop Height: The coin must be released from at least chest height.',
+          'Technique: You must drop the coin, not throw it with force.',
+          'Attempts: One ticket grants one single coin drop attempt.',
+          'Win Condition: The coin must come to a complete rest inside the shot glass.'
+        ],
+        prizes: ['Instant Prize: Chocolate / Small Gift', PREMIUM_REWARD_CLAUSE]
       }
     },
     {
@@ -576,14 +656,22 @@ const Events: React.FC = () => {
       category: 'carnival',
       title: 'Stack Attack',
       emoji: '🥤',
-      description: 'Build and dismantle a cup pyramid in 10s.',
+      description: 'Stack Attack is a high-speed cup stacking sprint. You must build a pyramid of cups and then collapse them back into a single stack against the clock. It requires lightning-fast hands and rhythm. One slip, and the tower falls.',
       fee: '₹30',
       teamSize: 'Individual',
-      formLink: '',
+      venue: 'Quadrangle',
+      time: 'All Day',
+      deadline: '2025-12-16T17:00:00',
       image: '/images/events/stack-attack.jpeg',
       details: {
-        rules: ['10 cups.', '4-3-2-1 structure.', 'One hand only.', 'Time limit: 10s.', 'Cups must not topple.'],
-        prizes: ['Success: Surprise Event Entry', '< 7 secs: Bonus Chocolate']
+        rules: [
+          'Formation: You must build a 4-3-2-1 pyramid using plastic cups.',
+          'Sequence: Build the pyramid fully up, remove hands to show stability, then down-stack it back to a single column.',
+          'Time Limit: You have exactly 15 seconds to complete the cycle.',
+          'Hands: You may use both hands simultaneously.',
+          'Fail Condition: If the pyramid topples at any point, the attempt is void.'
+        ],
+        prizes: ['Instant Prize: Surprise Gift', PREMIUM_REWARD_CLAUSE]
       }
     },
     {
@@ -591,14 +679,22 @@ const Events: React.FC = () => {
       category: 'carnival',
       title: 'Ticket Toss',
       emoji: '🎟️',
-      description: 'Toss tickets to land near a target line.',
+      description: 'Ticket Toss is a game of friction and force. You must toss a lightweight ticket or card onto a table so that it slides and stops exactly near the target line without falling off the edge. Too soft, and it stops short. Too hard, and it flies off.',
       fee: '₹30',
       teamSize: 'Individual',
-      formLink: '',
+      venue: 'Quadrangle',
+      time: 'All Day',
+      deadline: '2025-12-16T17:00:00',
       image: '/images/events/ticket-toss.jpeg',
       details: {
-        rules: ['Stand behind throwing line.', 'Closest without crossing wins.', 'Best of 5 throws.', 'Must land flat.'],
-        prizes: ['Within 6 inches: Coupon', 'Closest Overall: Special Prize']
+        rules: [
+          'Distance: The participant must stand strictly behind the marked yellow line, located 5 feet from the table.',
+          'Style: Underarm toss only. Overarm throwing is prohibited.',
+          'Target: The ticket must land within the marked "Win Zone" strip on the table.',
+          'Fail: If the ticket slides off the table or stops short of the zone, it is a loss.',
+          'Attempts: Best of 3 tosses.'
+        ],
+        prizes: ['Instant Prize: Coupon/Voucher', PREMIUM_REWARD_CLAUSE]
       }
     },
     {
@@ -606,14 +702,21 @@ const Events: React.FC = () => {
       category: 'carnival',
       title: 'Brick Balance',
       emoji: '🧱',
-      description: 'Hold a wet brick with two fingers for 60s.',
+      description: 'Brick Balance tests your finger strength and endurance. You must hold a heavy, wet brick using only a "pincer grip" (fingertips) for as long as possible. The water makes it slippery, and gravity makes it heavy. How long can you hold on?',
       fee: '₹30',
       teamSize: 'Individual',
-      formLink: '',
+      venue: 'Quadrangle',
+      time: 'All Day',
+      deadline: '2025-12-16T17:00:00',
       image: '/images/events/brick-balance.jpeg',
       details: {
-        rules: ['Two fingers only (Thumb+1).', 'Horizontal hold.', 'No resting on body.', '60 seconds.'],
-        prizes: ['Success: Merchandise', 'Record Holder: Grand Prize']
+        rules: [
+          'Grip: You must use a pincer grip (Thumb on one side, fingers on the other). No cupping the brick from underneath.',
+          'Arm Position: The arm must be extended straight out or hanging straight down. No resting against the body.',
+          'Time to Beat: You must hold the brick for 60 seconds to win.',
+          'Safety: Do not drop the brick on your toes. Drop it forward if you lose grip.'
+        ],
+        prizes: ['Instant Prize: Merchandise', PREMIUM_REWARD_CLAUSE]
       }
     },
     {
@@ -621,14 +724,21 @@ const Events: React.FC = () => {
       category: 'carnival',
       title: 'Elbow Flip',
       emoji: '💪',
-      description: 'Flip coins from elbow and catch them mid-air.',
+      description: 'Elbow Flip is the ultimate coordination trick. You stack a pile of coins on your elbow, flick your arm down, and snatch them all out of the air before they hit the floor. It looks like magic, but it is pure reflex.',
       fee: '₹30',
       teamSize: 'Individual',
-      formLink: '',
+      venue: 'Quadrangle',
+      time: 'All Day',
+      deadline: '2025-12-16T17:00:00',
       image: '/images/events/elbow-flip.jpeg',
       details: {
-        rules: ['Place 5-10 coins on elbow.', 'Flip and catch with same hand.', 'One attempt.', 'No assisting hand.'],
-        prizes: ['3+ Caught: Chocolate', '7+ Caught: Premium', 'All 10: Grand Prize']
+        rules: [
+          'Stack: Place a vertical stack of 5-10 coins on your elbow while your arm is bent.',
+          'Motion: Swiftly drop the elbow and snatch the coins mid-air with the same hand.',
+          'Win Condition: You must catch ALL coins in the same hand in a single motion.',
+          'Fail: Dropping even one coin voids the attempt.'
+        ],
+        prizes: ['Instant Prize: Grand Prize', PREMIUM_REWARD_CLAUSE]
       }
     },
     {
@@ -636,14 +746,21 @@ const Events: React.FC = () => {
       category: 'carnival',
       title: 'Blow the Ball',
       emoji: '🌬️',
-      description: 'Move a ball across a table using only breath.',
+      description: 'Blow the Ball is a lung capacity test. You must guide a lightweight ping pong ball through a track of water-filled cups using only your breath. You cannot touch the ball, you cannot touch the cups. Just blow air with precision.',
       fee: '₹30',
       teamSize: 'Individual',
-      formLink: '',
+      venue: 'Quadrangle',
+      time: 'All Day',
+      deadline: '2025-12-16T17:00:00',
       image: '/images/events/blow-the-ball.jpeg',
       details: {
-        rules: ['No touching with hands/body.', 'Must cross finish line.', '30 seconds limit.'],
-        prizes: ['Success: Gift', '< 15 secs: Premium Prize']
+        rules: [
+          'No Touch: You strictly cannot touch the ball or cups with your hands, nose, or lips.',
+          'Method: Blow air to push the ball from the first cup to the last cup in the line.',
+          'Restart: If the ball falls off the track, you must start over (if time permits).',
+          'Time Limit: The entire course must be completed in 30 Seconds.'
+        ],
+        prizes: ['Instant Prize: Gift Hamper', PREMIUM_REWARD_CLAUSE]
       }
     },
     {
@@ -651,14 +768,21 @@ const Events: React.FC = () => {
       category: 'carnival',
       title: 'Rubber Band Shot',
       emoji: '🎯',
-      description: 'Knock down a cup pyramid with rubber bands.',
+      description: 'Rubber Band Shot is sniper training. You are given a rubber band and a target: a pyramid of lightweight paper cups. You must knock them all down from a distance. Aim, stretch, and release.',
       fee: '₹30',
       teamSize: 'Individual',
-      formLink: '',
+      venue: 'Quadrangle',
+      time: 'All Day',
+      deadline: '2025-12-16T17:00:00',
       image: '/images/events/rubber-band-shot.jpeg',
       details: {
-        rules: ['Distance 8-10ft.', '3-5 rubber bands.', 'All cups must fall.', 'Pyramid must be dismantled.'],
-        prizes: ['Success: Chocolate', '1-2 shots: Premium Prize']
+        rules: [
+          'Ammo: You get exactly 3 rubber bands per ticket.',
+          'Target: A pyramid of 6 lightweight cups arranged on a table.',
+          'Win Condition: You must knock down ALL cups off the table to win.',
+          'Distance: The shooting line is marked 6 feet away. Crossing the line disqualifies the shot.'
+        ],
+        prizes: ['Instant Prize: Chocolate', PREMIUM_REWARD_CLAUSE]
       }
     },
     {
@@ -666,14 +790,21 @@ const Events: React.FC = () => {
       category: 'carnival',
       title: 'Straw Suction',
       emoji: '🥤',
-      description: 'Transfer paper balls using straw suction.',
+      description: 'Straw Suction is a vacuum race. You must use a plastic straw to create suction with your mouth and pick up M&Ms or beans, transferring them from one bowl to another. No hands allowed!',
       fee: '₹30',
       teamSize: 'Individual',
-      formLink: '',
+      venue: 'Quadrangle',
+      time: 'All Day',
+      deadline: '2025-12-16T17:00:00',
       image: '/images/events/straw-suction.jpeg',
       details: {
-        rules: ['No hands.', 'Transfer 7+ balls.', '60 seconds limit.', 'Only inhaling suction allowed.'],
-        prizes: ['7+ balls: Treat', '12+ balls: Premium Box']
+        rules: [
+          'Tool: One standard plastic straw provided.',
+          'Technique: Create suction with your mouth to lift the item. Do not bite the item.',
+          'No Hands: Hands must remain behind your back at all times.',
+          'Goal: Transfer 10 items from the source bowl to the destination bowl in 60 seconds.'
+        ],
+        prizes: ['Instant Prize: Sweet Treat', PREMIUM_REWARD_CLAUSE]
       }
     },
     {
@@ -681,14 +812,22 @@ const Events: React.FC = () => {
       category: 'carnival',
       title: 'Emoji Riddle',
       emoji: '🧩',
-      description: 'Decode emoji sequences within time limit.',
+      description: 'Emoji Riddle is a pop culture decoding game. We show you a string of emojis, and you have to guess the movie, song, idiom, or famous phrase they represent. It requires quick lateral thinking.',
       fee: '₹30',
       teamSize: 'Individual',
-      formLink: '',
+      venue: 'Quadrangle',
+      time: 'All Day',
+      deadline: '2025-12-16T17:00:00',
       image: '/images/events/emoji-riddle.jpeg',
       details: {
-        rules: ['5 mins total.', 'Solve as many as possible.', 'No phones.', 'Spelling must be recognizable.'],
-        prizes: ['5+ Correct: Small Prize', '10+ Correct: Premium', 'All Correct: Grand Prize']
+        rules: [
+          'Format: You will be shown 5 Riddle Cards sequentially.',
+          'Time: You have 20 seconds to answer each card.',
+          'Assistance: No asking friends or using Google Lens.',
+          'Win: Solve at least 4 out of 5 riddles correctly to win.',
+          'Answers: Answers must be exact titles (e.g., "The Lion King", not "Lion Movie").'
+        ],
+        prizes: ['Instant Prize: Premium Badge', PREMIUM_REWARD_CLAUSE]
       }
     },
     {
@@ -696,14 +835,21 @@ const Events: React.FC = () => {
       category: 'carnival',
       title: 'Color Trick',
       emoji: '🎨',
-      description: 'Say the ink color, not the word.',
+      description: 'Color Trick is based on the famous Stroop Effect. You will see a list of color words (e.g., "BLUE", "GREEN") printed in different colored inks (e.g., the word "BLUE" printed in Red ink). You must say the INK COLOR aloud, not the written word. It messes with your brain.',
       fee: '₹30',
       teamSize: 'Individual',
-      formLink: '',
+      venue: 'Quadrangle',
+      time: 'All Day',
+      deadline: '2025-12-16T17:00:00',
       image: '/images/events/color-trick.jpeg',
       details: {
-        rules: ['Read chart top to bottom.', 'Say INK COLOR not word.', '30 seconds.', 'One restart allowed.'],
-        prizes: ['15+ Correct: Chocolate', '25+ Correct: Premium', 'Perfect Score: Grand Prize']
+        rules: [
+          'Speed: You must read the whole chart (20 words) in under 20 seconds.',
+          'Accuracy: Only one self-corrected mistake is allowed. Two mistakes result in Game Over.',
+          'Protocol: You must speak loud and clear. Mumbling is not accepted.',
+          'Win: Reach the end of the list without failing.'
+        ],
+        prizes: ['Instant Prize: Grand Prize', PREMIUM_REWARD_CLAUSE]
       }
     },
     {
@@ -711,14 +857,21 @@ const Events: React.FC = () => {
       category: 'carnival',
       title: '7 Up 7 Down',
       emoji: '🎲',
-      description: 'Bet on dice roll outcomes.',
+      description: '7 Up 7 Down is a classic casino-style probability game. Two large dice are rolled. You simply have to predict if the sum of the numbers will be Above 7, Below 7, or Exactly 7. It is a game of pure luck.',
       fee: '₹30',
       teamSize: 'Individual',
-      formLink: '',
+      venue: 'Quadrangle',
+      time: 'All Day',
+      deadline: '2025-12-16T17:00:00',
       image: '/images/events/7up-7down.jpeg',
       details: {
-        rules: ['Bet on <7, >7, or =7.', 'One roll.', 'No changing bets.', 'Rolled by organizer.'],
-        prizes: ['Correct: Chocolate', 'Lucky 7: Triple Prize']
+        rules: [
+          'Betting: Place your token on one of three zones: "Up" (>7), "Down" (<7), or "7" (Exactly 7).',
+          'Rolling: The organizer rolls two large dice in a cup.',
+          'Winning: If the sum matches your zone, you win.',
+          'Payout: "Up" and "Down" pay a standard reward. "Exact 7" pays a Triple Reward due to lower probability.'
+        ],
+        prizes: ['Instant Prize: Double/Triple Reward', PREMIUM_REWARD_CLAUSE]
       }
     },
     {
@@ -726,14 +879,21 @@ const Events: React.FC = () => {
       category: 'carnival',
       title: 'Confusing Words',
       emoji: '😵',
-      description: 'Read backwards words or palindromes.',
+      description: 'Confusing Words is a tongue twister gauntlet. You will be given a list of intentionally difficult phrases (e.g., "Pad kid poured curd pulled cod"). You must read them aloud fast without stuttering or mispronouncing.',
       fee: '₹30',
       teamSize: 'Individual',
-      formLink: '',
+      venue: 'Quadrangle',
+      time: 'All Day',
+      deadline: '2025-12-16T17:00:00',
       image: '/images/events/confusing-words.jpeg',
       details: {
-        rules: ['45 seconds.', 'Decode and say/write word.', 'Spelling counts.', 'Skip allowed.'],
-        prizes: ['8+ Correct: Small Prize', '15+ Correct: Premium', 'All Correct: Grand Prize']
+        rules: [
+          'Challenge: Read 5 tongue twisters back-to-back.',
+          'Time: 30 seconds total for all 5.',
+          'Clarity: Every word must be audible and clear. Slurring words counts as a fail.',
+          'Fail: Stuttering or stopping for more than 2 seconds ends the turn.'
+        ],
+        prizes: ['Instant Prize: Prize', PREMIUM_REWARD_CLAUSE]
       }
     },
     {
@@ -741,14 +901,22 @@ const Events: React.FC = () => {
       category: 'carnival',
       title: 'Penny Stack',
       emoji: '💰',
-      description: 'Stack coins vertically without toppling.',
+      description: 'Penny Stack is a test of architectural precision. You must stack coins in a single vertical column. The higher you go, the wobblier it gets. How high can you go before gravity wins?',
       fee: '₹30',
       teamSize: 'Individual',
-      formLink: '',
+      venue: 'Quadrangle',
+      time: 'All Day',
+      deadline: '2025-12-16T17:00:00',
       image: '/images/events/penny-stack.jpeg',
       details: {
-        rules: ['Free-standing tower.', '45 seconds.', 'Must stand for 3s.', 'No adhesive.'],
-        prizes: ['15+ Coins: Chocolate', '25+ Coins: Premium Box', 'Record Holder: Merch']
+        rules: [
+          'Base: The stack starts on a single coin base.',
+          'Method: Stack one coin at a time using only one hand.',
+          'Time: 60 Seconds to build the tower.',
+          'Stability: The tower must stand unsupported for 5 seconds after the timer ends.',
+          'Win: Stack 25 coins or more to claim the prize.'
+        ],
+        prizes: ['Instant Prize: Special Prize', PREMIUM_REWARD_CLAUSE]
       }
     },
     {
@@ -756,14 +924,21 @@ const Events: React.FC = () => {
       category: 'carnival',
       title: 'Paper Ball Basket',
       emoji: '🗑️',
-      description: 'Shoot paper balls into bowls at distances.',
+      description: 'Paper Ball Basket is classic office basketball. You are given crumpled paper balls and must throw them into a wastebasket from varying distances. It sounds easy, but the aerodynamics of paper are unpredictable.',
       fee: '₹30',
       teamSize: 'Individual',
-      formLink: '',
+      venue: 'Quadrangle',
+      time: 'All Day',
+      deadline: '2025-12-16T17:00:00',
       image: '/images/events/paper-ball-basket.jpeg',
       details: {
-        rules: ['10 shots total.', 'Different points for distances.', 'Min 15 pts to win.'],
-        prizes: ['15+ Pts: Surprise', '30+ Pts: Premium', '45+ Pts: Grand Prize']
+        rules: [
+          'Shots: You get 5 shots total, taken from increasing distances marked on the floor.',
+          'Foul Line: Do not cross the tape on the floor while throwing.',
+          'Ball: Standard A4 paper crumpled into a ball.',
+          'Win: You must sink at least 4 out of 5 shots to win.'
+        ],
+        prizes: ['Instant Prize: Prize', PREMIUM_REWARD_CLAUSE]
       }
     }
   ]
@@ -778,9 +953,15 @@ const Events: React.FC = () => {
 
   const categories = ['all', 'technical', 'non-technical', 'gaming', 'carnival']
   
-  // FIXED: Added 'any' type to ignore TS errors on arguments
   const handleRegisterClick = (event: any, e: any) => {
-    if (event.category === 'carnival') return; // Carnival buttons say "Play", no link needed
+    if (event.category === 'carnival') return; 
+    
+    // Check if event is closed before opening link
+    if (new Date() > new Date(event.deadline)) {
+        alert("Registration for this event has closed.");
+        return;
+    }
+
     if (event.formLink) {
         window.open(event.formLink, '_blank');
     } else {
@@ -789,7 +970,7 @@ const Events: React.FC = () => {
   };
 
   const handleLearnMoreClick = (event: any, e: any) => {
-     setSelectedEvent(event);
+      setSelectedEvent(event);
   };
 
   return (
@@ -859,6 +1040,9 @@ const Events: React.FC = () => {
             {filteredEvents.length > 0 ? (
               filteredEvents.map(event => {
                 const theme = getTheme(event.category);
+                // --- DEADLINE LOGIC ---
+                const isExpired = currentTime > new Date(event.deadline);
+
                 return (
                   <div
                     key={event.id}
@@ -893,10 +1077,16 @@ const Events: React.FC = () => {
                              <span className={`text-3xl filter drop-shadow-lg`}>{event.emoji}</span>
                           </div>
                           
-                          <p className="text-neutral-400 text-sm leading-relaxed mb-8 line-clamp-3 font-medium">
+                          <p className="text-neutral-400 text-sm leading-relaxed mb-4 line-clamp-3 font-medium">
                             {event.description}
                           </p>
                           
+                          {/* Mini Info Line on Card */}
+                          <div className="mb-8 flex flex-wrap gap-2 text-[10px] text-neutral-500 font-mono uppercase tracking-tight">
+                            <span className="bg-white/5 px-2 py-1 rounded border border-white/5">{event.time}</span>
+                            <span className="bg-white/5 px-2 py-1 rounded border border-white/5 truncate max-w-[150px]">{event.venue}</span>
+                          </div>
+
                           {/* Buttons */}
                           <div className="mt-auto flex gap-4 pt-6 border-t border-white/5">
                             <button
@@ -906,13 +1096,20 @@ const Events: React.FC = () => {
                               Info & Rules
                             </button>
                             
-                            <button
-                              onClick={(e) => handleRegisterClick(event, e)}
-                              className={`flex-1 py-3 rounded-xl text-xs font-bold uppercase tracking-wide text-white transition-all transform active:scale-95 ${theme.button} ${(!event.formLink && event.category !== 'carnival') ? 'opacity-50 cursor-not-allowed grayscale' : ''}`}
-                              disabled={event.category !== 'carnival' && !event.formLink}
-                            >
-                              {event.category === 'carnival' ? 'Play' : (event.formLink ? 'Register' : 'Closed')}
-                            </button>
+                            {/* --- BUTTON LOGIC CHANGE: Carnival = Hidden, Expired = Closed, Valid = Register --- */}
+                            {event.category !== 'carnival' && (
+                                <button
+                                  onClick={(e) => handleRegisterClick(event, e)}
+                                  className={`flex-1 py-3 rounded-xl text-xs font-bold uppercase tracking-wide text-white transition-all transform active:scale-95 ${
+                                    isExpired 
+                                      ? 'bg-gray-700 cursor-not-allowed opacity-50' 
+                                      : `${theme.button} ${(!event.formLink) ? 'opacity-50 cursor-not-allowed grayscale' : ''}`
+                                  }`}
+                                  disabled={isExpired || !event.formLink}
+                                >
+                                  {isExpired ? 'Registrations Full' : (event.formLink ? 'Register Now' : 'Closed')}
+                                </button>
+                            )}
                           </div>
                       </div>
                     </div>
@@ -952,15 +1149,15 @@ const Events: React.FC = () => {
                 
                 {/* Cover Image */}
                 <div className="h-80 w-full relative bg-neutral-900">
-                   <img 
+                    <img 
                       src={selectedEvent.image} 
                       onError={(e) => {e.currentTarget.src = "https://via.placeholder.com/800x400/111/444?text=Event"}}
                       className="w-full h-full object-cover opacity-80"
                       alt={selectedEvent.title}
-                   />
-                   <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#121212]/50 to-[#121212]"></div>
-                   
-                   <div className="absolute bottom-8 left-8 right-8 flex items-end justify-between">
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#121212]/50 to-[#121212]"></div>
+                    
+                    <div className="absolute bottom-8 left-8 right-8 flex items-end justify-between">
                       <div>
                         <h3 className="text-4xl md:text-5xl font-bold text-white mb-2">{selectedEvent.title}</h3>
                         <span className={`text-sm font-bold uppercase tracking-widest ${
@@ -972,20 +1169,28 @@ const Events: React.FC = () => {
                         </span>
                       </div>
                       <span className="text-6xl filter drop-shadow-2xl hidden md:block">{selectedEvent.emoji}</span>
-                   </div>
+                    </div>
                 </div>
 
                 <div className="p-8 md:p-10">
                   
-                  {/* Key Info Stats */}
-                  <div className="grid grid-cols-2 gap-4 mb-10">
-                      <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/5">
-                        <span className="block text-xs text-neutral-500 uppercase font-bold mb-1 tracking-wider">Entry Fee</span>
-                        <span className="text-white font-mono text-xl">{selectedEvent.fee}</span>
+                  {/* Key Info Stats Grid */}
+                  <div className="grid grid-cols-2 gap-6 mb-10">
+                      <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/5">
+                        <span className="block text-[10px] text-neutral-500 uppercase font-bold mb-1 tracking-wider">Entry Fee</span>
+                        <span className="text-white font-mono text-lg">{selectedEvent.fee}</span>
                       </div>
-                      <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/5">
-                        <span className="block text-xs text-neutral-500 uppercase font-bold mb-1 tracking-wider">Team Size</span>
-                        <span className="text-white font-mono text-xl">{selectedEvent.teamSize}</span>
+                      <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/5">
+                        <span className="block text-[10px] text-neutral-500 uppercase font-bold mb-1 tracking-wider">Team Size</span>
+                        <span className="text-white font-mono text-lg">{selectedEvent.teamSize}</span>
+                      </div>
+                      <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/5 col-span-1">
+                        <span className="block text-[10px] text-neutral-500 uppercase font-bold mb-1 tracking-wider">Venue</span>
+                        <span className="text-white font-mono text-lg leading-tight block">{selectedEvent.venue}</span>
+                      </div>
+                      <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/5 col-span-1">
+                        <span className="block text-[10px] text-neutral-500 uppercase font-bold mb-1 tracking-wider">Time</span>
+                        <span className="text-white font-mono text-sm leading-tight block">{selectedEvent.time}</span>
                       </div>
                   </div>
 
@@ -1051,8 +1256,8 @@ const Events: React.FC = () => {
                           </h4>
                           <ul className="space-y-3">
                             {selectedEvent.details.prizes.map((r,i) => (
-                              <li key={i} className="flex items-start gap-3 text-neutral-400 text-sm leading-relaxed">
-                                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-white/20 shrink-0"></span>
+                              <li key={i} className={`flex items-start gap-3 text-sm leading-relaxed ${r === PREMIUM_REWARD_CLAUSE ? 'text-yellow-400 font-bold' : 'text-neutral-400'}`}>
+                                <span className={`mt-1.5 w-1.5 h-1.5 rounded-full shrink-0 ${r === PREMIUM_REWARD_CLAUSE ? 'bg-yellow-400' : 'bg-white/20'}`}></span>
                                 {r}
                               </li>
                             ))}
@@ -1063,24 +1268,37 @@ const Events: React.FC = () => {
                   </div>
 
                   <div className="mt-12 pt-8 border-t border-white/10 flex justify-end">
-                      {selectedEvent.formLink && (
-                        <a 
-                          href={selectedEvent.formLink}
-                          target="_blank"
-                          rel="noreferrer"
-                          className={`px-10 py-4 rounded-2xl font-bold text-white shadow-2xl hover:scale-105 transition-transform ${
-                            selectedEvent.category === 'technical' ? 'bg-gradient-to-r from-purple-600 to-purple-500' :
-                            selectedEvent.category === 'non-technical' ? 'bg-gradient-to-r from-pink-600 to-pink-500' :
-                            selectedEvent.category === 'gaming' ? 'bg-gradient-to-r from-green-600 to-green-500' : 'bg-gradient-to-r from-orange-600 to-orange-500'
-                          }`}
-                        >
-                          Register Now
-                        </a>
-                      )}
-                      {selectedEvent.category === 'carnival' && (
-                         <div className="px-10 py-4 rounded-2xl font-bold text-white bg-orange-600/80 cursor-default border border-orange-500/30">
-                           Pay & Play On-Spot
-                         </div>
+                      {/* --- BUTTON LOGIC CHANGE: Carnival = On Spot Text, Others = Link/Expired --- */}
+                      {selectedEvent.category === 'carnival' ? (
+                          <div className="p-4 rounded-xl bg-orange-500/10 border border-orange-500/30 text-orange-400 text-center w-full">
+                           <p className="font-bold text-lg">🎟️ On-Spot Registration</p>
+                           <p className="text-sm mt-1 text-orange-400/70">Visit the registration desk at the Quadrangle/Foyer to participate in this event.</p>
+                          </div>
+                      ) : (
+                          // Check if event is expired for Modal Button
+                          currentTime > new Date(selectedEvent.deadline) ? (
+                            <button
+                              disabled
+                              className="px-10 py-4 rounded-2xl font-bold text-white bg-gray-700 cursor-not-allowed opacity-50"
+                            >
+                              Registrations Full
+                            </button>
+                          ) : (
+                            selectedEvent.formLink && (
+                              <a 
+                                href={selectedEvent.formLink}
+                                target="_blank"
+                                rel="noreferrer"
+                                className={`px-10 py-4 rounded-2xl font-bold text-white shadow-2xl hover:scale-105 transition-transform ${
+                                  selectedEvent.category === 'technical' ? 'bg-gradient-to-r from-purple-600 to-purple-500' :
+                                  selectedEvent.category === 'non-technical' ? 'bg-gradient-to-r from-pink-600 to-pink-500' :
+                                  selectedEvent.category === 'gaming' ? 'bg-gradient-to-r from-green-600 to-green-500' : 'bg-gradient-to-r from-orange-600 to-orange-500'
+                                }`}
+                              >
+                                Register Now
+                              </a>
+                            )
+                          )
                       )}
                   </div>
                 </div>
