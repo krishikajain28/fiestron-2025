@@ -5,7 +5,7 @@ import Footer from './Footer';
 // --- Type Definition ---
 interface GalleryItem {
   id: number;
-  category: '2024' | '2025';
+  category: '2024' | '2025'; // Internal data keys (kept for logic)
   title: string;
   url: string;
   alt: string;
@@ -15,21 +15,40 @@ interface GalleryItem {
 const generateGalleryData = (): GalleryItem[] => {
   const items: GalleryItem[] = [];
   
-  const titles = [
-    "Hackathon Victory", "The Crowd", "Leaders Meet", "Workshop Focus", "Code Quest", 
-    "Candid Moments", "Stage Lights", "Setup Vibes", "Team Spirit", "Night Event",
-    "Registration Buzz", "Main Hall", "Tech Talk", "Gaming Zone", "Prize Distribution",
-    "Faculty Visit", "Volunteers", "Opening Ceremony", "Closing Night", "Audience Cheering",
-    "Project Demo", "Final Group"
-  ];
+  // Specific, individual titles for each image (a1 to a22)
+  const imageTitles: { [key: number]: string } = {
+    1: "Candid Moments & Smiles",
+    2: "The Fiestron Force",
+    3: "Workshop Vibes",
+    4: "The Core Committee",
+    5: "Inauguration Ceremony",
+    6: "The Packed Hall",
+    7: "Tech Workshop",
+    8: "The Team Huddle",
+    9: "Inaugural Address",
+    10: "Victory Moment",
+    11: "Faculty Jam Session",
+    12: "Virtual Reality Experience",
+    13: "The Neon Pulse",
+    14: "The Committee Panel",
+    15: "Registration Desk Hustle",
+    16: "Volunteers & Organizers",
+    17: "Sweet Beginnings",
+    18: "Mentors & Guides",
+    19: "Hosting Duties",
+    20: "Squad Goals",
+    21: "Award Moment",
+    22: "Seminar Session"
+  };
 
   for (let i = 1; i <= 22; i++) {
     items.push({
       id: i,
       category: '2024', 
-      title: titles[i-1] || `Fiestron Archive ${i}`,
+      // Use the specific title map
+      title: imageTitles[i] || `Fiestron Event ${i}`,
       url: `/images/gallery/a${i}.png`, 
-      alt: `Fiestron 2024 Event Highlight ${i}`
+      alt: `Fiestron Event - ${imageTitles[i]}`
     });
   }
   return items;
@@ -45,6 +64,13 @@ const preEventMessages = [
   "Memories loading… 0% complete. 🫤",
   "Brb, event hasn’t started. 🫣"
 ];
+
+// --- Helper to map categories to Display Text ---
+const getCategoryLabel = (cat: string) => {
+  if (cat === '2024') return 'ARCHIVES';
+  if (cat === '2025') return 'LATEST';
+  return cat;
+};
 
 const Gallery: React.FC = () => {
   const [filter, setFilter] = useState<'all' | '2024' | '2025'>('all');
@@ -126,8 +152,9 @@ const Gallery: React.FC = () => {
           {item.title}
         </h4>
         <div className="h-0.5 w-12 bg-gradient-to-r from-orange-500 to-pink-500 mt-2 mb-1 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+        {/* CHANGED: Card Label now uses helper function */}
         <span className="text-gray-300 text-[10px] uppercase tracking-widest translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">
-          {item.category} Collection
+          {getCategoryLabel(item.category)} Collection
         </span>
       </div>
 
@@ -171,12 +198,9 @@ const Gallery: React.FC = () => {
               // Visual Archives
             </h2>
 
-      <h3 className="text-4xl md:text-8xl font-black tracking-tighter text-white mb-6 ">
-
+            <h3 className="text-4xl md:text-8xl font-black tracking-tighter text-white mb-6 ">
               Event <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 stroke-white">Highlights</span>
-
             </h3>
-
 
             <p className="text-gray-400 text-lg max-w-2xl mx-auto font-light leading-relaxed">
               A curated collection of moments, energy, and innovation from previous years. 
@@ -188,7 +212,8 @@ const Gallery: React.FC = () => {
           <div className="flex justify-center gap-4 mb-16 flex-wrap">
             {categories.map(cat => {
               const active = filter === cat;
-              const label = cat === 'all' ? 'ALL YEARS' : cat === '2024' ? '2024 ARCHIVE' : '2025 LIVE';
+              // CHANGED: Filter Button Labels
+              const label = cat === 'all' ? 'All' : getCategoryLabel(cat);
 
               return (
                 <button
@@ -211,12 +236,12 @@ const Gallery: React.FC = () => {
             groupedItems?.map((group, index) => (
               <React.Fragment key={group.category}>
                 
-                {/* --- CHANGED: Header now renders for 2025 even if empty --- */}
+                {/* --- CHANGED: Group Section Headers --- */}
                 <div className={`mt-24 mb-12 text-center ${index > 0 ? 'border-t border-white/10 pt-16' : ''}`}>
                   <h3 className="text-3xl md:text-4xl font-bold tracking-tight inline-flex items-center gap-3">
-                    <span className="text-white">{group.category}</span>
-                    <span className="text-transparent bg-clip-text text-white/50">
-                      {group.category === '2024' ? 'Archives' : 'Live Feed'}
+                    
+                    <span className="text-transparent bg-clip-text text-white/90">
+                      {group.category === '2024' ? 'Archives' : 'Latest'}
                     </span>
                   </h3>
                   <div className="w-12 h-1 bg-gradient-to-r from-transparent via-white/20 to-transparent mx-auto mt-4 rounded-full"></div>
@@ -296,8 +321,9 @@ const Gallery: React.FC = () => {
                     {filteredItems[lightboxIndex].title}
                   </h3>
                   <div className="flex items-center justify-center gap-2 mt-2">
+                    {/* CHANGED: Lightbox Category Tag */}
                     <span className="text-orange-500 text-xs font-bold uppercase tracking-wider">
-                      {filteredItems[lightboxIndex].category}
+                      {getCategoryLabel(filteredItems[lightboxIndex].category)}
                     </span>
                     <span className="text-white/20">•</span>
                     <span className="text-white/40 text-sm">
