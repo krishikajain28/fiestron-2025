@@ -67,8 +67,8 @@ const preEventMessages = [
 
 // --- Helper to map categories to Display Text ---
 const getCategoryLabel = (cat: string) => {
-  if (cat === '2024') return 'ARCHIVES';
-  if (cat === '2025') return 'LATEST';
+  if (cat === '2024') return 'Archives';
+  if (cat === '2025') return 'Latest';
   return cat;
 };
 
