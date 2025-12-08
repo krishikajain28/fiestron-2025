@@ -12,7 +12,7 @@ import Footer from './components/Footer'
 // Dedicated pages
 import Team from './components/Team'
 import Events from './components/Events'
-import Gallery from './components/Gallery'
+import Gallery from './components/Gallery/Gallery'
 import Contact from './components/Contact'
 import NotFound from './components/NotFound'
 
