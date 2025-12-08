@@ -54,7 +54,7 @@ const Team: React.FC = () => {
       role: 'Core Member', 
       description: 'Strategic planning and team coordination.', 
       emoji: '🦁', 
-      image: '/images/core-akanksha.jpg',
+      image: '/images/core-akanksha.png',
       position: 'object-center' 
     },
     { 
@@ -87,8 +87,8 @@ const Team: React.FC = () => {
   const departments = [
     { 
       name: 'Accounts', 
-      head: { name: 'Pratham Chudasama', image: '/images/dept-accounts-head.jpg' },
-      cohead: { name: 'Amruta Bhosale', image: '/images/dept-accounts-cohead.jpg' },
+      head: { name: 'Pratham Chudasama', image: '/images/dept-accounts-head.png' },
+      cohead: { name: 'Amruta Bhosale', image: '/images/dept-accounts-cohead.png' },
       description: 'Managing income, expenses, and maintaining financial transparency for the fest.', 
       emoji: '💰' 
     },
@@ -102,35 +102,35 @@ const Team: React.FC = () => {
     { 
       name: 'Admin', 
       head: { name: 'Tirth Sanghavi', image: '/images/dept-admin-head.jpg', position: 'object-centre'},
-      cohead: { name: 'Yogashri Bhadekar', image: '/images/dept-admin-cohead.jpg' },
+      cohead: { name: 'Yogashri Bhadekar', image: '/images/dept-admin-cohead.png' },
       description: 'Handling permissions, venue allocation, contracts, and official documentation.', 
       emoji: '📂' 
     },
     { 
       name: 'Coverage', 
       head: { name: 'Mohammed Amaan', image: '/images/dept-coverage-head.jpg' },
-      cohead: { name: 'Mohammed Akib', image: '/images/dept-coverage-cohead.jpg' },
+      cohead: { name: 'Mohammed Akib', image: '/images/dept-coverage-cohead.png' },
       description: 'Capturing photos, videos, highlights, and managing media coverage for events.', 
       emoji: '📸' 
     },
     { 
       name: 'Decor', 
       head: { name: 'Sreya Nair', image: '/images/dept-decor-head.jpg' },
-      cohead: { name: 'Diya Nambiar', image: '/images/dept-decor-cohead.jpg' },
+      cohead: { name: 'Diya Nambiar', image: '/images/dept-decor-cohead.png' },
       description: 'Designing immersive decorations matching event themes and managing creative resources.', 
       emoji: '✨' 
     },
     { 
       name: 'Design', 
-      head: { name: 'Kasturi Jadhav', image: '/images/dept-design-head.jpg' },
-      cohead: { name: 'Tisha Shah', image: '/images/dept-design-cohead.jpg' },
+      head: { name: 'Kasturi Jadhav', image: '/images/dept-design-head.png' },
+      cohead: { name: 'Tisha Shah', image: '/images/dept-design-cohead.png' },
       description: 'Creating brochures, flyers, social media posts, and defining the visual theme.', 
       emoji: '🎨' 
     },
     { 
       name: 'Logistics', 
       head: { name: 'Chetan Rathod', image: '/images/dept-logistics-head.jpg', position: 'object-[50%_20%]' },
-      cohead: { name: 'Tarang Jain', image: '/images/dept-logistics-cohead.jpg', position: 'object-[50%_85%]'},
+      cohead: { name: 'Tarang Jain', image: '/images/dept-logistics-cohead.png', position: 'object-[50%_85%]'},
       description: 'Handling on-ground requirements, equipment, and coordinating resource needs.', 
       emoji: '🚚' 
     },
@@ -142,9 +142,9 @@ const Team: React.FC = () => {
       emoji: '🤝' 
     },
     { 
-      name: 'PR & Marketing', 
-      head: { name: 'Pavan Mahadik', image: '/images/dept-marketing-head.jpg' },
-      cohead: { name: 'Iqra Shaikh', image: '/images/dept-marketing-cohead.jpg', position: 'object-[50%_25%]' },
+      name: 'Marketing', 
+      head: { name: 'Pavan Mahadik', image: '/images/dept-marketing-head.png' },
+      cohead: { name: 'Iqra Shaikh', image: '/images/dept-marketing-cohead.png', position: 'object-[50%_25%]' },
       description: 'Promoting the club, managing campaigns, and building sponsor relationships.', 
       emoji: '📢' 
     },
@@ -158,10 +158,17 @@ const Team: React.FC = () => {
     { 
       name: 'Technical', 
       head: { name: 'Rahil Shaikh', image: '/images/dept-tech-head.jpg',position: 'object-[50%_20%]' },
-      cohead: { name: 'Asadullah Khan', image: '/images/dept-tech-cohead.jpg' }, 
+      cohead: { name: 'Asadullah Khan', image: '/images/dept-tech-cohead.png' }, 
       description: 'Handling sound, lights, stage setup, and providing technical support.', 
       emoji: '💻' 
     },
+    { 
+      name: 'Public Relations', 
+      head: { name: 'Akriti Rajbhar', image: '/images/dept-pr-head.jpg',position: 'object-[50%_20%]' },
+      cohead: { name: 'Sneha Chaurasia', image: '/images/dept-pr-cohead.jpg' }, 
+      description: 'Building connections, driving campaigns, and strengthening sponsor ties.', 
+      emoji: '🔗' 
+    },
   ]
 
   // Reusable Glass Profile Card
