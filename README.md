@@ -123,6 +123,3 @@ fiestron-2025/
   * **Organization:** KC College Tech Club
 
 <!-- end list -->
-
-```
-```
