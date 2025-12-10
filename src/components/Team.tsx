@@ -10,7 +10,7 @@ const Team: React.FC = () => {
       name: 'Prof.(Dr.) Hemlata K. Bagla', 
       role: 'Hon. Vice Chancellor',
       description: 'Leading HSNC University, Mumbai with a vision of academic excellence and innovation.',
-      image: '/images/vc.jpg', 
+      image: '/images/team/vc.jpg', 
       emoji: '🎓',
       position: 'object-top'
     },
@@ -18,20 +18,20 @@ const Team: React.FC = () => {
       name: 'Prof.(Dr.) Tejashree Shanbhag', 
       role: 'I/C Principal',
       description: 'Guiding K.C. College towards new heights of research, technology, and student development.',
-      image: '/images/principal.jpg', 
+      image: '/images/team/principal.jpg', 
       emoji: '🏫',
       position: 'object-top'
     },
     vps: [
-      { name: 'Dr. Shalini Sinha', role: 'Vice Principal', description: 'Ensuring academic rigor and student discipline.', emoji: '👩‍🏫', image: '/images/vp-shalini.jpg', position: 'object-top' },
-      { name: 'Dr. Rajesh Ashok Samant', role: 'Vice Principal', description: 'Managing administrative excellence and student welfare.', emoji: '👨‍🏫', image: '/images/vp-samant.jpg', position: 'object-top' },
-      { name: 'Dr. Ritika Pathak', role: 'Vice Principal', description: 'Driving cultural and extracurricular vibrancy.', emoji: '👩‍🏫', image: '/images/vp-ritika.jpg', position: 'object-top' },
+      { name: 'Dr. Shalini Sinha', role: 'Vice Principal', description: 'Ensuring academic rigor and student discipline.', emoji: '👩‍🏫', image: '/images/team/vp-shalini.jpg', position: 'object-top' },
+      { name: 'Dr. Rajesh Ashok Samant', role: 'Vice Principal', description: 'Managing administrative excellence and student welfare.', emoji: '👨‍🏫', image: '/images/team/vp-samant.jpg', position: 'object-top' },
+      { name: 'Dr. Ritika Pathak', role: 'Vice Principal', description: 'Driving cultural and extracurricular vibrancy.', emoji: '👩‍🏫', image: '/images/team/vp-ritika.jpg', position: 'object-top' },
     ],
     hod: {
       name: 'Dr. S. B. Muley',
       role: 'Coordinator - CS Dept',
       description: 'The technical backbone of the CS department, mentoring students to innovate.',
-      image: '/images/hod-muley.jpg',
+      image: '/images/team/hod-muley.jpg',
       emoji: '👨‍💻',
       position: 'object-top'
     }
@@ -39,12 +39,12 @@ const Team: React.FC = () => {
 
   // --- 2. FACULTY ADVISORS ---
   const faculty = [
-    { name: 'Ms. Geeta Brijwani', role: 'Faculty Advisor', description: 'Guiding student initiatives with patience and experience.', emoji: '👩‍🏫', image: '/images/faculty-geeta.jpg', position: 'object-top' },
-    { name: 'Ms. Beena Karutharan', role: 'Faculty Advisor', description: 'Expert in computational logic and student mentorship.', emoji: '👩‍🏫', image: '/images/faculty-beena.jpg', position: 'object-top' },
-    { name: 'Ms. Jovairia Ansari', role: 'Faculty Advisor', description: 'Fostering creative thinking and technical writing skills.', emoji: '👩‍🏫', image: '/images/faculty-jovairia.jpg', position: 'object-top' },
-    { name: 'Ms. Ritika Sharma', role: 'Faculty Advisor', description: 'Managing events and coordinating departmental activities.', emoji: '👩‍🏫', image: '/images/faculty-ritika.jpg', position: 'object-top' },
-    { name: 'Ms. Shalini Maheshgauri', role: 'Faculty Advisor', description: 'Supporting technical infrastructure and coding clubs.', emoji: '👩‍🏫', image: '/images/faculty-shalini-m.jpg' },
-    { name: 'Ms. Dhanashree Ingle', role: 'Faculty Advisor', description: 'Encouraging participation and competitive spirit.', emoji: '👩‍🏫', image: '/images/faculty-dhanashree.jpg', position: 'object-top' },
+    { name: 'Ms. Geeta Brijwani', role: 'Faculty Advisor', description: 'Guiding student initiatives with patience and experience.', emoji: '👩‍🏫', image: '/images/team/faculty-geeta.jpg', position: 'object-top' },
+    { name: 'Ms. Beena Karutharan', role: 'Faculty Advisor', description: 'Expert in computational logic and student mentorship.', emoji: '👩‍🏫', image: '/images/team/faculty-beena.jpg', position: 'object-top' },
+    { name: 'Ms. Jovairia Ansari', role: 'Faculty Advisor', description: 'Fostering creative thinking and technical writing skills.', emoji: '👩‍🏫', image: '/images/team/faculty-jovairia.jpg', position: 'object-top' },
+    { name: 'Ms. Ritika Sharma', role: 'Faculty Advisor', description: 'Managing events and coordinating departmental activities.', emoji: '👩‍🏫', image: '/images/team/faculty-ritika.jpg', position: 'object-top' },
+    { name: 'Ms. Shalini Maheshgauri', role: 'Faculty Advisor', description: 'Supporting technical infrastructure and coding clubs.', emoji: '👩‍🏫', image: '/images/team/faculty-shalini-m.jpg' },
+    { name: 'Ms. Dhanashree Ingle', role: 'Faculty Advisor', description: 'Encouraging participation and competitive spirit.', emoji: '👩‍🏫', image: '/images/team/faculty-dhanashree.jpg', position: 'object-top' },
   ]
 
   // --- 3. STUDENT CORE TEAM ---
@@ -54,7 +54,7 @@ const Team: React.FC = () => {
       role: 'Core Member', 
       description: 'Strategic planning and team coordination.', 
       emoji: '🦁', 
-      image: '/images/core-akanksha.jpg',
+      image: '/images/team/core-akanksha.jpg',
       position: 'object-center' 
     },
     { 
@@ -62,7 +62,7 @@ const Team: React.FC = () => {
       role: 'Core Member', 
       description: 'Operations and management execution.', 
       emoji: '🐯', 
-      image: '/images/core-rida.jpg',
+      image: '/images/team/core-rida.jpg',
       position: 'object-top' 
     },
     { 
@@ -70,7 +70,7 @@ const Team: React.FC = () => {
       role: 'Core Member', 
       description: 'Technical oversight and resource management.', 
       emoji: '🦅', 
-      image: '/images/core-qusai.jpg',
+      image: '/images/team/core-qusai.jpg',
       position: 'object-center' 
     },
     { 
@@ -78,7 +78,7 @@ const Team: React.FC = () => {
       role: 'Core Member', 
       description: 'Event flow and logistical support.', 
       emoji: '🐺', 
-      image: '/images/core-husain.jpg',
+      image: '/images/team/core-husain.jpg',
       position: 'object-top' 
     },
   ]
@@ -87,85 +87,85 @@ const Team: React.FC = () => {
   const departments = [
     { 
       name: 'Accounts', 
-      head: { name: 'Pratham Chudasama', image: '/images/dept-accounts-head.jpg' },
-      cohead: { name: 'Amruta Bhosale', image: '/images/dept-accounts-cohead.jpg' },
+      head: { name: 'Pratham Chudasama', image: '/images/team/dept-accounts-head.jpg' },
+      cohead: { name: 'Amruta Bhosale', image: '/images/team/dept-accounts-cohead.jpg' },
       description: 'Managing income, expenses, and maintaining financial transparency for the fest.', 
       emoji: '💰' 
     },
     { 
       name: 'Website', 
-      head: { name: 'Krishika Jain', image: '/images/dept-web-head.jpg' },
-      cohead: { name: 'Anushka Thakur', image: '/images/dept-web-cohead.jpg',position:'object-center' },
+      head: { name: 'Krishika Jain', image: '/images/team/dept-web-head.jpg' },
+      cohead: { name: 'Anushka Thakur', image: '/images/team/dept-web-cohead.jpg',position:'object-center' },
       description: 'Building, designing, and maintaining the official Fiestron website.', 
       emoji: '🌐' 
     },
     { 
       name: 'Admin', 
-      head: { name: 'Tirth Sanghavi', image: '/images/dept-admin-head.jpg', position: 'object-centre'},
-      cohead: { name: 'Yogashri Bhadekar', image: '/images/dept-admin-cohead.jpg' },
+      head: { name: 'Tirth Sanghavi', image: '/images/team/dept-admin-head.jpg', position: 'object-centre'},
+      cohead: { name: 'Yogashri Bhadekar', image: '/images/team/dept-admin-cohead.jpg' },
       description: 'Handling permissions, venue allocation, contracts, and official documentation.', 
       emoji: '📂' 
     },
     { 
       name: 'Coverage', 
-      head: { name: 'Mohammed Amaan', image: '/images/dept-coverage-head.jpg' },
-      cohead: { name: 'Mohammed Akib', image: '/images/dept-coverage-cohead.jpg' },
+      head: { name: 'Mohammed Amaan', image: '/images/team/dept-coverage-head.jpg' },
+      cohead: { name: 'Mohammed Akib', image: '/images/team/dept-coverage-cohead.jpg' },
       description: 'Capturing photos, videos, highlights, and managing media coverage for events.', 
       emoji: '📸' 
     },
     { 
       name: 'Decor', 
-      head: { name: 'Sreya Nair', image: '/images/dept-decor-head.jpg' },
-      cohead: { name: 'Diya Nambiar', image: '/images/dept-decor-cohead.jpg' },
+      head: { name: 'Sreya Nair', image: '/images/team/dept-decor-head.jpg' },
+      cohead: { name: 'Diya Nambiar', image: '/images/team/dept-decor-cohead.jpg' },
       description: 'Designing immersive decorations matching event themes and managing creative resources.', 
       emoji: '✨' 
     },
     { 
       name: 'Design', 
-      head: { name: 'Kasturi Jadhav', image: '/images/dept-design-head.jpg' },
-      cohead: { name: 'Tisha Shah', image: '/images/dept-design-cohead.jpg' },
+      head: { name: 'Kasturi Jadhav', image: '/images/team/dept-design-head.jpg' },
+      cohead: { name: 'Tisha Shah', image: '/images/team/dept-design-cohead.jpg' },
       description: 'Creating brochures, flyers, social media posts, and defining the visual theme.', 
       emoji: '🎨' 
     },
     { 
       name: 'Logistics', 
-      head: { name: 'Chetan Rathod', image: '/images/dept-logistics-head.jpg', position: 'object-[50%_20%]' },
-      cohead: { name: 'Tarang Jain', image: '/images/dept-logistics-cohead.jpg', position: 'object-[50%_85%]'},
+      head: { name: 'Chetan Rathod', image: '/images/team/dept-logistics-head.jpg', position: 'object-[50%_20%]' },
+      cohead: { name: 'Tarang Jain', image: '/images/team/dept-logistics-cohead.jpg', position: 'object-[50%_85%]'},
       description: 'Handling on-ground requirements, equipment, and coordinating resource needs.', 
       emoji: '🚚' 
     },
     { 
       name: 'Hospitality', 
-      head: { name: 'Radhika Khatri', image: '/images/dept-hospitality-head.jpg' },
-      cohead: { name: 'Saadiya Farooqui', image: '/images/dept-hospitality-cohead.jpg' },
+      head: { name: 'Radhika Khatri', image: '/images/team/dept-hospitality-head.jpg' },
+      cohead: { name: 'Saadiya Farooqui', image: '/images/team/dept-hospitality-cohead.jpg' },
       description: 'Welcoming guests, managing seating, refreshments, and ensuring comfort.', 
       emoji: '🤝' 
     },
     { 
       name: 'Marketing', 
-      head: { name: 'Pavan Mahadik', image: '/images/dept-marketing-head.jpg' },
-      cohead: { name: 'Iqra Shaikh', image: '/images/dept-marketing-cohead.jpg', position: 'object-[50%_25%]' },
+      head: { name: 'Pavan Mahadik', image: '/images/team/dept-marketing-head.jpg' },
+      cohead: { name: 'Iqra Shaikh', image: '/images/team/dept-marketing-cohead.jpg', position: 'object-[50%_25%]' },
       description: 'Promoting the club, managing campaigns, and building sponsor relationships.', 
       emoji: '📢' 
     },
     { 
       name: 'Security', 
-      head: { name: 'Chaitanya Salvi', image: '/images/dept-security-head.jpg', position: 'object-[50%_30%]' },
-      cohead: { name: 'Jahnvi Nair', image: '/images/dept-security-cohead.jpg' },
+      head: { name: 'Chaitanya Salvi', image: '/images/team/dept-security-head.jpg', position: 'object-[50%_30%]' },
+      cohead: { name: 'Jahnvi Nair', image: '/images/team/dept-security-cohead.jpg' },
       description: 'Crowd management, access control, safety, and emergency response.', 
       emoji: '🛡️' 
     },
     { 
       name: 'Technical', 
-      head: { name: 'Rahil Shaikh', image: '/images/dept-tech-head.jpg',position: 'object-[50%_20%]' },
-      cohead: { name: 'Asadullah Khan', image: '/images/dept-tech-cohead.jpg' }, 
+      head: { name: 'Rahil Shaikh', image: '/images/team/dept-tech-head.jpg',position: 'object-[50%_20%]' },
+      cohead: { name: 'Asadullah Khan', image: '/images/team/dept-tech-cohead.jpg' }, 
       description: 'Handling sound, lights, stage setup, and providing technical support.', 
       emoji: '💻' 
     },
     { 
       name: 'Public Relations', 
-      head: { name: 'Akriti Rajbhar', image: '/images/dept-pr-head.jpg',position: 'object-[50%_20%]' },
-      cohead: { name: 'Sneha Chaurasia', image: '/images/dept-pr-cohead.jpg' }, 
+      head: { name: 'Akriti Rajbhar', image: '/images/team/dept-pr-head.jpg',position: 'object-[50%_20%]' },
+      cohead: { name: 'Sneha Chaurasia', image: '/images/team/dept-pr-cohead.jpg' }, 
       description: 'Building connections, driving campaigns, and strengthening sponsor ties.', 
       emoji: '🔗' 
     },
