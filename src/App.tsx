@@ -16,6 +16,8 @@ import Gallery from './components/Gallery/Gallery'
 import Contact from './components/Contact'
 import NotFound from './components/NotFound'
 
+import Admin from './components/Admin'
+
 function App() {
   return (
     <Router>
@@ -34,6 +36,8 @@ function App() {
             </>
           }
         />
+
+        <Route path="/secret-admin" element={<Admin />} />
 
         {/* Dedicated routed pages */}
         <Route path="/team" element={<Team />} />
