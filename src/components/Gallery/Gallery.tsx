@@ -11,7 +11,7 @@ import Header from '../Header';
 import Footer from '../Footer';
 
 // --- THEME CONSTANTS (Your Original Palette) ---
-const FIESTRON_GRADIENT_TEXT = "bg-clip-text text-transparent bg-gradient-to-r from-[#FEDA75] via-[#FA7E1E] to-[#D62976]";
+const FIESTRON_GRADIENT_TEXT = "bg-clip-text text-transparent bg-gradient-to-r from-orange-500 via-pink-700 to-purple-700";
 const FIESTRON_BORDER_GRADIENT = "group-hover:border-transparent group-hover:ring-2 group-hover:ring-orange-500 group-hover:ring-offset-2 group-hover:ring-offset-black";
 const BTN_GRADIENT = "bg-gradient-to-r from-orange-600 via-pink-600 to-purple-600";
 

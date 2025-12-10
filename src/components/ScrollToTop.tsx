@@ -1,15 +1,14 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-const ScrollToTop = () => {
+const ScrollToTop: React.FC = () => {
   const { pathname } = useLocation();
 
-  useEffect(() => { 
-    // "0,0" means top left coordinates of the window
+  useEffect(() => {
     window.scrollTo(0, 0);
-  }, [pathname]); // Runs every time the route path changes
+  }, [pathname]);
 
-  return null; // This component doesn't render anything visible
+  return null;
 };
 
 export default ScrollToTop;
