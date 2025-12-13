@@ -35,7 +35,7 @@ const generateGalleryData = (): GalleryItem[] => {
     16: "Volunteers", 17: "Sweet Beginnings", 18: "Mentors & Guides",
     19: "Hosting Duties", 20: "Squad Goals", 21: "Award Moment", 22: "Seminar Session"
   };
-  
+  // 1. Archives Data (2024) - 22 Items
   for (let i = 1; i <= 22; i++) {
     items.push({
       id: i,
@@ -47,10 +47,27 @@ const generateGalleryData = (): GalleryItem[] => {
       location: "HIGHLIGHTS OF FIESTRON 2024"
     });
   }
+   // 2. Pre-Event Data (CL Meet - 15 Items) - NEW LOGIC
+    const CL_MEET_COUNT = 1;
+    for (let i = 1; i <= CL_MEET_COUNT; i++) {
+        items.push({
+            id: i + 100, // Unique ID offset
+            category: 'preevent', 
+            title: `CL Meet Moment ${i}`,
+            url: `/images/gallery/pre-event/clmeet${i}.png`, 
+            alt: `Fiestron Campus Leader Meet - Photo ${i}`,
+            description: "Campus Leaders networking and preparing for Fiestron 2025.",
+            location: "CL Meet Session"
+        });
+    }
   return items;
 };
-
-const initialGalleryItems = generateGalleryData();
+// --- GLOBAL DATA DEFINITIONS ---
+const allGalleryItems = generateGalleryData();
+// This is the new, correct definition for initialGalleryItems:
+const initialGalleryItems = allGalleryItems.filter(item => item.category === 'archives');
+// Export preEventItems so it can be passed to the PreEvent component:
+export const preEventItems = allGalleryItems.filter(item => item.category === 'preevent');
 
 // ==================== COMPONENTS ====================
 
@@ -393,8 +410,8 @@ const Gallery: React.FC = () => {
                         />
                         <CollectionEntryCard 
                             title="Pre-Event" 
-                            count="Coming Soon • Teasers" 
-                            image="https://images.unsplash.com/photo-1514525253440-b393452e8d26?q=80&w=2070" 
+                            count="1 Item • CL Meet 2025"  
+                            image="/images/gallery/pre-event/clmeet1.png" 
                             glowColor="from-blue-600 to-cyan-600" 
                             delay={0.2} 
                             onClick={() => setActiveCollection('preevent')} 
@@ -405,7 +422,7 @@ const Gallery: React.FC = () => {
             
             {activeCollection === 'archives' && <Archives items={initialGalleryItems} onBack={() => setActiveCollection(null)} />}
             {activeCollection === 'latest' && <Latest onBack={() => setActiveCollection(null)} />}
-            {activeCollection === 'preevent' && <PreEvent onBack={() => setActiveCollection(null)} />}
+            {activeCollection === 'preevent' && <PreEvent items={preEventItems} onBack={() => setActiveCollection(null)} />}
           </AnimatePresence>
         </div>
       </div>
