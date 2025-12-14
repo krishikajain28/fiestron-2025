@@ -976,11 +976,11 @@ const Events: React.FC = () => {
   return (
     <>
       <Header />
-      <section className="relative pt-32 pb-20 min-h-screen bg-[#0a0a0a] text-white overflow-hidden font-sans selection:bg-purple-500/30">
+      <section className="relative pt-32 pb-20 min-h-screen md:bg-black bg-black text-white overflow-hidden font-sans selection:bg-purple-500/30">
 
         {/* --- Background (Clean Dark Base) --- */}
-        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }}></div>
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-[#0a0a0a] via-transparent to-[#0a0a0a] z-0 pointer-events-none"></div>
+        {/* <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }}></div> */}
+        <div className="absolute top-0 left-0 w-full h-full bg-black z-0 pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
 
@@ -995,7 +995,42 @@ const Events: React.FC = () => {
             </p>
           </div>
 
-          {/* --- Search & Filter Section --- */}
+          {/* --- BROCHURE SECTION (REDESIGNED) --- */}
+          <div className="flex justify-center w-full my-16">
+            <a 
+              href="/Fiestron-Brochure.pdf" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group relative inline-flex items-center gap-4 px-10 py-5 rounded-full bg-white/5 border border-white/10 backdrop-blur-xl transition-all duration-500 hover:scale-105 hover:bg-white/10 hover:border-purple-500/50 hover:shadow-[0_0_40px_rgba(168,85,247,0.4)]"
+            >
+              {/* 1. The Glow Effect (Hidden until Hover) */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500/20 via-pink-500/20 to-orange-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+              {/* 2. Icon (Bouncing) */}
+              <div className="relative z-10 p-2 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 shadow-lg group-hover:animate-bounce">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+              </div>
+
+              {/* 3. Text Content */}
+              <div className="relative z-10 flex flex-col items-start">
+                <span className="text-[10px] font-bold text-purple-300 tracking-[0.2em] uppercase mb-0.5">
+                  Official Guide
+                </span>
+                <span className="text-base font-bold text-white tracking-wide group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-purple-200 transition-all">
+                  Download 2025 Brochure
+                </span>
+              </div>
+
+              {/* 4. Subtle Arrow */}
+              <svg xmlns="http://www.w3.org/2000/svg" className="relative z-10 w-5 h-5 text-white/20 group-hover:text-white group-hover:translate-x-1 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+
+          {/* --- search nd filter section --- */}
           <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-16">
              {/* Search Bar */}
              <div className="relative w-full md:w-[400px] group">

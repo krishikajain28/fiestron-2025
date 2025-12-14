@@ -64,6 +64,7 @@ const storage = new CloudinaryStorage({
 });
 const upload = multer({ storage: storage });
 
+// index.js inside gallerySchema
 const gallerySchema = new mongoose.Schema({
   imageUrl: { type: String, required: true },
   publicId: { type: String, required: true },
@@ -73,12 +74,12 @@ const gallerySchema = new mongoose.Schema({
   college: { type: String, default: "KC College" },
   contingentName: { type: String, default: "GENERAL" },
 
-  // UPDATED ENUM: Removed 'CAMPUS VIBES', Added 'RANDOMS'
+  // --- FIX: Enum removed so custom categories work ---
   eventCategory: {
     type: String,
-    enum: ["CL MEET", "DAY 1", "DAY 2", "RANDOMS", "GENERAL"],
     default: "GENERAL",
   },
+  // --------------------------------------------------
 
   status: {
     type: String,
@@ -112,18 +113,12 @@ app.post("/api/announcements", async (req, res) => {
   await connectDB();
   try {
     const { title, type, content, password } = req.body;
-    if (!password) return res.status(400).json({ error: "Password required" });
 
-    const incomingHash = crypto
-      .createHash("sha256")
-      .update(password)
-      .digest("hex");
-    const adminDoc = await Admin.findOne();
-    if (!adminDoc) return res.status(500).json({ error: "Admin not set up" });
-
-    if (incomingHash !== adminDoc.hash) {
+    // --- EMERGENCY FIX: Hardcoded Password ---
+    if (password !== "passwordForDashboard") {
       return res.status(401).json({ error: "Unauthorized" });
     }
+    // -----------------------------------------
 
     const date = new Date().toLocaleDateString("en-US", {
       day: "numeric",
@@ -168,7 +163,7 @@ app.post("/api/upload-gallery", upload.single("image"), async (req, res) => {
       contingentName: req.body.contingentName
         ? req.body.contingentName.toUpperCase()
         : "GENERAL",
-      eventCategory: req.body.eventCategory || "GENERAL", // <--- Saving the Category
+      eventCategory: req.body.eventCategory || "GENERAL",
 
       status: "pending",
     });
@@ -193,6 +188,64 @@ app.get("/api/gallery-public", async (req, res) => {
     res.json(photos);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch photos" });
+  }
+});
+
+// --- ADMIN ROUTE TO APPROVE/REJECT PHOTOS ---
+app.put("/api/admin/update-status", async (req, res) => {
+  await connectDB();
+  try {
+    const { photoId, action, password } = req.body;
+
+    // --- EMERGENCY FIX: Hardcoded Password ---
+    if (password !== "passwordForDashboard") {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    // -----------------------------------------
+
+    if (!["approved", "rejected", "pending"].includes(action)) {
+      return res.status(400).json({ error: "Invalid action" });
+    }
+
+    const updatedPhoto = await GalleryItem.findByIdAndUpdate(
+      photoId,
+      { status: action },
+      { new: true }
+    );
+
+    if (!updatedPhoto)
+      return res.status(404).json({ error: "Photo not found" });
+
+    res.json({
+      success: true,
+      message: `Photo marked as ${action}`,
+      data: updatedPhoto,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server Error" });
+  }
+});
+
+// --- ADMIN ROUTE TO SEE PENDING REQUESTS ---
+app.post("/api/admin/pending-photos", async (req, res) => {
+  await connectDB();
+  try {
+    const { password } = req.body;
+
+    // --- EMERGENCY FIX: Hardcoded Password ---
+    if (password !== "passwordForDashboard") {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    // -----------------------------------------
+
+    // Fetch all pending photos
+    const pendingPhotos = await GalleryItem.find({ status: "pending" }).sort({
+      timestamp: -1,
+    });
+    res.json(pendingPhotos);
+  } catch (err) {
+    res.status(500).json({ error: "Server Error" });
   }
 });
 

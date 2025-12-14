@@ -43,7 +43,7 @@ const generateGalleryData = (): GalleryItem[] => {
       title: imageTitles[i] || `Fiestron Moment ${i}`,
       url: `/images/gallery/a${i}.png`,
       alt: `Fiestron Event - ${imageTitles[i]}`,
-      description: "A spectacular moment captured in time at Fiestron.",
+      description: "A spectacular moment captured in time at Fiestron 2024.",
       location: "HIGHLIGHTS OF FIESTRON 2024"
     });
   }

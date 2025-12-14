@@ -16,7 +16,9 @@ import Gallery from './components/Gallery/Gallery'
 import Contact from './components/Contact'
 import NotFound from './components/NotFound'
 
+// Admins
 import Admin from './components/Admin'
+import GalleryAdmin from './components/GalleryAdmin';
 
 function App() {
   return (
@@ -38,6 +40,7 @@ function App() {
         />
 
         <Route path="/secret-admin" element={<Admin />} />
+        <Route path="/admin-gallery" element={<GalleryAdmin />} />
 
         {/* Dedicated routed pages */}
         <Route path="/team" element={<Team />} />
