@@ -1,11 +1,53 @@
-﻿import React, { useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
+﻿import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Home: React.FC = () => {
-  // --- REFS FOR PERFORMANCE ---
+  // =========================================
+  // 1. STATE & REFS
+  // =========================================
+  const [showModal, setShowModal] = useState(false); // Default false for delay
   const blobRef = useRef<HTMLDivElement>(null);
   const scrollData = useRef({ targetY: 0, currentY: 0 });
 
+  // =========================================
+  // 2. MODAL LOGIC (Delay + Persistence)
+  // =========================================
+  useEffect(() => {
+    // Configuration
+    const SHOW_DELAY = 2000; // 2 Seconds delay
+    const COOLDOWN_HOURS = 2;
+    const STORAGE_KEY = 'fiestron_modal_last_shown';
+
+    const checkAndShowModal = () => {
+      const lastShown = localStorage.getItem(STORAGE_KEY);
+      const now = Date.now();
+      const cooldownMs = COOLDOWN_HOURS * 60 * 60 * 1000;
+
+      // Check if enough time has passed or if it's never been shown
+      if (!lastShown || (now - parseInt(lastShown)) > cooldownMs) {
+        
+        const timer = setTimeout(() => {
+          setShowModal(true);
+          // Save the current time so we don't show it again for 6 hours
+          localStorage.setItem(STORAGE_KEY, now.toString());
+        }, SHOW_DELAY);
+
+        return () => clearTimeout(timer);
+      }
+    };
+
+    const cleanup = checkAndShowModal();
+    return cleanup;
+  }, []);
+
+  // Prevent scrolling when modal is open
+  useEffect(() => {
+    document.body.style.overflow = showModal ? 'hidden' : 'unset';
+  }, [showModal]);
+
+  // =========================================
+  // 3. BLOB ANIMATION LOGIC
+  // =========================================
   useEffect(() => {
     let animationFrameId: number;
     const handleScroll = () => { scrollData.current.targetY = window.scrollY; };
@@ -20,7 +62,7 @@ const Home: React.FC = () => {
 
       const progress = Math.min(Math.max(scrollData.current.currentY / 800, 0), 1);
 
-      // --- POSITION LOGIC ---
+      // Animation calculations
       const currentX = 50 + (35 * progress);
       const currentTop = 50 + (10 * progress);
       const currentScale = 1 - (0.2 * progress);
@@ -39,6 +81,9 @@ const Home: React.FC = () => {
     };
   }, []);
 
+  // =========================================
+  // 4. RENDER
+  // =========================================
   return (
     <div className="relative bg-black min-h-screen w-full overflow-x-hidden font-sans selection:bg-purple-500/30">
 
@@ -67,30 +112,112 @@ const Home: React.FC = () => {
         }
         
         .glass-card {
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
-            backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+           background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+           backdrop-filter: blur(24px);
+           border: 1px solid rgba(255, 255, 255, 0.08);
+           box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+           transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .glass-card:hover {
-            border-color: rgba(255, 255, 255, 0.2);
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
-            transform: translateY(-2px);
+           border-color: rgba(255, 255, 255, 0.2);
+           background: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
+           transform: translateY(-2px);
         }
       `}</style>
 
+      {/* --- PREMIUM ANNOUNCEMENT MODAL --- */}
+      {showModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4 animate-in fade-in duration-700">
+          
+          {/* Backdrop */}
+          <div 
+            className="absolute inset-0 bg-black/80 backdrop-blur-md transition-all"
+            onClick={() => setShowModal(false)}
+          ></div>
+
+          {/* Modal Container */}
+          <div className="relative w-full max-w-md transform transition-all animate-in zoom-in-95 slide-in-from-bottom-5 duration-500">
+            
+            {/* Glowing Border */}
+            <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-br from-purple-500 via-pink-500 to-orange-500 opacity-60 blur-sm"></div>
+            
+            {/* Inner Card */}
+            <div className="relative bg-[#050505] rounded-2xl overflow-hidden shadow-2xl">
+              
+              {/* Gloss Effect */}
+              <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
+
+              {/* Close Button */}
+              <button 
+                onClick={() => setShowModal(false)}
+                className="absolute top-4 right-4 z-20 p-2 rounded-full bg-white/5 hover:bg-white/10 text-white/50 hover:text-white transition-all"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+
+              {/* Content */}
+              <div className="px-8 py-10 flex flex-col items-center text-center relative z-10">
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-900/50 to-orange-900/50 border border-white/10 flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(168,85,247,0.3)]">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                  </svg>
+                </div>
+
+                <div className="space-y-2 mb-8">
+                  <span className="text-[10px] font-bold tracking-[0.2em] text-purple-400 uppercase">
+                    Unveiling Fiestron 2025
+                  </span>
+                  <h3 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-white/60">
+                    Brochure Out Now.
+                  </h3>
+                  <p className="text-white/50 text-sm leading-relaxed max-w-[280px] mx-auto">
+                    Explore the official guide to KC College's ultimate tech fest. Events, rules, and more.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3 w-full">
+                  <button 
+                    onClick={() => setShowModal(false)}
+                    className="px-4 py-3 rounded-xl border border-white/10 text-white/60 text-sm font-medium hover:bg-white/5 hover:text-white transition-all"
+                  >
+                    Close
+                  </button>
+                  <a 
+                    href="/Fiestron-Brochure.pdf" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white text-black text-sm font-bold hover:bg-gray-200 transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+                  >
+                    Check it out
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* --- BACKGROUNDS --- */}
-      <div className="fixed inset-0 opacity-[0.05] pointer-events-none z-0"
+      {/* <div className="fixed inset-0 opacity-[0.05] pointer-events-none z-0"
         style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }}>
-      </div>
+      </div> */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute top-[-10%] right-[-10%] w-[300px] md:w-[800px] h-[300px] md:h-[800px] bg-purple-900/20 rounded-full blur-[80px] md:blur-[120px]" />
-        <div className="absolute bottom-[-10%] left-[-10%] w-[250px] md:w-[600px] h-[250px] md:h-[600px] bg-orange-900/10 rounded-full blur-[60px] md:blur-[100px]" />
-      </div>
+        <div className="absolute bottom-[-10%] right-[-10%] w-[300px] md:w-[500px] h-[300px] md:h-[600px] bg-purple-900/20 rounded-full blur-[80px] md:blur-[120px]" />
+        <div className="absolute top-[-10%] left-[-10%] w-[250px] md:w-[500px] h-[250px] md:h-[400px] bg-orange-900/10 rounded-full blur-[60px] md:blur-[100px]" />
+      </div> 
 
       {/* --- THE TRAVELING BLOB --- */}
-      {/* updated: adjusted size for mobile (w-64) vs desktop (w-96) */}
       <div
         ref={blobRef}
         className="blob-morph fixed w-64 h-64 md:w-96 md:h-96 backdrop-blur-sm z-0 will-change-transform"
@@ -99,13 +226,11 @@ const Home: React.FC = () => {
           background: 'linear-gradient(135deg, rgba(88, 28, 135, 0.9) 0%, rgba(219, 39, 119, 0.8) 50%, rgba(249, 115, 22, 0.8) 100%)',
           boxShadow: 'inset -10px -10px 30px rgba(0,0,0,0.8), inset 10px 10px 40px rgba(255,255,255,0.4), 0 0 30px #ec4899, 0 0 60px #8b5cf6, 0 0 100px #f97316',
           border: '1px solid rgba(255, 255, 255, 0.2)',
-        }}
-      >
+        }}>
         <div className="absolute top-10 left-12 w-32 h-16 bg-white rounded-[50%] blur-md transform -rotate-12 mix-blend-overlay opacity-70" />
         <div className="absolute bottom-12 right-12 w-24 h-24 bg-orange-500 rounded-full blur-xl mix-blend-screen opacity-80" />
         <div className="absolute top-1/2 left-1/2 w-40 h-40 bg-pink-400 rounded-full blur-2xl transform -translate-x-1/2 -translate-y-1/2 mix-blend-color-dodge opacity-40 animate-pulse" />
       </div>
-
 
       {/* --- HERO SECTION --- */}
       <section className="relative w-full h-screen flex items-center justify-center z-10">
@@ -115,7 +240,6 @@ const Home: React.FC = () => {
               KC Tech Club Presents
             </span>
           </div>
-          {/* updated: font sizes for mobile (text-4xl) to avoid breaking */}
           <h1 className="text-shine font-extrabold leading-tight text-4xl xs:text-5xl sm:text-7xl lg:text-8xl mb-6 tracking-tighter drop-shadow-2xl"
             style={{ fontFamily: 'FiestronCustom, sans-serif' }}>
             F&nbsp;&nbsp;&nbsp;I&nbsp;&nbsp;&nbsp;E&nbsp;&nbsp;&nbsp;S&nbsp;&nbsp;&nbsp;T&nbsp;&nbsp;&nbsp;R&nbsp;&nbsp;&nbsp;O&nbsp;&nbsp;&nbsp;N
@@ -154,26 +278,18 @@ const Home: React.FC = () => {
             </p>
           </div>
 
-          {/* POLISHED BENTO GRID (12 Cols) */}
+          {/* BENTO GRID */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 auto-rows-[minmax(180px,auto)]">
 
             {/* CARD 1: VISION (8 Cols) */}
-            {/* update - changed fixed height to min-height for mobile text expansion */}
             <div className="md:col-span-8 glass-card rounded-3xl relative overflow-hidden group min-h-[400px] md:h-[400px]">
-
-              {/* BACKGROUND IMAGE */}
               <img
                 src="/images/home&about/h&a1.png"
                 alt=""
                 className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-70 transition-opacity duration-500"
               />
-
-              {/* OVERLAY GRADIENT */}
               <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/60"></div>
-
-              {/* TEXT CONTENT */}
               <div className="relative z-10 p-6 sm:p-8 h-full flex flex-col justify-start overflow-y-auto custom-scrollbar">
-
                 <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-orange-500/20 to-purple-600/20 
               border border-white/10 flex items-center justify-center mb-6 shrink-0">
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 sm:w-7 sm:h-7 text-white" viewBox="0 0 24 24" fill="none"
@@ -182,24 +298,18 @@ const Home: React.FC = () => {
                     <polyline points="8 6 2 12 8 18"></polyline>
                   </svg>
                 </div>
-
                 <h4 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
                   Expanding Tech&nbsp;
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-pink-500 block sm:inline">
                     Horizons.
                   </span>
                 </h4>
-
                 <div className="md:max-h-[300px]">
                   <p className="text-white/70 text-base sm:text-lg leading-relaxed max-w-2xl">
                     Fiestron is the Annual Technical Symposium of Kishinchand Chellaram (K.C.) College,
                     presented by the <strong> Department of Computer Science</strong>.
-
                     Established to promote academic excellence, technological literacy,
-                    and professional competency, Fiestron serves as a prestigious platform that
-                    facilitates the exchange of knowledge and encourages the practical application of
-                    cutting-edge technological concepts.
-                    
+                    and professional competency.
                     <span className="block mt-4">
                     The symposium features a dynamic series of competitions,
                     expert-led sessions, and collaborative activities designed to
@@ -212,22 +322,30 @@ const Home: React.FC = () => {
 
             {/* CARD 2: STATS STACK (4 Cols) */}
             <div className="md:col-span-4 flex flex-col sm:flex-row md:flex-col gap-4 md:gap-6">
-              <div className="glass-card rounded-3xl p-6 sm:p-8 flex-1 flex flex-col justify-center items-center text-center group min-h-[160px]">
-                <img src="" alt="" />
-                <span className="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-white to-white/40 tracking-tight group-hover:scale-110 transition-transform">30+</span>
-                <span className="text-orange-400 text-[10px] sm:text-xs font-bold tracking-widest uppercase mt-2">Events</span>
+              
+              {/* FIXED 30+ EVENTS CARD (Removed Image, made normal) */}
+              <div className="glass-card rounded-3xl p-6 sm:p-8 flex-1 flex flex-col justify-center items-center text-center group min-h-[160px] hover:scale-[1.02] transition-transform">
+                <span className="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-white to-white/40 tracking-tight group-hover:scale-110 transition-transform duration-300">
+                  30+
+                </span>
+                <span className="text-orange-400 text-[10px] sm:text-xs font-bold tracking-widest uppercase mt-2">
+                  Events
+                </span>
               </div>
-              <div className="glass-card rounded-3xl p-6 sm:p-8 flex-1 flex flex-col justify-center items-center text-center group min-h-[160px]">
-                <span className="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-white to-white/40 tracking-tight group-hover:scale-110 transition-transform">25</span>
-                <span className="text-purple-400 text-[10px] sm:text-xs font-bold tracking-widest uppercase mt-2">Years Legacy</span>
+
+              <div className="glass-card rounded-3xl p-6 sm:p-8 flex-1 flex flex-col justify-center items-center text-center group min-h-[160px] hover:scale-[1.02] transition-transform">
+                <span className="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-white to-white/40 tracking-tight group-hover:scale-110 transition-transform">
+                  25
+                </span>
+                <span className="text-purple-400 text-[10px] sm:text-xs font-bold tracking-widest uppercase mt-2">
+                  Years Legacy
+                </span>
               </div>
             </div>
 
             {/* CARD 3: FLAGSHIP EVENTS (7 Cols) */}
             <Link to="/events" className="md:col-span-7 glass-card rounded-3xl p-6 sm:p-10 relative overflow-hidden group cursor-pointer min-h-[300px]">
-              {/* Hover Glow */}
               <div className="absolute inset-0 bg-gradient-to-r from-purple-900/40 to-orange-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
               <div className="relative z-10 flex flex-col h-full justify-between gap-6">
                 <div>
                   <div className="flex justify-between items-start mb-4">
@@ -238,8 +356,6 @@ const Home: React.FC = () => {
                     Browse the complete list of technical, cultural, and gaming competitions.
                   </p>
                 </div>
-
-                {/* Tags */}
                 <div className="flex flex-wrap gap-2 sm:gap-3">
                   {['Hackathon', 'Code Quest', 'BGMI', 'Vintage Ventures'].map((tag) => (
                     <span key={tag} className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg bg-black/40 border border-white/10 text-xs sm:text-sm text-white font-medium group-hover:border-purple-500/50 transition-colors">
@@ -305,4 +421,4 @@ const Home: React.FC = () => {
   )
 }
 
-export default Home
+export default Home;
