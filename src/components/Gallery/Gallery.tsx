@@ -48,16 +48,35 @@ const generateGalleryData = (): GalleryItem[] => {
     });
   }
    // 2. Pre-Event Data (CL Meet - 15 Items) - NEW LOGIC
-    const CL_MEET_COUNT = 1;
+    const CL_MEET_COUNT = 12; // CURRENT COUNT
+    const clMeetTitles: { [key: number]: string } = {
+        1: "Welcome Joy",
+        2: "Leaders Huddle",
+        3: "Highlights Reel Focus",
+        4: "Competition Briefing",
+        5: "Safe Entry Measures",
+        6: "Campus Energy",
+        7: "Interactive Icebreaker",
+        8: "Ready for Launch",
+        9: "Competition Arena",
+        10: "The Focused Audience",
+        11: "Game Time Energy",
+        12: "CC Name Auction"
+    };
+
+    // Static description, matching the archives style
+    const staticDescription = "A core moment captured during the Fiestron 2025 pre-event.";
+    const staticLocation = "CL Meet 2025";
+
     for (let i = 1; i <= CL_MEET_COUNT; i++) {
         items.push({
-            id: i + 100, // Unique ID offset
+            id: i + 100,
             category: 'preevent', 
-            title: `CL Meet Moment ${i}`,
+            title: clMeetTitles[i] || `CL Meet Moment ${i}`, 
             url: `/images/gallery/pre-event/clmeet${i}.png`, 
             alt: `Fiestron Campus Leader Meet - Photo ${i}`,
-            description: "Campus Leaders networking and preparing for Fiestron 2025.",
-            location: "CL Meet Session"
+            description: staticDescription, 
+            location: staticLocation 
         });
     }
   return items;
@@ -410,7 +429,7 @@ const Gallery: React.FC = () => {
                         />
                         <CollectionEntryCard 
                             title="Pre-Event" 
-                            count="1 Item • CL Meet 2025"  
+                            count="12 Item • CL Meet 2025"  
                             image="/images/gallery/pre-event/clmeet1.png" 
                             glowColor="from-blue-600 to-cyan-600" 
                             delay={0.2} 
