@@ -10,16 +10,12 @@ const Header: React.FC = () => {
     if (location.pathname !== '/') {
       navigate('/', { state: { scrollTo: id } });
     } else {
-      // fix: handle home explicitly using window scroll
       if (id === 'home') {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         const el = document.getElementById(id);
         if (el) {
-            // Optional: Offset for sticky header if needed
-            // const y = el.getBoundingClientRect().top + window.scrollY - 100;
-            // window.scrollTo({ top: y, behavior: 'smooth' });
-            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+           el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }
     }
@@ -34,7 +30,6 @@ const Header: React.FC = () => {
     if (location.state && location.state.scrollTo) {
       const targetId = location.state.scrollTo;
       
-      // FIX: Add a small delay to ensure DOM is ready, handle 'home' explicitly
       setTimeout(() => {
         if (targetId === 'home') {
           window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -44,11 +39,15 @@ const Header: React.FC = () => {
             el.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }
         }
-        // Clear state so it doesn't scroll again on refresh
         window.history.replaceState({}, document.title);
       }, 100);
     }
   }, [location.state]);
+
+  // UPDATED HOVER: 'text-orange-400'
+  // This looks like Gold/Fire. It is rich, not pale.
+  // Added a warm glow shadow to make it pop.
+  const navLinkClass = "text-sm font-medium text-white/70 transition-all duration-300 hover:text-orange-400 hover:drop-shadow-[0_0_8px_rgba(251,146,60,0.6)] hover:scale-105";
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 px-4 sm:px-6 lg:px-8 py-6 pointer-events-none">
@@ -63,15 +62,16 @@ const Header: React.FC = () => {
           </div>
 
           <nav className="hidden md:flex items-center gap-8">
-            <button onClick={() => scrollToSection('home')} className="text-sm font-medium text-white/70 hover:text-white transition-colors hover:scale-105">Home</button>
-            <button onClick={() => scrollToSection('about')} className="text-sm font-medium text-white/70 hover:text-white transition-colors hover:scale-105">About</button>
-            <button onClick={() => scrollToSection('announcements')} className="text-sm font-medium text-white/70 hover:text-white transition-colors hover:scale-105">News</button>
-            <button onClick={() => scrollToSection('sponsors')} className="text-sm font-medium text-white/70 hover:text-white transition-colors hover:scale-105">Sponsors</button>
-            <Link to="/events" className="text-sm font-medium text-white/70 hover:text-white transition-colors hover:scale-105">Events</Link>
-            <Link to="/gallery" className="text-sm font-medium text-white/70 hover:text-white transition-colors hover:scale-105">Gallery</Link>
-            <Link to="/team" className="text-sm font-medium text-white/70 hover:text-white transition-colors hover:scale-105">Team</Link>
+            <button onClick={() => scrollToSection('home')} className={navLinkClass}>Home</button>
+            <button onClick={() => scrollToSection('about')} className={navLinkClass}>About</button>
+            <button onClick={() => scrollToSection('announcements')} className={navLinkClass}>News</button>
+            <button onClick={() => scrollToSection('sponsors')} className={navLinkClass}>Sponsors</button>
+            <Link to="/events" className={navLinkClass}>Events</Link>
+            <Link to="/gallery" className={navLinkClass}>Gallery</Link>
+            <Link to="/team" className={navLinkClass}>Team</Link>
             
-            <Link to="/contact" className="px-4 py-1.5 rounded-full bg-white/10 border border-white/10 text-sm font-medium text-white hover:bg-white/20 transition-all hover:scale-105">
+            {/* Contact Button: Updated to match the Gold/Orange theme */}
+            <Link to="/contact" className="px-4 py-1.5 rounded-full bg-white/10 border border-white/10 text-sm font-medium text-white transition-all duration-300 hover:bg-orange-500/10 hover:border-orange-500/50 hover:text-orange-100 hover:shadow-[0_0_15px_rgba(251,146,60,0.3)]">
                 Contact
             </Link>
           </nav>
@@ -90,15 +90,15 @@ const Header: React.FC = () => {
       {isOpen && (
         <div className="pointer-events-auto absolute top-24 left-4 right-4 p-1">
             <nav className="flex flex-col items-center gap-2 py-6 bg-black/90 rounded-3xl border border-white/10 backdrop-blur-xl shadow-2xl animate-in slide-in-from-top-5 duration-200">
-                <button onClick={() => scrollToSection('home')} className="w-full py-2 text-center text-lg text-white/80 hover:text-white hover:bg-white/5 transition-colors">Home</button>
-                <button onClick={() => scrollToSection('about')} className="w-full py-2 text-center text-lg text-white/80 hover:text-white hover:bg-white/5 transition-colors">About</button>
-                <button onClick={() => scrollToSection('announcements')} className="w-full py-2 text-center text-lg text-white/80 hover:text-white hover:bg-white/5 transition-colors">News</button>
-                <button onClick={() => scrollToSection('sponsors')} className="w-full py-2 text-center text-lg text-white/80 hover:text-white hover:bg-white/5 transition-colors">Sponsors</button>
+                <button onClick={() => scrollToSection('home')} className="w-full py-2 text-center text-lg text-white/80 hover:text-orange-400 transition-colors">Home</button>
+                <button onClick={() => scrollToSection('about')} className="w-full py-2 text-center text-lg text-white/80 hover:text-orange-400 transition-colors">About</button>
+                <button onClick={() => scrollToSection('announcements')} className="w-full py-2 text-center text-lg text-white/80 hover:text-orange-400 transition-colors">News</button>
+                <button onClick={() => scrollToSection('sponsors')} className="w-full py-2 text-center text-lg text-white/80 hover:text-orange-400 transition-colors">Sponsors</button>
                 <div className="w-16 h-px bg-white/10 my-2" />
-                <Link to="/events" onClick={handleNavClick} className="w-full py-2 text-center text-lg text-white/80 hover:text-white hover:bg-white/5 transition-colors">Events</Link>
-                <Link to="/gallery" onClick={handleNavClick} className="w-full py-2 text-center text-lg text-white/80 hover:text-white hover:bg-white/5 transition-colors">Gallery</Link>
-                <Link to="/team" onClick={handleNavClick} className="w-full py-2 text-center text-lg text-white/80 hover:text-white hover:bg-white/5 transition-colors">Team</Link>
-                <Link to="/contact" onClick={handleNavClick} className="w-full py-2 text-center text-lg font-bold text-purple-400 hover:text-purple-300 transition-colors">Contact Us</Link>
+                <Link to="/events" onClick={handleNavClick} className="w-full py-2 text-center text-lg text-white/80 hover:text-orange-400 transition-colors">Events</Link>
+                <Link to="/gallery" onClick={handleNavClick} className="w-full py-2 text-center text-lg text-white/80 hover:text-orange-400 transition-colors">Gallery</Link>
+                <Link to="/team" onClick={handleNavClick} className="w-full py-2 text-center text-lg text-white/80 hover:text-orange-400 transition-colors">Team</Link>
+                <Link to="/contact" onClick={handleNavClick} className="w-full py-2 text-center text-lg font-bold text-orange-400 hover:text-orange-300 transition-colors">Contact Us</Link>
             </nav>
         </div>
       )}
