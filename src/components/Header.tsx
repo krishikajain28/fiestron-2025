@@ -90,10 +90,10 @@ const Header: React.FC = () => {
       {isOpen && (
         <div className="pointer-events-auto absolute top-24 left-4 right-4 p-1">
             <nav className="flex flex-col items-center gap-2 py-6 bg-black/90 rounded-3xl border border-white/10 backdrop-blur-xl shadow-2xl animate-in slide-in-from-top-5 duration-200">
-                <button onClick={() => scrollToSection('home')} className="w-full py-2 text-center text-lg text-white/80 hover:text-orange-400 transition-colors">Home</button>
-                <button onClick={() => scrollToSection('about')} className="w-full py-2 text-center text-lg text-white/80 hover:text-orange-400 transition-colors">About</button>
-                <button onClick={() => scrollToSection('announcements')} className="w-full py-2 text-center text-lg text-white/80 hover:text-orange-400 transition-colors">News</button>
-                <button onClick={() => scrollToSection('sponsors')} className="w-full py-2 text-center text-lg text-white/80 hover:text-orange-400 transition-colors">Sponsors</button>
+                <button onClick={() => scrollToSection('home')} className="w-full py-2 text-center text-lg text-yellow/80 hover:text-orange-400 transition-colors">Home</button>
+                <button onClick={() => scrollToSection('about')} className="w-full py-2 text-center text-lg text-yellow/80 hover:text-orange-400 transition-colors">About</button>
+                <button onClick={() => scrollToSection('announcements')} className="w-full py-2 text-center text-lg text-yellow/80 hover:text-orange-400 transition-colors">News</button>
+                <button onClick={() => scrollToSection('sponsors')} className="w-full py-2 text-center text-lg text-yellow/80 hover:text-orange-400 transition-colors">Sponsors</button>
                 <div className="w-16 h-px bg-white/10 my-2" />
                 <Link to="/events" onClick={handleNavClick} className="w-full py-2 text-center text-lg text-white/80 hover:text-orange-400 transition-colors">Events</Link>
                 <Link to="/gallery" onClick={handleNavClick} className="w-full py-2 text-center text-lg text-white/80 hover:text-orange-400 transition-colors">Gallery</Link>
